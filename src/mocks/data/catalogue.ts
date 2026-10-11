@@ -1,0 +1,78 @@
+import type { Hub, Service } from '@/types/domain';
+
+export const services: Service[] = [
+  {
+    id: 'svc-efns',
+    name: 'eFNS Work Permit',
+    summary: 'For foreign nationals working in Kenya',
+    icon: 'briefcase',
+    governmentFee: 50000,
+    serviceCharge: 1500,
+    turnaround: '7 working days',
+  },
+  {
+    id: 'svc-passport',
+    name: 'Passport',
+    summary: 'New passport or renewal',
+    icon: 'book',
+    governmentFee: 4550,
+    serviceCharge: 500,
+    turnaround: '10 days',
+  },
+  {
+    id: 'svc-id',
+    name: 'National ID replacement',
+    summary: 'Lost, damaged or changed details',
+    icon: 'id',
+    governmentFee: 1000,
+    serviceCharge: 250,
+    turnaround: '14 days',
+  },
+  {
+    id: 'svc-birth',
+    name: 'Birth certificate',
+    summary: 'First issue or a certified copy',
+    icon: 'document',
+    governmentFee: 200,
+    serviceCharge: 250,
+    turnaround: '7 days',
+  },
+  {
+    id: 'svc-conduct',
+    name: 'Certificate of good conduct',
+    summary: 'Police clearance certificate',
+    icon: 'shield',
+    governmentFee: 1050,
+    serviceCharge: 250,
+    turnaround: '14 days',
+  },
+  {
+    id: 'svc-business',
+    name: 'Business name registration',
+    summary: 'Register a new business name',
+    icon: 'building',
+    governmentFee: 950,
+    serviceCharge: 250,
+    turnaround: '3 days',
+  },
+];
+
+export const hubs: Hub[] = [
+  { id: 'hub-nbo', name: 'Nairobi CBD Hub', town: 'Nairobi', code: 'NBO-001' },
+  { id: 'hub-msa', name: 'Mombasa Nyali Hub', town: 'Mombasa', code: 'MSA-004' },
+  { id: 'hub-ksm', name: 'Kisumu Central Hub', town: 'Kisumu', code: 'KSM-002' },
+  { id: 'hub-nku', name: 'Nakuru Town Hub', town: 'Nakuru', code: 'NKU-003' },
+  { id: 'hub-eld', name: 'Eldoret Hub', town: 'Eldoret', code: 'ELD-005' },
+];
+
+export const documentsByService: Record<string, string[]> = {
+  'svc-efns': [
+    'Passport',
+    'Application form',
+    'Employer letter',
+    'Academic certificates',
+    'Passport photos',
+    'Previous permit',
+  ],
+  'svc-passport': ['National ID', 'Birth certificate', 'Passport photos'],
+};

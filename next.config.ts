@@ -1,0 +1,28 @@
+import type { NextConfig } from 'next';
+import bundleAnalyzer from '@next/bundle-analyzer';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+const withBundleAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === 'true' });
+
+/**
+ * Security headers applied to every route. The platform handles identity
+ * documents and biometrics, so the app must never be framed or sniffed.
+ */
+const securityHeaders = [
+  { key: 'X-Frame-Options', value: 'DENY' },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'Permissions-Policy', value: 'camera=(self), microphone=(), geolocation=()' },
+];
+
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  poweredByHeader: false,
+  typedRoutes: true,
+  async headers() {
+    return [{ source: '/:path*', headers: securityHeaders }];
+  },
+};
+
+export default withBundleAnalyzer(withNextIntl(nextConfig));

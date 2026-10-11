@@ -1,0 +1,212 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens — single source of truth, taken from the workflow designs.
+ * Components use the semantic names (bg-primary, text-muted-foreground, …),
+ * never raw hex values. Change a colour here and it changes everywhere.
+ */
+:root {
+  --background: #f4f6f9; /* page */
+  --foreground: #1f2937; /* ink */
+  --card: #ffffff; /* surface */
+  --card-foreground: #1f2937;
+  --popover: #ffffff;
+  --popover-foreground: #1f2937;
+  --muted: #f1f4f8;
+  --muted-foreground: #6b7280;
+  --border: #e6eaf0;
+  --input: #cbd5e1;
+  --ring: #2f7df6;
+
+  --primary: #2f7df6;
+  --primary-foreground: #ffffff;
+  --primary-tint: #eaf2fe;
+  --secondary: #ffffff;
+  --secondary-foreground: #1f2937;
+  --accent: #eaf2fe;
+  --accent-foreground: #1d4ed8;
+
+  --success: #22c55e;
+  --success-foreground: #15803d;
+  --success-tint: #e7f8ee;
+  --warning: #f59e0b;
+  --warning-foreground: #b45309;
+  --warning-tint: #fef3dc;
+  --destructive: #ef4444;
+  --destructive-foreground: #b91c1c;
+  --destructive-tint: #fdeaea;
+  --info: #2f7df6;
+  --info-tint: #eaf2fe;
+  --neutral-tint: #eef1f5;
+
+  --chart-1: #2f7df6;
+  --chart-2: #22c55e;
+  --chart-3: #f59e0b;
+  --chart-4: #ef4444;
+  --chart-5: #8b5cf6;
+
+  --sidebar: #ffffff;
+  --overlay: rgb(15 23 42 / 0.45);
+
+  --radius-control: 0.5rem; /* 8px */
+  --radius-field: 0.75rem; /* 12px — inputs and buttons in the designs */
+  --radius-card: 0.75rem; /* 12px */
+  --radius-panel: 1rem; /* 16px */
+}
+
+.dark {
+  --background: #0f141b;
+  --foreground: #e5e9f0;
+  --card: #161c25;
+  --card-foreground: #e5e9f0;
+  --popover: #161c25;
+  --popover-foreground: #e5e9f0;
+  --muted: #1d2531;
+  --muted-foreground: #9aa4b2;
+  --border: #263040;
+  --input: #344155;
+  --ring: #5b9bff;
+
+  --primary: #4b8ef8;
+  --primary-foreground: #ffffff;
+  --primary-tint: #17263f;
+  --secondary: #161c25;
+  --secondary-foreground: #e5e9f0;
+  --accent: #17263f;
+  --accent-foreground: #9cc2ff;
+
+  --success-foreground: #4ade80;
+  --success-tint: #12291c;
+  --warning-foreground: #fbbf24;
+  --warning-tint: #2e2410;
+  --destructive-foreground: #f87171;
+  --destructive-tint: #331616;
+  --info-tint: #17263f;
+  --neutral-tint: #1d2531;
+
+  --sidebar: #121821;
+  --overlay: rgb(0 0 0 / 0.6);
+}
+
+@theme inline {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-tint: var(--primary-tint);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-tint: var(--success-tint);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-tint: var(--warning-tint);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-tint: var(--destructive-tint);
+  --color-info: var(--info);
+  --color-info-tint: var(--info-tint);
+  --color-neutral-tint: var(--neutral-tint);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-overlay: var(--overlay);
+
+  --radius-control: var(--radius-control);
+  --radius-field: var(--radius-field);
+  --radius-card: var(--radius-card);
+  --radius-panel: var(--radius-panel);
+
+  /*
+   * Fluid type scale: each step grows linearly from a 360px phone to a 1440px
+   * desktop and is clamped at both ends, so headings never need breakpoint
+   * overrides. Use: text-display, text-h1, text-h2, text-h3, text-lead.
+   */
+  --text-display: clamp(2.125rem, 1.667rem + 2.037vw, 3.5rem);
+  --text-display--line-height: 1.1;
+  --text-display--font-weight: 700;
+  --text-h1: clamp(1.75rem, 1.5rem + 1.111vw, 2.5rem);
+  --text-h1--line-height: 1.15;
+  --text-h1--font-weight: 700;
+  --text-h2: clamp(1.5rem, 1.25rem + 1.111vw, 2.25rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--font-weight: 700;
+  --text-h3: clamp(1.125rem, 1.042rem + 0.3704vw, 1.375rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+  --text-lead: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);
+  --text-lead--line-height: 1.5;
+  /* Queue tickets and the hall display, read from across a room. */
+  --text-ticket: clamp(2rem, 1.667rem + 1.481vw, 3rem);
+  --text-ticket--line-height: 1;
+  --text-jumbo: clamp(3.5rem, 1.583rem + 8.519vw, 9.25rem);
+  --text-jumbo--line-height: 1;
+
+  /* Fluid spacing: px-gutter / py-section keep page rhythm without breakpoints. */
+  --spacing-gutter: clamp(1rem, 0.5rem + 2.222vw, 2.5rem);
+  --spacing-section: clamp(2.5rem, 1.833rem + 2.963vw, 4.5rem);
+  --container-content: 75rem; /* 1200px content width from the designs */
+  --container-narrow: 45rem; /* forms and journey screens */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+}
+
+@utility container-narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
