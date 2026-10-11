@@ -17,7 +17,6 @@ import { useRecordAction } from '@/api/hooks/use-register';
 import { customWidgets } from './custom-widgets';
 import type { WidgetDef } from './types';
 
-// Charts are client-only and heavy: split them out of the page bundle (handbook §11).
 const BarChartView = dynamic(() => import('@/components/common/charts/BarChartView'), {
   ssr: false,
   loading: () => <Skeleton className="h-64" />,
@@ -37,7 +36,6 @@ const dotTone = {
 
 type DataWidget = Exclude<WidgetDef, { type: 'table' } | { type: 'custom' }>;
 
-/** Draws one non-table widget from its definition and the data the API sent for it. */
 export function Widget({
   def,
   data,

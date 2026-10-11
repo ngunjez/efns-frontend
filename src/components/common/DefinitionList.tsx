@@ -5,7 +5,6 @@ export interface DefinitionRow {
   value: React.ReactNode;
 }
 
-/** Label/value rows with hairline dividers — case details, invoices, receipts. */
 export function DefinitionList({
   rows,
   className,

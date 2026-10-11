@@ -1,7 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-/** The blue "What happens next" panel at the foot of every client step. */
 export function NextStepCallout({
   eyebrow,
   title,

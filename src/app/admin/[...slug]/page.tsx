@@ -3,10 +3,6 @@ import { notFound } from 'next/navigation';
 import { RegisterPage } from '@/components/features/register-page';
 import { adminPages } from '@/config/pages/admin';
 
-/**
- * Every admin register is rendered from its page definition. This route only
- * looks the definition up; adding a page means adding a definition and a nav link.
- */
 export function generateStaticParams() {
   return Object.keys(adminPages).map((path) => ({ slug: path.split('/') }));
 }

@@ -3,6 +3,8 @@
 import dynamic from 'next/dynamic';
 import { useCustomerDisplay } from '@/api/hooks/use-displays';
 import { LoadingBlock, QueryState } from '@/components/common/QueryState';
+import { SkipLink } from '@/components/common/SkipLink';
+import { StepTransition } from '@/components/motion/StepTransition';
 import { StageProgress } from '@/components/common/StageProgress';
 import { HubScreenHeader } from '@/components/layout/client/HubScreenHeader';
 import { SiteFooter } from '@/components/layout/client/SiteFooter';
@@ -19,7 +21,6 @@ export interface StepProps {
 const load = (loader: () => Promise<{ default: React.ComponentType<StepProps> }>) =>
   dynamic(loader, { loading: () => <LoadingBlock rows={5} /> });
 
-/** One lazily loaded component per step: a screen only ships the code it shows. */
 const steps: Record<JourneyStep, React.ComponentType<StepProps>> = {
   welcome: load(() => import('./steps/WelcomeStep')),
   'visit-logged': load(() => import('./steps/VisitLoggedStep')),
@@ -37,10 +38,6 @@ const steps: Record<JourneyStep, React.ComponentType<StepProps>> = {
   feedback: load(() => import('./steps/FeedbackStep')),
 };
 
-/**
- * The client-facing screen at the hub (welcome tablet and the bay's second
- * monitor). Staff act; the client reads, confirms and signs here.
- */
 export function CustomerScreen({ step }: { step: JourneyStep }) {
   const query = useCustomerDisplay();
   const meta = journeySteps[step];
@@ -48,6 +45,7 @@ export function CustomerScreen({ step }: { step: JourneyStep }) {
 
   return (
     <div className="flex min-h-dvh flex-col">
+      <SkipLink />
       <HubScreenHeader
         hubName={query.data?.hubName ?? ''}
         subtitle={meta.showClient ? undefined : 'AaaS, government services'}
@@ -61,7 +59,9 @@ export function CustomerScreen({ step }: { step: JourneyStep }) {
       <main id="main" className="container-page flex-1 py-section">
         <QueryState query={query} loading={<LoadingBlock rows={6} />}>
           {(view) => (
-            <Step step={step} data={view.data} client={view.client} officer={view.officer} />
+            <StepTransition stepKey={step}>
+              <Step step={step} data={view.data} client={view.client} officer={view.officer} />
+            </StepTransition>
           )}
         </QueryState>
       </main>

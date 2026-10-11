@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { hubColumn } from '../shared';
 
-/** Frame 57: how each hub compares on volume, speed, quality and client rating. */
 export const performancePage: PageDefinition = {
   key: 'hub-performance',
   title: 'Hub performance',
@@ -44,7 +43,6 @@ export const performancePage: PageDefinition = {
   ],
 };
 
-/** Frame 106: ratings and complaints across hubs. Complaints open a quality investigation. */
 export const feedbackPage: PageDefinition = {
   key: 'feedback',
   title: 'Feedback and complaints',

@@ -1,6 +1,5 @@
 {
   "common": {
-    "needHelp": "Need help? Call {phone}.",
     "needHelpHub": "Need help? Ask any officer, or call {phone}.",
     "signIn": "Sign in",
     "createAccount": "Create account",
@@ -13,8 +12,11 @@
     "skipToContent": "Skip to content",
     "language": "Language",
     "somethingWrong": "Something is wrong",
-    "tryAgain": "Try again",
-    "print": "Print"
+    "print": "Print",
+    "signOut": "Sign out",
+    "toggleTheme": "Switch between light and dark theme",
+    "openMenu": "Open menu",
+    "menu": "Menu"
   },
   "nav": {
     "services": "Services",
@@ -94,11 +96,12 @@
     "invalidPhone": "Enter a valid mobile number",
     "passwordRule": "Use at least 8 characters, with a number",
     "mustAgree": "You need to agree to continue",
-    "codeRule": "Enter the 6-digit code"
+    "createdTitle": "Your account is ready",
+    "createdBody": "Sign in with the phone number or email and the password you just set."
   },
   "booking": {
     "title": "Book an appointment",
-    "body": "Choose a time. Only times with a certified officer on duty are shown.",
+    "body": "Choose a service, a hub and a time.",
     "date": "Date",
     "time": "Time",
     "full": "{time}, full",
@@ -106,11 +109,20 @@
     "chooseTime": "Choose a time",
     "noTimes": "No times left on this day. Try another date.",
     "bookedTitle": "Your appointment is booked",
-    "bookedBody": "Show this code at reception. We have sent it to you by SMS and email.",
     "code": "Booking code",
     "download": "Download ticket",
     "bring": "Bring with you",
-    "summary": "{service} at {hub}, {date} at {time}"
+    "accountNeeded": "You need an account to book ahead. Walking in instead? No account or booking is needed.",
+    "chooseService": "Choose a service to see what to bring.",
+    "payAtHub": "You pay at the hub",
+    "onePayment": "One payment",
+    "payNote": "M-Pesa or card. No cash.",
+    "ticketEmailed": "Ticket emailed to {email}",
+    "onTheDay": "On the day",
+    "day1": "Arrive 10 minutes early",
+    "day2": "Show your booking code or passport to the officer at the entrance",
+    "day3": "Bring {documents}",
+    "keepCopy": "Your ticket is in your email. You can also keep a copy on this device."
   },
   "application": {
     "title": "My application",
@@ -119,8 +131,8 @@
     "nothingNeeded": "Nothing is needed from you right now.",
     "passport": "Your passport",
     "hubSupport": "Hub support",
-    "noneTitle": "Nothing submitted yet",
-    "noneBody": "When an officer submits an application for you, you can follow it here. To save time at the hub, book an appointment first.",
+    "noneTitle": "No application submitted yet",
+    "noneBody": "An application is submitted during your hub visit, with or without a booking. After that, this page shows every step until your document is ready to collect.",
     "book": "Book an appointment",
     "docNeededTitle": "One more document is needed",
     "docNeededBody": "The authority has asked a question about your application. You do not need to visit the hub.",
@@ -130,7 +142,11 @@
     "uploadAlt": "Or bring it to reception at the hub",
     "uploaded": "Thank you. Your document was sent to the hub.",
     "notFoundTitle": "We could not find that application",
-    "notFoundBody": "Check the link in your SMS or email, or call {phone}."
+    "notFoundBody": "Check the link in your SMS or email, or call {phone}.",
+    "signInTitle": "Sign in to see your application",
+    "signInBody": "Your applications and appointments appear here once you sign in.",
+    "signInAction": "Sign in",
+    "upcoming": "Your appointment"
   },
   "journey": {
     "stageOf": "Stage {stage} of {total}: {name}",
@@ -170,7 +186,6 @@
       "bookedClient": "Booked client?",
       "bookedHint": "Scan their booking code or passport on the reader.",
       "tapHint": "Tap a stream for the client, then log the visit.",
-      "assistance": "Language and voice help",
       "voice": "Read each screen aloud"
     },
     "visitLogged": {
@@ -193,9 +208,7 @@
       "nextTitle": "We give you a queue ticket",
       "nextBody": "Then take a seat until your number is called.",
       "getTicket": "Get my ticket",
-      "printChecklist": "Print the checklist",
-      "readAloud": "Reading aloud",
-      "replay": "Replay"
+      "printChecklist": "Print the checklist"
     },
     "ticket": {
       "title": "Your queue ticket",
@@ -268,8 +281,7 @@
     },
     "lodgement": {
       "title": "Your passport is lodged",
-      "body": "Your passport stays safely in the hub vault while the authority processes your application. Keep this receipt.",
-      "receipt": "Lodgement receipt"
+      "body": "Your passport stays safely in the hub vault while the authority processes your application. Keep this receipt."
     },
     "submitted": {
       "title": "Your application is submitted",

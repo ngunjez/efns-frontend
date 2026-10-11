@@ -6,10 +6,6 @@ import { AuthCard } from '@/components/layout/staff/AuthCard';
 
 export const metadata: Metadata = { title: 'Sign-in refused' };
 
-/**
- * Frame 81: the location check (geofence layer 5) refused the session. The
- * attempt is already logged server-side and surfaced to the Hub Manager.
- */
 export default function OutsideHubPage() {
   return (
     <AuthCard title="You can only sign in at your hub">

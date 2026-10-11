@@ -1,7 +1,3 @@
-/**
- * Every API path in one place, relative to NEXT_PUBLIC_API_BASE_URL.
- * When the backend publishes its contract, only this file should change.
- */
 const resource = (base: string) =>
   ({ list: base, detail: (id: string) => `${base}/${id}` }) as const;
 
@@ -15,10 +11,12 @@ export const ENDPOINTS = {
   },
   client: {
     signIn: '/clients/sign-in',
+    signOut: '/clients/sign-out',
     register: '/clients/register',
     verifyPhone: '/clients/verify-phone',
     me: '/clients/me',
     application: '/clients/me/application',
+    appointment: '/clients/me/appointment',
     track: (reference: string) => `/track/${reference}`,
     uploadDocument: (reference: string) => `/track/${reference}/documents`,
   },
@@ -54,7 +52,6 @@ export const ENDPOINTS = {
     customerAction: '/displays/customer/actions',
   },
   settings: (key: string) => `/settings/${key}`,
-  /** Generic CRUD collections behind the admin registers (see src/config/registers). */
   registers: (key: string) => resource(`/registers/${key}`),
   customFields: (page: string) => `/settings/custom-fields/${page}`,
   customField: (page: string, name: string) => `/settings/custom-fields/${page}/${name}`,

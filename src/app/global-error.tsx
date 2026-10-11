@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import { reportError } from '@/lib/monitoring';
 
-/** Last-resort boundary when the root layout itself fails. Plain HTML: no providers are available. */
 export default function GlobalError({
   error,
   reset,

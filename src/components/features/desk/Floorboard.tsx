@@ -51,7 +51,6 @@ const frame = {
   success: '',
 } as const;
 
-/** Frame 23: the Hub Manager's live view of every bay — who is serving what, and who is over target. */
 export function Floorboard() {
   const query = useFloorboard();
   const canReassign = useHasPermission(PERMISSIONS.officersReassign);

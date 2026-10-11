@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { options } from '../shared';
 
-/** Frame 07: vetting, centre binding and per-service certification. A lapse removes filing rights. */
 export const certificationPage: PageDefinition = {
   key: 'officer-certification',
   title: 'Officer certification',
@@ -77,7 +76,6 @@ export const certificationPage: PageDefinition = {
   ],
 };
 
-/** Frame 08: from a coaching plan to a formal investigation, every step evidenced. */
 export const disciplinePage: PageDefinition = {
   key: 'discipline',
   title: 'Discipline and coaching',

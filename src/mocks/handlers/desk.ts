@@ -73,7 +73,6 @@ export const deskHandlers = [
   }),
   http.post(api(ENDPOINTS.desk.floorboardAction(':action')), ok),
 
-  // The QA Reviewer sees the QA step of the same case; everyone else the verification step.
   http.get(api(ENDPOINTS.desk.workbench), async () => {
     await latency();
     const user = store.get<StaffUser | null>('staff-session', null);
@@ -105,7 +104,6 @@ export const deskHandlers = [
     await latency();
     return HttpResponse.json(customerDisplay);
   }),
-  // Simulates the gateway: an M-Pesa request confirms after a moment.
   http.post(api(ENDPOINTS.displays.customerAction), async ({ request }) => {
     await latency();
     const { step, action } = (await request.json()) as { step: string; action: string };

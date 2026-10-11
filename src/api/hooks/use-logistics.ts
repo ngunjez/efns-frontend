@@ -12,7 +12,6 @@ export interface OpenManifest {
   handover: { destination: string; courier: string; runner: string; seal: string };
 }
 
-/** Frame 48: the consignment being packed at this hub. */
 export function useOpenManifest() {
   return useQuery({
     queryKey: queryKeys.openManifest,
@@ -27,7 +26,6 @@ export function useScanItem() {
   });
 }
 
-/** Hand-over unlocks only when every item is scanned; the runner signs on the pad. */
 export function useRecordHandover() {
   return useMutation({
     mutationFn: (signature: string) =>

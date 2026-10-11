@@ -2,10 +2,8 @@ import { delay, HttpResponse } from 'msw';
 import { env } from '@/config/env';
 import type { ApiError } from '@/types/api';
 
-/** Absolute URL for a mocked endpoint (MSW matches the full URL the app calls). */
 export const api = (path: string) => `${env.apiBaseUrl}${path}`;
 
-/** A realistic pause so loading states are visible while developing. */
 export const latency = () => delay(250);
 
 export function apiError(
@@ -17,7 +15,14 @@ export function apiError(
   return HttpResponse.json<ApiError>({ status, code, message, fieldErrors }, { status });
 }
 
-/** Survives page reloads in the same tab, like a real session cookie would. */
+function safely(action: () => void) {
+  try {
+    action();
+  } catch {
+    return;
+  }
+}
+
 export const store = {
   get<T>(key: string, fallback: T): T {
     try {
@@ -28,18 +33,10 @@ export const store = {
     }
   },
   set(key: string, value: unknown) {
-    try {
-      sessionStorage.setItem(`mock:${key}`, JSON.stringify(value));
-    } catch {
-      /* storage unavailable: state lasts for this page only */
-    }
+    safely(() => sessionStorage.setItem(`mock:${key}`, JSON.stringify(value)));
   },
   remove(key: string) {
-    try {
-      sessionStorage.removeItem(`mock:${key}`);
-    } catch {
-      /* ignore */
-    }
+    safely(() => sessionStorage.removeItem(`mock:${key}`));
   },
 };
 

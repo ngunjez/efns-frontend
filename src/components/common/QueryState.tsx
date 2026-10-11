@@ -58,10 +58,6 @@ export function LoadingBlock({ rows = 4, className }: { rows?: number; className
   );
 }
 
-/**
- * Renders loading, error and empty states for a query in one consistent way,
- * then hands the data to `children`. Every data-driven view uses it.
- */
 export function QueryState<T>({
   query,
   children,

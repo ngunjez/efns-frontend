@@ -14,7 +14,6 @@ import {
 import { DynamicForm } from './DynamicForm';
 import type { FormDefinition } from './types';
 
-/** The right-hand "Add …" drawer used by every register and settings page. */
 export function FormDrawer({
   open,
   onOpenChange,

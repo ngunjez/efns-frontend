@@ -12,7 +12,6 @@ import { signedOut, unlocked } from '@/store/slices/auth-slice';
 import { env } from '@/config/env';
 import { AuthCard } from './AuthCard';
 
-/** Frame 83: the screen locked after the idle period. Work is kept; client details are hidden. */
 export function LockScreen() {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();

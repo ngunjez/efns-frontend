@@ -20,7 +20,6 @@ import { MultiSelect } from '../MultiSelect';
 import { SegmentedControl } from '../SegmentedControl';
 import type { FieldDef } from './types';
 
-/** Renders any FieldDef as the right control, wired to react-hook-form and labelled for a11y. */
 export function FieldControl({
   field,
   control,
@@ -38,7 +37,6 @@ export function FieldControl({
       render={({ field: input, fieldState }) => {
         const error = fieldState.error?.message;
 
-        // Inline toggle rows read as "label + description … switch", not as a stacked field.
         if (field.type === 'switch') {
           return (
             <div className="flex items-center justify-between gap-4 sm:col-span-2">

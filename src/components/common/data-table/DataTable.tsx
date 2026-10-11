@@ -41,7 +41,6 @@ export interface DataTableProps {
   title?: string;
   columns: ColumnDef<Row>[];
   rows: Row[];
-  /** Server-side pagination. Omit for short, unpaginated tables. */
   pagination?: {
     page: number;
     pageSize: number;
@@ -54,19 +53,13 @@ export interface DataTableProps {
   onRetry?: () => void;
   selectable?: boolean;
   rowActions?: RowAction[];
-  /** `icons` = pencil and bin (settings lists); `menu` = ⋮ menu (registers). */
   actionStyle?: 'icons' | 'menu';
   onRowAction?: (action: string, row: Row) => void;
-  /** Row to flash green with a "New" badge after it is saved (frames 60, 65, 68). */
   highlightId?: string | null;
   toolbar?: React.ReactNode;
   emptyTitle?: string;
 }
 
-/**
- * The one table used across the platform. Columns are declarative; search,
- * column visibility, selection, row actions and pagination are built in.
- */
 export function DataTable({
   title,
   columns,

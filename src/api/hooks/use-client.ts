@@ -4,6 +4,7 @@ import { queryKeys } from '../query-keys';
 import { request } from '../request';
 import type { ApplicationSummary } from '@/types/domain';
 import type { ClientCategory, ClientUser } from '@/types/auth';
+import type { Booking } from './use-catalogue';
 
 export interface RegisterClientInput {
   category: ClientCategory;
@@ -16,15 +17,27 @@ export interface RegisterClientInput {
   password: string;
 }
 
+const clientKeys = [
+  queryKeys.client.me,
+  queryKeys.client.application,
+  queryKeys.client.appointment,
+];
+
 export function useClientSignIn() {
   return useMutation({
     mutationFn: (input: { identifier: string; password: string }) =>
       request.post<ClientUser>(ENDPOINTS.client.signIn, input),
-    meta: { silentError: true, invalidates: [queryKeys.client.me] },
+    meta: { silentError: true, invalidates: clientKeys },
   });
 }
 
-/** Frames 92–96: one call once the three wizard steps are complete; an SMS code follows. */
+export function useClientSignOut() {
+  return useMutation({
+    mutationFn: () => request.post<void>(ENDPOINTS.client.signOut),
+    meta: { invalidates: clientKeys },
+  });
+}
+
 export function useRegisterClient() {
   return useMutation({
     mutationFn: (input: RegisterClientInput) =>
@@ -32,16 +45,14 @@ export function useRegisterClient() {
   });
 }
 
-/** Frame 97. */
 export function useVerifyPhone() {
   return useMutation({
     mutationFn: (input: { verificationId: string; code: string }) =>
-      request.post<ClientUser>(ENDPOINTS.client.verifyPhone, input),
-    meta: { silentError: true, invalidates: [queryKeys.client.me] },
+      request.post<void>(ENDPOINTS.client.verifyPhone, input),
+    meta: { silentError: true },
   });
 }
 
-/** The signed-in client, or null for a visitor. Drives "My application" in the header (frame 89). */
 export function useClientSession() {
   return useQuery({
     queryKey: queryKeys.client.me,
@@ -50,17 +61,22 @@ export function useClientSession() {
   });
 }
 
-/**
- * Frames 101, 38, 39, 41. A signed-in client reads their own application; a
- * walk-in follows the tracking link from the SMS with the reference instead.
- */
-export function useApplication(reference?: string) {
+export function useApplication(reference?: string, enabled = true) {
   return useQuery({
     queryKey: reference ? queryKeys.client.track(reference) : queryKeys.client.application,
     queryFn: () =>
       request.get<ApplicationSummary | null>(
         reference ? ENDPOINTS.client.track(reference) : ENDPOINTS.client.application,
       ),
+    enabled,
+  });
+}
+
+export function useMyAppointment(enabled = true) {
+  return useQuery({
+    queryKey: queryKeys.client.appointment,
+    queryFn: () => request.get<Booking | null>(ENDPOINTS.client.appointment),
+    enabled,
   });
 }
 

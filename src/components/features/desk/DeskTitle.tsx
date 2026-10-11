@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation';
 import { deskNavigation } from '@/config/navigation';
 import { useAppSelector } from '@/store/hooks';
 
-/** Top-bar title for the Service Desk: the station name, prefixed with the bay where there is one. */
 export function DeskTitle() {
   const pathname = usePathname();
   const station = useAppSelector((state) => state.auth.user?.station);

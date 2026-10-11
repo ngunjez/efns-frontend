@@ -6,11 +6,9 @@ import type { ChartPoint } from '@/types/register';
 export interface SeriesDef {
   key: string;
   label: string;
-  /** CSS colour, normally a chart token: var(--chart-1). */
   color: string;
 }
 
-/** Monthly bars, optionally stacked (statutory fee + service charge, returned at verification + QA). */
 export default function BarChartView({
   points,
   series,

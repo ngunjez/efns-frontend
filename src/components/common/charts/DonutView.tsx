@@ -10,7 +10,6 @@ export const DONUT_COLORS = [
   'var(--chart-5)',
 ];
 
-/** Proportions of a whole (2–5 slices), with the total in the middle. */
 export default function DonutView({
   slices,
   total,

@@ -1,7 +1,6 @@
 import { Progress } from '@/components/ui/progress';
 import type { MeterItem } from '@/types/register';
 
-/** Labelled horizontal bars: shelf capacity, SLA met by hub. */
 export function MeterList({ items }: { items: MeterItem[] }) {
   return (
     <ul className="grid gap-4">

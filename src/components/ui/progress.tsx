@@ -7,7 +7,6 @@ const toneClass = {
   danger: 'bg-destructive',
 } as const;
 
-/** Thin meter bar used for "Matched", "SLA met", shelf capacity and go-live gates. */
 function Progress({
   value,
   tone = 'info',

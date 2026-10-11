@@ -1,6 +1,6 @@
+import { Reveal } from '@/components/motion/Reveal';
 import { cn } from '@/lib/utils';
 
-/** A full-width page band with a heading — the rhythm of the public site. */
 export function Section({
   id,
   title,
@@ -21,15 +21,15 @@ export function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={cn('scroll-mt-20 py-section', tone === 'surface' && 'border-y bg-card', className)}
+      className={cn('py-section', tone === 'surface' && 'border-y bg-card', className)}
     >
       <div className="container-page grid gap-8">
-        <div className="grid gap-1.5">
+        <Reveal inView className="grid gap-1.5">
           <h2 id={headingId} className="text-h2">
             {title}
           </h2>
           {description && <p className="text-lead text-muted-foreground">{description}</p>}
-        </div>
+        </Reveal>
         {children}
       </div>
     </section>

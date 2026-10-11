@@ -10,7 +10,6 @@ import { useJourneyStep } from '../use-journey-step';
 import type { StepProps } from '../CustomerScreen';
 import { StepActions, StepHeading } from '../StepParts';
 
-/** Frame 25: recorded consent for data and biometric processing, signed on the pad. */
 export default function ConsentStep({ data, client }: StepProps) {
   const t = useTranslations('journey.consent');
   const { advance, pending } = useJourneyStep('consent');

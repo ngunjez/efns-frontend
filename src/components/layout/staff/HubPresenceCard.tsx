@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useHubStatus } from '@/api/hooks/use-desk';
 import { Button } from '@/components/ui/button';
 
-/** Bottom-left of the Service Desk: live head-count and a shortcut to the Journey Board. */
 export function HubPresenceCard() {
   const { data } = useHubStatus();
   return (

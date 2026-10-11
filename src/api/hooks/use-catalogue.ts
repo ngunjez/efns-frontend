@@ -22,7 +22,6 @@ export function useHubs() {
   });
 }
 
-/** Only times with a certified officer on the roster are returned as available. */
 export function useSlots(params: { serviceId?: string; hubId?: string; date?: string }) {
   const { serviceId = '', hubId = '', date = '' } = params;
   return useQuery({
@@ -37,7 +36,6 @@ export interface BookingInput {
   hubId: string;
   date: string;
   time: string;
-  /** Reception books for a client on the phone by phone, ID or passport number (frame 85). */
   client?: string;
 }
 
@@ -47,12 +45,13 @@ export interface Booking {
   hub: string;
   date: string;
   time: string;
+  email: string;
   documents: string[];
 }
 
 export function useBookAppointment() {
   return useMutation({
     mutationFn: (input: BookingInput) => request.post<Booking>(ENDPOINTS.appointments.list, input),
-    meta: { invalidates: [queryKeys.appointments] },
+    meta: { invalidates: [queryKeys.appointments, queryKeys.client.appointment] },
   });
 }

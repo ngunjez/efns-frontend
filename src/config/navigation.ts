@@ -21,10 +21,6 @@ import {
 } from 'lucide-react';
 import { PERMISSIONS, hasPermission, type PermissionRule } from './permissions';
 
-/**
- * Checks a path against the app's typed routes (including the admin catch-all)
- * while keeping the literal, so a link to a route that doesn't exist fails to compile.
- */
 const to = <T extends string>(path: Route<T>): Route => path as Route;
 
 export interface NavLink {
@@ -36,7 +32,6 @@ export interface NavLink {
 export interface NavItem extends Partial<NavLink> {
   title: string;
   icon: LucideIcon;
-  /** Sub-pages; the parent is visible when any child is. */
   children?: NavLink[];
 }
 
@@ -45,11 +40,6 @@ export interface NavSection {
   items: NavItem[];
 }
 
-/**
- * The single source of truth for staff navigation. The sidebar, the route
- * guard and the post-sign-in landing page are all derived from it — add a
- * screen here once and it is linked, protected and reachable.
- */
 export const deskNavigation: NavSection[] = [
   {
     label: 'My station',
@@ -314,7 +304,6 @@ function flatten(sections: NavSection[]): NavLink[] {
 
 const allLinks = [...flatten(deskNavigation), ...flatten(adminNavigation)];
 
-/** Sections with only the items this user may open. Empty sections are dropped. */
 export function filterNavigation(
   sections: NavSection[],
   permissions: readonly string[],
@@ -340,7 +329,6 @@ export function filterNavigation(
     .filter((section) => section.items.length > 0);
 }
 
-/** The permission a path needs, matched on the longest registered prefix. */
 export function permissionForPath(pathname: string): PermissionRule | undefined {
   const match = allLinks
     .filter((link) => pathname === link.href || pathname.startsWith(`${link.href}/`))
@@ -348,7 +336,6 @@ export function permissionForPath(pathname: string): PermissionRule | undefined 
   return match?.permission;
 }
 
-/** Where a staff member lands after sign-in: the first screen their role can open. */
 export function homeForPermissions(permissions: readonly string[]): Route {
   return (
     allLinks.find((link) => hasPermission(permissions, link.permission))?.href ?? '/unauthorized'

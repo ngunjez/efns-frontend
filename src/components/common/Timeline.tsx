@@ -2,7 +2,6 @@ import { CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { TimelineStep } from '@/types/domain';
 
-/** Application milestones: done, current (ring) and upcoming (grey). */
 export function Timeline({ steps, className }: { steps: TimelineStep[]; className?: string }) {
   return (
     <ol className={cn('divide-y', className)}>

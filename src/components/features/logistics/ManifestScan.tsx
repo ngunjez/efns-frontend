@@ -20,7 +20,6 @@ import { EmptyState, LoadingBlock, QueryState } from '@/components/common/QueryS
 import { SignaturePad } from '@/components/common/SignaturePad';
 import { StatusBadge } from '@/components/common/StatusBadge';
 
-/** Frame 48: scan each vault item into the courier bag, then the runner signs for the sealed bag. */
 export default function ManifestScan() {
   const query = useOpenManifest();
   const scan = useScanItem();

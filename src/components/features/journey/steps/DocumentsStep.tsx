@@ -9,7 +9,6 @@ import { useJourneyStep } from '../use-journey-step';
 import type { StepProps } from '../CustomerScreen';
 import { StepActions, StepHeading } from '../StepParts';
 
-/** Frames 15, 14, 16: the reception document check, read in the client's language. */
 export default function DocumentsStep({ data }: StepProps) {
   const t = useTranslations('journey.documents');
   const common = useTranslations('common');

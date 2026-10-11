@@ -11,7 +11,6 @@ import { cn } from '@/lib/utils';
 const isActive = (pathname: string, href?: string) =>
   Boolean(href && (pathname === href || pathname.startsWith(`${href}/`)));
 
-/** Brand card, permission-filtered navigation and a footer card (bottom-left in every staff design). */
 export function Sidebar({
   brand,
   sections,

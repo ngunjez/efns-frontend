@@ -3,8 +3,13 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { Upload } from 'lucide-react';
-import { useApplication, useUploadRequestedDocument } from '@/api/hooks/use-client';
+import { FileText, LogIn, Upload } from 'lucide-react';
+import {
+  useApplication,
+  useClientSession,
+  useMyAppointment,
+  useUploadRequestedDocument,
+} from '@/api/hooks/use-client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,18 +19,37 @@ import { PageIntro } from '@/components/common/PageIntro';
 import { StageProgress } from '@/components/common/StageProgress';
 import { StatusBadge } from '@/components/common/StatusBadge';
 import { Timeline } from '@/components/common/Timeline';
+import { Reveal } from '@/components/motion/Reveal';
 import { site } from '@/config/site';
+import { formatDate } from '@/lib/format';
 import type { ApplicationSummary } from '@/types/domain';
 
-/**
- * The client's tracking page (frames 101, 38, 39). Signed-in clients open it
- * from "My application"; walk-ins arrive from the SMS link with a reference.
- */
 export function ApplicationView({ reference }: { reference?: string }) {
   const t = useTranslations('application');
-  const query = useApplication(reference);
+  const session = useClientSession();
+  const ownPage = !reference;
+  const signedIn = Boolean(session.data);
+  const query = useApplication(reference, !ownPage || signedIn);
 
-  if (query.isPending) return <Skeleton className="container-page my-section h-96" />;
+  if (ownPage && session.isPending) return <PageSkeleton />;
+  if (ownPage && !signedIn) {
+    return (
+      <div className="container-narrow py-section">
+        <CenteredCard
+          icon={<LogIn className="size-5" aria-hidden />}
+          title={t('signInTitle')}
+          body={t('signInBody')}
+        >
+          <Button asChild size="lg">
+            <Link href={{ pathname: '/sign-in', query: { next: '/my-application' } }}>
+              {t('signInAction')}
+            </Link>
+          </Button>
+        </CenteredCard>
+      </div>
+    );
+  }
+  if (query.isPending) return <PageSkeleton />;
   if (query.isError) {
     return query.error.status === 404 ? (
       <EmptyState
@@ -39,30 +63,110 @@ export function ApplicationView({ reference }: { reference?: string }) {
   }
 
   const application = query.data;
-  if (!application) {
-    return (
-      <div className="container-narrow grid gap-6 py-section">
-        <PageIntro title={t('noneTitle')} body={t('noneBody')} />
-        <Button asChild size="lg" className="justify-self-start">
-          <Link href="/book">{t('book')}</Link>
-        </Button>
-      </div>
-    );
-  }
+  if (!application) return <NothingSubmitted />;
 
   return (
     <>
       <div className="border-b bg-card py-4">
         <StageProgress stage={application.stage} className="container-page" />
       </div>
-      <div className="container-page grid gap-6 py-section">
+      <Reveal className="container-page grid gap-6 py-section">
         {application.documentRequest ? (
           <DocumentRequest application={application} />
         ) : (
           <Overview application={application} />
         )}
-      </div>
+      </Reveal>
     </>
+  );
+}
+
+function NothingSubmitted() {
+  const t = useTranslations('application');
+  const booking = useTranslations('booking');
+  const appointment = useMyAppointment();
+
+  return (
+    <div className="container-narrow grid gap-5 py-section">
+      <CenteredCard
+        icon={<FileText className="size-5" aria-hidden />}
+        title={t('noneTitle')}
+        body={t('noneBody')}
+      >
+        {!appointment.data && (
+          <Button asChild size="lg">
+            <Link href="/book">{t('book')}</Link>
+          </Button>
+        )}
+      </CenteredCard>
+      {appointment.isPending ? (
+        <Skeleton className="h-36 rounded-card" />
+      ) : (
+        appointment.data && (
+          <Reveal delay={0.1}>
+            <Card className="grid gap-4 p-5 sm:grid-cols-[auto_1fr] sm:items-center sm:p-6">
+              <div className="grid gap-0.5 rounded-card bg-primary-tint px-6 py-4 text-center">
+                <span className="text-xs text-muted-foreground">{booking('code')}</span>
+                <span className="text-2xl font-bold text-primary tabular">
+                  {appointment.data.code}
+                </span>
+              </div>
+              <div className="grid gap-1">
+                <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  {t('upcoming')}
+                </span>
+                <span className="text-lg font-semibold">{appointment.data.service}</span>
+                <span className="text-sm text-muted-foreground">
+                  {appointment.data.hub}, {formatDate(appointment.data.date)},{' '}
+                  {appointment.data.time}
+                </span>
+              </div>
+            </Card>
+          </Reveal>
+        )
+      )}
+    </div>
+  );
+}
+
+function CenteredCard({
+  icon,
+  title,
+  body,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  body: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <Reveal>
+      <Card className="grid justify-items-center gap-4 p-8 text-center">
+        <span className="grid size-12 place-items-center rounded-control bg-primary-tint text-primary">
+          {icon}
+        </span>
+        <h1 className="text-h3">{title}</h1>
+        <p className="max-w-md text-muted-foreground">{body}</p>
+        {children}
+      </Card>
+    </Reveal>
+  );
+}
+
+function PageSkeleton() {
+  return (
+    <div className="container-page grid gap-5 py-section" aria-busy aria-label="Loading">
+      <Skeleton className="h-10 w-72" />
+      <Skeleton className="h-5 w-96 max-w-full" />
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+        <Skeleton className="h-80 rounded-card" />
+        <div className="grid gap-5">
+          <Skeleton className="h-24 rounded-card" />
+          <Skeleton className="h-24 rounded-card" />
+        </div>
+      </div>
+    </div>
   );
 }
 

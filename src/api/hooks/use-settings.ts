@@ -3,7 +3,6 @@ import { ENDPOINTS } from '../endpoints';
 import { queryKeys } from '../query-keys';
 import { request } from '../request';
 
-/** Single-record settings such as Sign-in and privacy (frame 72). */
 export function useSettings<T extends Record<string, unknown>>(key: string) {
   return useQuery({
     queryKey: queryKeys.settings(key),

@@ -9,7 +9,6 @@ export interface StaffSignInInput {
   password: string;
 }
 
-/** Step 1 of staff sign-in (frame 79). Returns a challenge for the authenticator code. */
 export function useStaffSignIn() {
   return useMutation({
     mutationFn: (input: StaffSignInInput) =>
@@ -18,7 +17,6 @@ export function useStaffSignIn() {
   });
 }
 
-/** Step 2 (frame 80). The API sets the session cookie and returns the user, or 403 OUTSIDE_HUB. */
 export function useVerifyStaffCode() {
   return useMutation({
     mutationFn: (input: { challengeId: string; code: string }) =>
@@ -37,7 +35,6 @@ export function useMe(enabled = true) {
   });
 }
 
-/** Frame 83: unlock the idle screen with the password. */
 export function useUnlock() {
   return useMutation({
     mutationFn: (password: string) => request.post<void>(ENDPOINTS.auth.unlock, { password }),

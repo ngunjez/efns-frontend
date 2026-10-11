@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import type { Route } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Controller, useForm, useWatch } from 'react-hook-form';
@@ -31,10 +32,6 @@ const DOCUMENT_LABEL = {
   other: 'passportNumber',
 } as const;
 
-/**
- * Frames 92–97: category → identity details (by category) → contact → SMS code.
- * One form and one schema across the steps; each step validates only its own fields.
- */
 export function CreateAccountWizard() {
   const t = useTranslations('account');
   const common = useTranslations('common');
@@ -105,11 +102,10 @@ export function CreateAccountWizard() {
       { verificationId: verification.id, code },
       {
         onSuccess: () => {
-          const service = params.get('service');
-          const hub = params.get('hub');
-          router.push(
-            service ? `/book?service=${service}${hub ? `&hub=${hub}` : ''}` : '/my-application',
-          );
+          const query = new URLSearchParams({ created: '1' });
+          const next = params.get('next');
+          if (next) query.set('next', next);
+          router.push(`/sign-in?${query.toString()}` as Route);
         },
       },
     );
@@ -306,7 +302,13 @@ export function CreateAccountWizard() {
 
       <p className="text-center">
         {t('haveAccount')}{' '}
-        <Link href="/sign-in" className="font-semibold text-primary hover:underline">
+        <Link
+          href={{
+            pathname: '/sign-in',
+            query: params.get('next') ? { next: params.get('next')! } : {},
+          }}
+          className="font-semibold text-primary hover:underline"
+        >
           {t('signInTitle')}
         </Link>
       </p>

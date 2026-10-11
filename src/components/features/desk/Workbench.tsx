@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { RotateCw, ZoomIn } from 'lucide-react';
 import { useCaseDecision, useWorkbench, type CaseDecision } from '@/api/hooks/use-desk';
 import { Avatar } from '@/components/ui/avatar';
@@ -27,12 +26,9 @@ import { EmptyState, LoadingBlock, QueryState } from '@/components/common/QueryS
 import { StageProgress } from '@/components/common/StageProgress';
 import { StatusBadge } from '@/components/common/StatusBadge';
 import { FormField } from '@/components/common/FormField';
+import { SmartImage } from '@/components/common/SmartImage';
 import type { WorkbenchView } from '@/types/desk';
 
-/**
- * Frames 102 and 27: maker-checker. The Verification Officer compares scans
- * with keyed data; the QA Reviewer then approves, returns or rejects the file.
- */
 export function Workbench() {
   const query = useWorkbench();
   return (
@@ -102,7 +98,7 @@ function Bench({ view }: { view: WorkbenchView }) {
                       style={{ transform: `rotate(${rotation}deg) scale(${zoomed ? 1.6 : 1})` }}
                     >
                       {document.previewUrl ? (
-                        <Image
+                        <SmartImage
                           src={document.previewUrl}
                           alt={`${document.label}, scanned page`}
                           width={640}

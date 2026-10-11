@@ -1,7 +1,6 @@
 import type { ColumnDef, RowAction } from '@/components/common/data-table';
 import type { FieldDef } from '@/components/common/dynamic-form';
 
-/** Column and action fragments reused across page definitions. */
 export const hubColumn: ColumnDef = {
   key: 'hub',
   header: 'Hub',
@@ -39,7 +38,6 @@ export const serviceField: FieldDef = {
 
 export const options = (...labels: string[]) => labels.map((label) => ({ value: label, label }));
 
-/** The systems a role can be given, as listed in Settings › Roles and access. */
 export const SYSTEMS = options(
   'Agency Platform',
   'Service Catalogue',

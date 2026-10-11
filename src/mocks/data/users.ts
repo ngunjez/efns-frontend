@@ -4,10 +4,6 @@ import type { StaffUser } from '@/types/auth';
 const hub = { id: 'hub-nbo', name: 'Nairobi CBD Hub', code: 'NBO-001' };
 const allPermissions = Object.values(P) as Permission[];
 
-/**
- * Demo accounts for working without the backend. Sign in with any of these
- * emails, any password and any 6-digit code (000000 shows the outside-hub refusal).
- */
 export const demoUsers: Record<string, StaffUser> = {
   'grace.mwangi': {
     id: 'u-grace',

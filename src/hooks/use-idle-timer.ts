@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 
 const ACTIVITY_EVENTS = ['pointerdown', 'keydown', 'wheel', 'touchstart'] as const;
 
-/** Calls `onIdle` once after `minutes` with no keyboard, pointer or touch activity. */
 export function useIdleTimer(minutes: number, onIdle: () => void, enabled = true) {
   const callback = useRef(onIdle);
 

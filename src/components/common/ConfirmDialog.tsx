@@ -19,10 +19,6 @@ import {
 } from '@/components/ui/select';
 import { FormField } from './FormField';
 
-/**
- * Every destructive action asks first (handbook §8). When records depend on the
- * one being removed — users on a role — it also asks where they move (frame 61).
- */
 export function ConfirmDialog({
   open,
   onOpenChange,

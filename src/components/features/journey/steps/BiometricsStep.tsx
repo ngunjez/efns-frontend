@@ -41,7 +41,6 @@ const fingerTone: Record<FingerState, string> = {
   pending: 'bg-muted',
 };
 
-/** Frames 29–31: photo and fingerprints, a guided retake, and the manager override at the retake limit. */
 export default function BiometricsStep({ data }: StepProps) {
   const t = useTranslations('journey.biometrics');
   const common = useTranslations('common');
@@ -145,7 +144,6 @@ function Hand({ label, fingers }: { label: string; fingers: FingerState[] }) {
   );
 }
 
-/** Frame 30 (officer screen): after three failed retakes a Hub Manager authorises how to continue. */
 function OverrideDialog({ bio }: { bio: NonNullable<JourneyData['biometrics']> }) {
   const { advance, pending } = useJourneyStep('biometrics');
   const [reason, setReason] = useState<string>();

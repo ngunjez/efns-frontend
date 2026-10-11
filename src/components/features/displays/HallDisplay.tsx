@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { AnimatePresence } from 'motion/react';
+import * as m from 'motion/react-m';
 import { ArrowRight, Bell } from 'lucide-react';
 import { useHallDisplay } from '@/api/hooks/use-displays';
 import { LoadingBlock, QueryState } from '@/components/common/QueryState';
@@ -9,6 +11,7 @@ import { HubScreenHeader } from '@/components/layout/client/HubScreenHeader';
 import { formatTime } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import type { CalledTicket } from '@/types/domain';
+import { LiveItem, LiveList } from '@/components/motion/LiveList';
 
 function Clock() {
   const [now, setNow] = useState(() => new Date());
@@ -27,7 +30,6 @@ function Clock() {
   );
 }
 
-/** Frame 21: the waiting-hall screen. Calls are also read aloud in Kiswahili and English. */
 export function HallDisplay() {
   const t = useTranslations('display');
   const query = useHallDisplay();
@@ -50,19 +52,35 @@ export function HallDisplay() {
                 <Bell className="size-5 shrink-0" aria-hidden />
                 <strong>{t('nowCalling')}</strong> {view.announcement}
               </p>
-              <CallRow ticket={view.now} current />
-              <ol className="grid gap-3">
+              <CurrentCall ticket={view.now} />
+              <LiveList className="grid gap-3">
                 {view.recent.map((ticket) => (
-                  <li key={ticket.number}>
+                  <LiveItem key={ticket.number}>
                     <CallRow ticket={ticket} />
-                  </li>
+                  </LiveItem>
                 ))}
-              </ol>
+              </LiveList>
             </>
           )}
         </QueryState>
       </main>
     </div>
+  );
+}
+
+function CurrentCall({ ticket }: { ticket: CalledTicket }) {
+  return (
+    <AnimatePresence mode="popLayout" initial={false}>
+      <m.div
+        key={ticket.number}
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={{ opacity: 1, scale: [0.94, 1.03, 1] }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.5 }}
+      >
+        <CallRow ticket={ticket} current />
+      </m.div>
+    </AnimatePresence>
   );
 }
 

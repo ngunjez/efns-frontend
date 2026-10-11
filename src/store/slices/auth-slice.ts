@@ -3,7 +3,6 @@ import type { StaffUser } from '@/types/auth';
 
 interface AuthState {
   user: StaffUser | null;
-  /** True while the idle lock (frame 83) covers the screen. */
   locked: boolean;
 }
 

@@ -7,8 +7,6 @@ import prettier from 'eslint-config-prettier/flat';
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
-  // WCAG 2.1 AA is a requirement (handbook §12): run the full recommended a11y set,
-  // not only the handful of rules eslint-config-next enables by default.
   { rules: jsxA11y.flatConfigs.recommended.rules },
   {
     rules: {

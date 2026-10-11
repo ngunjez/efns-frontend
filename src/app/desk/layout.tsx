@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** The in-hub Service Desk (frames 84–105): every hub role, one sign-in, screens by permission. */
 export default function DeskLayout({ children }: { children: React.ReactNode }) {
   return (
     <StaffGuard>

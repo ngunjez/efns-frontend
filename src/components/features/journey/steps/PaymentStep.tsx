@@ -18,10 +18,6 @@ import { StepActions, StepHeading } from '../StepParts';
 
 const STATES = ['awaiting', 'verifying', 'confirmed'] as const;
 
-/**
- * Frames 32–34: one invoice, electronic only. The statutory fee and service
- * charge are split internally; the client sees one total and gets one receipt.
- */
 export default function PaymentStep({ data, client }: StepProps) {
   const t = useTranslations('journey.payment');
   const common = useTranslations('common');

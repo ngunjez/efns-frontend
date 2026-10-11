@@ -5,7 +5,6 @@ import { request } from '../request';
 import type { BayDisplayView, HallDisplayView } from '@/types/desk';
 import type { CustomerDisplayView } from '@/types/journey';
 
-/** Wall displays poll quickly: a called ticket must appear within seconds. */
 const DISPLAY = { refetchInterval: 4_000 } as const;
 
 export function useHallDisplay() {
@@ -24,7 +23,6 @@ export function useBayDisplay(bay: string) {
   });
 }
 
-/** The case open on this bay's customer-facing screen, with whatever the current step needs. */
 export function useCustomerDisplay() {
   return useQuery({
     queryKey: queryKeys.displays.customer,

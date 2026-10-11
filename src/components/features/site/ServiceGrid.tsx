@@ -8,10 +8,10 @@ import { DefinitionList } from '@/components/common/DefinitionList';
 import { IconTile } from '@/components/common/IconTile';
 import { QueryState } from '@/components/common/QueryState';
 import { Skeleton } from '@/components/ui/skeleton';
+import { StaggerItem, StaggerList } from '@/components/motion/Stagger';
 import { iconFor } from '@/config/icons';
 import { formatMoney } from '@/lib/format';
 
-/** Service catalogue cards with fees and turnaround, published from the catalogue (doc §4.3). */
 export function ServiceGrid() {
   const t = useTranslations('landing');
   const query = useServices();
@@ -28,10 +28,10 @@ export function ServiceGrid() {
       }
     >
       {(services) => (
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerList inView className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
-            <li key={service.id}>
-              <Card className="flex h-full flex-col gap-4 p-5">
+            <StaggerItem key={service.id}>
+              <Card className="flex h-full flex-col gap-4 p-5 transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg">
                 <IconTile icon={iconFor(service.icon)} className="size-10" />
                 <div className="grid gap-0.5 border-b pb-3">
                   <h3 className="text-lg font-semibold">{service.name}</h3>
@@ -54,9 +54,9 @@ export function ServiceGrid() {
                   <span className="sr-only">: {service.name}</span>
                 </Link>
               </Card>
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
+        </StaggerList>
       )}
     </QueryState>
   );

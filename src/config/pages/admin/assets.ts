@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { options } from '../shared';
 
-/** Frame 06: purchase requests from request and quotes to approval, order and delivery. */
 export const procurementPage: PageDefinition = {
   key: 'procurement',
   title: 'Procurement',

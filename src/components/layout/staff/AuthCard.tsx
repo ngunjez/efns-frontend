@@ -2,7 +2,6 @@ import { Card } from '@/components/ui/card';
 import { Logo } from '@/components/common/Logo';
 import { site } from '@/config/site';
 
-/** Centred card used by every staff sign-in, refusal and lock screen (frames 79–83). */
 export function AuthCard({
   title,
   description,

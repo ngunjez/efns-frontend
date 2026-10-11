@@ -46,7 +46,6 @@ function Stacked({
   );
 }
 
-/** Renders one cell from its column definition. All register tables go through here. */
 export function Cell({ column, row }: { column: ColumnDef<Row>; row: Row }) {
   if (column.render) return <>{column.render(row)}</>;
   const value = getByPath(row, column.key);

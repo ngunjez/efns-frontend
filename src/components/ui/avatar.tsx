@@ -10,7 +10,6 @@ const tones = [
   'bg-emerald-600',
 ] as const;
 
-/** Initials avatar. The colour is stable per name so the same person always looks the same. */
 function Avatar({ name, className, ...props }: React.ComponentProps<'span'> & { name: string }) {
   const tone = tones[[...name].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % tones.length];
   return (

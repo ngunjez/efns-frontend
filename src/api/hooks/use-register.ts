@@ -5,10 +5,6 @@ import { request } from '../request';
 import type { ListParams } from '@/types/api';
 import type { CustomField, RegisterResponse, RegisterRow } from '@/types/register';
 
-/**
- * Generic CRUD for every admin register. One set of hooks serves all of them,
- * keyed by the register key in its page definition — no per-page hooks.
- */
 export function useRegister(key: string, params: ListParams) {
   return useQuery({
     queryKey: queryKeys.register.list(key, params),
@@ -38,7 +34,6 @@ export function useDeleteRecord(key: string, successMessage: string) {
   });
 }
 
-/** Run a row action such as "Approve", "Mark reconciled" or "Suspend hub". */
 export function useRecordAction(key: string) {
   return useMutation({
     mutationFn: ({
@@ -54,7 +49,6 @@ export function useRecordAction(key: string) {
   });
 }
 
-/** Fields an administrator added to this page in Settings › Modules and fields. */
 export function useCustomFields(page: string) {
   return useQuery({
     queryKey: queryKeys.customFields(page),
@@ -64,7 +58,6 @@ export function useCustomFields(page: string) {
   });
 }
 
-/** Frame 77: add or change a field on a page. It appears in that page's forms and, optionally, its table. */
 export function useSaveCustomField(page: string) {
   return useMutation({
     mutationFn: ({ name, field }: { name?: string; field: Omit<CustomField, 'name'> }) =>

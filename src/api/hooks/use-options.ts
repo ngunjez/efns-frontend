@@ -37,7 +37,6 @@ const sources: Record<
   },
 };
 
-/** Options for a select whose list lives in the API (hubs, services, roles). */
 export function useOptionsSource(source?: OptionsSource) {
   const config = source ? sources[source] : undefined;
   return useQuery({

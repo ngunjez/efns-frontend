@@ -31,9 +31,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
-  /** Render the child element (e.g. a Link) with button styles. */
   asChild?: boolean;
-  /** Shows a spinner and blocks repeat submits. */
   loading?: boolean;
 }
 

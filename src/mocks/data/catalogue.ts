@@ -9,6 +9,13 @@ export const services: Service[] = [
     governmentFee: 50000,
     serviceCharge: 1500,
     turnaround: '7 working days',
+    documents: [
+      'Passport',
+      'Application form',
+      'Employer letter',
+      'Academic certificates',
+      'Passport photos',
+    ],
   },
   {
     id: 'svc-passport',
@@ -18,6 +25,7 @@ export const services: Service[] = [
     governmentFee: 4550,
     serviceCharge: 500,
     turnaround: '10 days',
+    documents: ['National ID', 'Birth certificate', 'Passport photos'],
   },
   {
     id: 'svc-id',
@@ -27,6 +35,7 @@ export const services: Service[] = [
     governmentFee: 1000,
     serviceCharge: 250,
     turnaround: '14 days',
+    documents: ['Police abstract', 'Birth certificate', 'Passport photos'],
   },
   {
     id: 'svc-birth',
@@ -36,6 +45,7 @@ export const services: Service[] = [
     governmentFee: 200,
     serviceCharge: 250,
     turnaround: '7 days',
+    documents: ['Parent ID', 'Hospital notification of birth'],
   },
   {
     id: 'svc-conduct',
@@ -45,6 +55,7 @@ export const services: Service[] = [
     governmentFee: 1050,
     serviceCharge: 250,
     turnaround: '14 days',
+    documents: ['National ID or passport', 'Fingerprint form C24'],
   },
   {
     id: 'svc-business',
@@ -54,6 +65,7 @@ export const services: Service[] = [
     governmentFee: 950,
     serviceCharge: 250,
     turnaround: '3 days',
+    documents: ['National ID', 'KRA PIN', 'Three proposed names'],
   },
 ];
 
@@ -64,15 +76,3 @@ export const hubs: Hub[] = [
   { id: 'hub-nku', name: 'Nakuru Town Hub', town: 'Nakuru', code: 'NKU-003' },
   { id: 'hub-eld', name: 'Eldoret Hub', town: 'Eldoret', code: 'ELD-005' },
 ];
-
-export const documentsByService: Record<string, string[]> = {
-  'svc-efns': [
-    'Passport',
-    'Application form',
-    'Employer letter',
-    'Academic certificates',
-    'Passport photos',
-    'Previous permit',
-  ],
-  'svc-passport': ['National ID', 'Birth certificate', 'Passport photos'],
-};

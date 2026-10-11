@@ -1,10 +1,5 @@
 import { z } from 'zod';
 
-/**
- * Public runtime configuration, validated once at start-up so a missing or
- * malformed variable fails loudly instead of producing silent 404s.
- * Each variable is referenced literally so Next.js can inline it.
- */
 const schema = z.object({
   apiBaseUrl: z.url(),
   apiTimeoutMs: z.coerce.number().int().positive().default(15000),

@@ -29,7 +29,7 @@ Staff sign-in is at `/staff/sign-in`. Any password works, and any 6-digit code w
 | `wambui.gathoni@…` | Support Agent          | `/desk/support`                  |
 | `njeri.mwangi@…`   | Platform Administrator | Everything, including `/admin`   |
 
-Client side: sign in at `/sign-in` with anything. Tracking links: `/track/AAS-2026-004812`, and `/track/AAS-2026-004812-Q` for the "one more document" state.
+Client side: create an account at `/create-account` (any 6-digit SMS code), then sign in with the same phone or email. The demo client `priya.raman@mail.example` (any password) also works. A new client has no application, only any appointment they book. Tracking links: `/track/AAS-2026-004812`, and `/track/AAS-2026-004812-Q` for the "one more document" state.
 
 Hub screens: `/hub/welcome`, `/hub/check-details`, `/hub/consent`, `/hub/biometrics`, `/hub/payment` … (one per step in `src/config/journey.ts`). Wall displays: `/display/hall`, `/display/bay/3`.
 
@@ -50,7 +50,7 @@ Husky runs lint-staged on every commit; CI (`.github/workflows/ci.yml`) runs lin
 
 ## Stack
 
-Next.js 16 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS 4 · shadcn/ui pattern on Radix · TanStack Query (server state) · Redux Toolkit (session and UI state) · Axios · Zod + React Hook Form · next-intl · Recharts · MSW · Jest/RTL · Playwright.
+Next.js 16 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS 4 · shadcn/ui pattern on Radix · TanStack Query (server state) · Redux Toolkit (session and UI state) · Axios · Zod + React Hook Form · next-intl · Motion (Framer Motion) · next-themes · Recharts · MSW · Jest/RTL · Playwright.
 
 Nothing else was added. There is no Vite: Next.js builds the app.
 
@@ -95,6 +95,13 @@ messages/                     en.json, sw.json — client-facing copy
 - **One mutation policy.** Success toasts, error toasts and cache invalidation are declared in each hook's `meta` and handled once in the providers.
 - **One journey table.** `src/config/journey.ts` maps each client-facing step to its stage of 12 and the next step.
 
+## Languages, theme and motion
+
+- **Languages:** English, Kiswahili, French, Spanish and Portuguese for everything a client sees (`messages/*.json`). The choice is kept in a cookie and sent to the API as `Accept-Language`, so catalogue data can come back translated too. A test fails if any language misses a key or a `{placeholder}`.
+- **Theme:** light and dark on every screen, following the device setting until the user picks one with the sun/moon button.
+- **Motion:** Motion's `LazyMotion` keeps the bundle small, and every animation respects the device's reduce-motion setting. Content reveals once on arrival; live lists (queues, called tickets, notifications) animate only the items that are added or removed when data refreshes, so polling never replays animations.
+- **Loading:** every route has a skeleton (`loading.tsx`), data views show skeletons shaped like their content, charts load on demand, and scanned documents fade in over a skeleton.
+
 ## Design system
 
 Tokens live in `src/app/globals.css` (semantic names only — `bg-primary`, `text-muted-foreground`, `bg-success-tint` — with a dark theme). Typography and page spacing are **fluid** with `clamp()`: `text-display`, `text-h1`, `text-h2`, `text-h3`, `text-lead`, `text-ticket`, `text-jumbo`, `px-gutter`, `py-section`. They scale smoothly from a 360px phone to a 1440px desktop without breakpoint overrides. The Outfit font is self-hosted because hub networks have no public internet breakout.
@@ -113,13 +120,14 @@ Live screens poll every 4–15 seconds today; when Phoenix Channels are specifie
 
 - Components `PascalCase.tsx`; folders `kebab-case`; `components/ui` keeps shadcn's lowercase names.
 - No raw hex in components; no `useEffect` for data — use the hooks in `src/api/hooks`.
-- Client-facing copy goes in `messages/` (a test fails if Kiswahili misses a key); staff and admin copy is English, inline in config.
+- Client-facing copy goes in `messages/` in all five languages; staff and admin copy is English, inline in config.
+- No code comments: names and the README carry the intent.
 - Every new route needs a nav entry with a permission, or it is open to any signed-in staff member.
 - Branches: `main` (production), `develop` (integration), `feature/*`, `bugfix/*`, `hotfix/*`. Use the PR template.
 
 ## Not yet included (needs a decision or a backend contract)
 
 - **Sentry:** `src/lib/monitoring.ts` is the single hook point; add `@sentry/nextjs` when a DSN is issued.
-- **French, Spanish, Italian:** add the code to `src/i18n/config.ts` and a `messages/<code>.json`.
+- **More languages:** add the code to `src/i18n/config.ts` and a `messages/<code>.json`.
 - **Offline capture and provisional slip (frame 35):** needs the backend's store-and-forward contract.
 - **SMS/email templates (frames 88, 100):** sent by the backend, not rendered by the frontend.

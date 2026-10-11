@@ -78,7 +78,6 @@ const fieldForm: FormDefinition = {
   ],
 };
 
-/** Frames 74–78: the custom fields on one page — toggle required, edit, delete, add. */
 export default function PageFields() {
   const [page, setPage] = useState(PAGES[0]?.value ?? '');
   const query = useCustomFields(page);

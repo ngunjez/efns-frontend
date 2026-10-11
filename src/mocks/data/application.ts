@@ -19,7 +19,6 @@ export const application: ApplicationSummary = {
   hubSupport: { phone: '0800 720 100', email: 'support@nairobicbd.aaas.example' },
 };
 
-/** Frame 39: the same case once Immigration asks for one more document. */
 export const applicationWithRequest: ApplicationSummary = {
   ...application,
   documentRequest: {

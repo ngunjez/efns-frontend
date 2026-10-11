@@ -30,6 +30,7 @@ import { MultiSelect } from '@/components/common/MultiSelect';
 import { QueryState } from '@/components/common/QueryState';
 import { TicketNumber } from '@/components/common/TicketNumber';
 import type { WaitingTicket } from '@/types/desk';
+import { LiveItem, LiveList } from '@/components/motion/LiveList';
 
 const REASONS = [
   'Senior citizen, mobility support',
@@ -47,7 +48,6 @@ const ASSISTANCE = [
   'Wheelchair',
 ].map((value) => ({ value, label: value }));
 
-/** Frame 11: the floor host's tablet — who is waiting, and moving someone who needs help to priority. */
 export function FloorHost() {
   const query = useFloorHost();
   const [selected, setSelected] = useState<WaitingTicket | null>(null);
@@ -62,9 +62,9 @@ export function FloorHost() {
         <CardContent>
           <QueryState query={query} isEmpty={(data) => data.waiting.length === 0}>
             {(data) => (
-              <ul className="grid gap-2">
+              <LiveList className="grid gap-2">
                 {data.waiting.map((ticket) => (
-                  <li key={ticket.id}>
+                  <LiveItem key={ticket.id}>
                     <button
                       type="button"
                       onClick={() => setSelected(ticket)}
@@ -78,9 +78,9 @@ export function FloorHost() {
                         Waiting {ticket.waitingMinutes} min
                       </span>
                     </button>
-                  </li>
+                  </LiveItem>
                 ))}
-              </ul>
+              </LiveList>
             )}
           </QueryState>
           <p className="mt-4 text-xs text-muted-foreground">Tap a ticket to help that client.</p>

@@ -7,6 +7,7 @@ import { ThemeProvider } from 'next-themes';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
 import { makeStore, type AppStore } from '@/store';
+import { MotionProvider } from '@/components/motion/MotionProvider';
 import { MockGate } from './MockGate';
 import { SessionErrorRedirect } from './SessionErrorRedirect';
 
@@ -16,17 +17,14 @@ function makeQueryClient() {
       queries: {
         staleTime: 30_000,
         refetchOnWindowFocus: false,
-        // Never retry auth or validation failures; retry transient ones twice.
         retry: (count, error) => (error.status >= 500 || error.status === 0 ? count < 2 : false),
       },
     },
     queryCache: new QueryCache({
-      // Background refetch failures surface once; first-load failures render inline.
       onError: (error, query) => {
         if (query.state.data !== undefined) toast.error(error.message);
       },
     }),
-    // Shared mutation behaviour, configured per hook through `meta` (types/react-query.d.ts).
     mutationCache: new MutationCache({
       onSuccess: (_data, _variables, _context, mutation) => {
         const { successMessage, invalidates } = mutation.meta ?? {};
@@ -41,7 +39,6 @@ function makeQueryClient() {
   return queryClient;
 }
 
-/** Every client-side provider, in one place, mounted once by the root layout. */
 export function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(makeQueryClient);
   const [store] = useState<AppStore>(makeStore);
@@ -51,13 +48,15 @@ export function Providers({ children }: { children: ReactNode }) {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
-          <SessionErrorRedirect />
-          <MockGate>{children}</MockGate>
-          <Toaster />
+          <MotionProvider>
+            <SessionErrorRedirect />
+            <MockGate>{children}</MockGate>
+            <Toaster />
+          </MotionProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </ReduxProvider>

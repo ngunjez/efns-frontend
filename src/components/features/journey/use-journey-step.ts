@@ -5,10 +5,6 @@ import { useCustomerAction } from '@/api/hooks/use-customer-display';
 import { journeySteps } from '@/config/journey';
 import type { JourneyStep } from '@/types/journey';
 
-/**
- * Records what the client did on the second screen, then moves the screen to
- * the next step of the journey.
- */
 export function useJourneyStep(step: JourneyStep) {
   const router = useRouter();
   const action = useCustomerAction();

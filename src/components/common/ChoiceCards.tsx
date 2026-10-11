@@ -9,10 +9,6 @@ export interface Choice {
   hint?: string;
 }
 
-/**
- * Large selectable cards backed by a radio group (keyboard and screen-reader
- * correct): account category, queue choice, payment method.
- */
 export function ChoiceCards({
   choices,
   value,

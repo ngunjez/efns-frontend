@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface UiState {
-  /** Mobile navigation drawer. */
   sidebarOpen: boolean;
-  /** Desktop sidebar collapsed to give tables the full width. */
   sidebarCollapsed: boolean;
 }
 

@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** Network administration (frames 01–09, 44–78): the master agency's console. */
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <StaffGuard>
@@ -19,7 +18,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         app="admin"
         topbarStart={<AdminSearch />}
         sidebarFooter={<CustomizeCard />}
-        themeToggle
       >
         {children}
       </AppShell>

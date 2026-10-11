@@ -5,7 +5,6 @@ import { Card } from '@/components/ui/card';
 import type { StepProps } from '../CustomerScreen';
 import { StepHeading } from '../StepParts';
 
-/** Frames 17–18: the queue ticket, and waiting to be called. Nothing for the client to do. */
 export default function TicketStep({ data }: StepProps) {
   const t = useTranslations('journey.ticket');
   const ticket = data.ticket;

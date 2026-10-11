@@ -15,7 +15,6 @@ import type {
   WorkbenchView,
 } from '@/types/desk';
 
-/** Live floor data refreshes on a short interval until the realtime channel is specified. */
 const LIVE = { refetchInterval: 15_000, refetchIntervalInBackground: false } as const;
 
 export function useHubStatus() {
@@ -117,7 +116,6 @@ export function useFloorboard() {
 
 export type FloorboardAction = 'push-next' | 'rotate-bay' | 'rotate-idle' | 'change-service';
 
-/** Hub Manager actions on the floor (frame 23): push a ticket, rotate bays, retype a bay. */
 export function useFloorboardAction() {
   return useMutation({
     mutationFn: ({
@@ -183,7 +181,6 @@ export function useAddSupportNote(caseId: string) {
 
 export type ContactChannel = 'call' | 'whatsapp' | 'sms' | 'email';
 
-/** Starts outbound contact through the contact-centre integration; the result lands in the conversation. */
 export function useContactClient(caseId: string) {
   return useMutation({
     mutationFn: (channel: ContactChannel) =>

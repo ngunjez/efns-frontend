@@ -30,10 +30,6 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
-/**
- * Icons referenced by name from config and API data (a service's icon, a
- * table's entity icon). Keeps icon choice declarative and serialisable.
- */
 export const icons = {
   alert: AlertTriangle,
   bell: Bell,

@@ -1,7 +1,9 @@
 import { http, HttpResponse } from 'msw';
 import { ENDPOINTS } from '@/api/endpoints';
-import { documentsByService, hubs, services } from '../data/catalogue';
-import { api, latency } from '../utils';
+import type { Booking, BookingInput } from '@/api/hooks/use-catalogue';
+import { hubs, services } from '../data/catalogue';
+import { CLIENT_APPOINTMENT, CLIENT_SESSION, type Account } from './client';
+import { api, latency, store } from '../utils';
 import type { TimeSlot } from '@/types/domain';
 
 const TIMES = [
@@ -39,20 +41,19 @@ export const catalogueHandlers = [
   }),
   http.post(api(ENDPOINTS.appointments.list), async ({ request }) => {
     await latency();
-    const body = (await request.json()) as {
-      serviceId: string;
-      hubId: string;
-      date: string;
-      time: string;
-    };
+    const body = (await request.json()) as BookingInput;
     const service = services.find((item) => item.id === body.serviceId);
-    return HttpResponse.json({
+    const client = store.get<Account | null>(CLIENT_SESSION, null);
+    const booking: Booking = {
       code: `BK-${Math.floor(1000 + Math.random() * 9000)}`,
       service: service?.name ?? 'Service',
       hub: hubs.find((item) => item.id === body.hubId)?.name ?? 'Hub',
-      date: body.date ?? new Date().toISOString().slice(0, 10),
+      date: body.date,
       time: body.time,
-      documents: documentsByService[body.serviceId] ?? ['National ID or passport'],
-    });
+      email: client?.email ?? '',
+      documents: service?.documents ?? [],
+    };
+    if (client && !body.client) store.set(CLIENT_APPOINTMENT, booking);
+    return HttpResponse.json(booking);
   }),
 ];

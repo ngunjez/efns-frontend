@@ -9,11 +9,6 @@ import { signedOut } from '@/store/slices/auth-slice';
 
 const STAFF_AREAS = ['/desk', '/admin'];
 
-/**
- * Routes session failures from any request: an expired session goes back to
- * the right sign-in page, and a request from outside the officer's hub goes to
- * the refusal screen (frame 81).
- */
 export function SessionErrorRedirect() {
   const router = useRouter();
   const dispatch = useAppDispatch();

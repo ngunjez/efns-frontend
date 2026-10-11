@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 import { useBayDisplay } from '@/api/hooks/use-displays';
 
-/** Frame 22: the screen above a bay. Readable from across the hall. */
 export function BayDisplay({ bay }: { bay: string }) {
   const t = useTranslations('display');
   const { data } = useBayDisplay(bay);

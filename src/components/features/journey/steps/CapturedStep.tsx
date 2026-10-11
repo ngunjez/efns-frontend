@@ -11,7 +11,6 @@ import { useJourneyStep } from '../use-journey-step';
 import type { StepProps } from '../CustomerScreen';
 import { StepActions, StepHeading } from '../StepParts';
 
-/** Frame 26: the passport read by machine and every supporting document scanned. */
 export default function CapturedStep({ data, client }: StepProps) {
   const t = useTranslations('journey.captured');
   const { advance, pending } = useJourneyStep('documents-captured');

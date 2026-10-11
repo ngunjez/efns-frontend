@@ -12,10 +12,6 @@ import { buildDefaults, buildSchema, customFieldToDef } from './schema';
 import { FieldControl } from './FieldControl';
 import type { FormDefinition, FormSectionDef } from './types';
 
-/**
- * Builds a whole form — layout, controls, validation and server-error mapping —
- * from a FormDefinition. Submit lives outside (drawer footer) via `formId`.
- */
 export function DynamicForm({
   formId,
   definition,
@@ -55,7 +51,6 @@ export function DynamicForm({
     try {
       await onSubmit(values);
     } catch (error) {
-      // Map the API's field-level validation messages back onto the inputs.
       Object.entries((error as ApiError).fieldErrors ?? {}).forEach(([name, message]) =>
         form.setError(name, { message }),
       );

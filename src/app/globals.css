@@ -3,15 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design tokens — single source of truth, taken from the workflow designs.
- * Components use the semantic names (bg-primary, text-muted-foreground, …),
- * never raw hex values. Change a colour here and it changes everywhere.
- */
 :root {
-  --background: #f4f6f9; /* page */
-  --foreground: #1f2937; /* ink */
-  --card: #ffffff; /* surface */
+  --background: #f4f6f9;
+  --foreground: #1f2937;
+  --card: #ffffff;
   --card-foreground: #1f2937;
   --popover: #ffffff;
   --popover-foreground: #1f2937;
@@ -51,10 +46,10 @@
   --sidebar: #ffffff;
   --overlay: rgb(15 23 42 / 0.45);
 
-  --radius-control: 0.5rem; /* 8px */
-  --radius-field: 0.75rem; /* 12px — inputs and buttons in the designs */
-  --radius-card: 0.75rem; /* 12px */
-  --radius-panel: 1rem; /* 16px */
+  --radius-control: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-card: 0.75rem;
+  --radius-panel: 1rem;
 }
 
 .dark {
@@ -138,11 +133,6 @@
   --radius-card: var(--radius-card);
   --radius-panel: var(--radius-panel);
 
-  /*
-   * Fluid type scale: each step grows linearly from a 360px phone to a 1440px
-   * desktop and is clamped at both ends, so headings never need breakpoint
-   * overrides. Use: text-display, text-h1, text-h2, text-h3, text-lead.
-   */
   --text-display: clamp(2.125rem, 1.667rem + 2.037vw, 3.5rem);
   --text-display--line-height: 1.1;
   --text-display--font-weight: 700;
@@ -157,17 +147,15 @@
   --text-h3--font-weight: 600;
   --text-lead: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);
   --text-lead--line-height: 1.5;
-  /* Queue tickets and the hall display, read from across a room. */
   --text-ticket: clamp(2rem, 1.667rem + 1.481vw, 3rem);
   --text-ticket--line-height: 1;
   --text-jumbo: clamp(3.5rem, 1.583rem + 8.519vw, 9.25rem);
   --text-jumbo--line-height: 1;
 
-  /* Fluid spacing: px-gutter / py-section keep page rhythm without breakpoints. */
   --spacing-gutter: clamp(1rem, 0.5rem + 2.222vw, 2.5rem);
   --spacing-section: clamp(2.5rem, 1.833rem + 2.963vw, 4.5rem);
-  --container-content: 75rem; /* 1200px content width from the designs */
-  --container-narrow: 45rem; /* forms and journey screens */
+  --container-content: 75rem;
+  --container-narrow: 45rem;
 }
 
 @layer base {
@@ -176,6 +164,12 @@
   }
   html {
     -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   body {
     @apply bg-background font-sans text-foreground antialiased;

@@ -12,11 +12,6 @@ import { locked, signedIn } from '@/store/slices/auth-slice';
 import { ErrorState, LoadingBlock } from '@/components/common/QueryState';
 import { LockScreen } from './LockScreen';
 
-/**
- * Loads the session, enforces the screen's permission (frame 82) and locks the
- * screen after the idle period (frame 83). Wraps the staff apps and the hub
- * devices; wall displays turn the idle lock off because nobody touches them.
- */
 export function StaffGuard({
   children,
   idleLock = true,
@@ -63,10 +58,5 @@ export function StaffGuard({
     );
   }
 
-  return (
-    <>
-      {/* Client details stay out of the DOM while locked, not just covered. */}
-      {isLocked ? <LockScreen /> : children}
-    </>
-  );
+  return <>{isLocked ? <LockScreen /> : children}</>;
 }

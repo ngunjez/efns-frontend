@@ -6,10 +6,6 @@ import { Providers } from '@/components/providers/Providers';
 import { site } from '@/config/site';
 import './globals.css';
 
-/**
- * Self-hosted, not Google Fonts: hub networks have no public internet breakout
- * (concept doc §5), so every asset must come from the platform itself.
- */
 const outfit = localFont({
   src: '../assets/fonts/Outfit-Variable.woff2',
   variable: '--font-outfit',

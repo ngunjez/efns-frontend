@@ -13,7 +13,6 @@ import { BookForClientDrawer } from './BookForClientDrawer';
 
 type Row = Appointment & Record<string, unknown>;
 
-/** Frames 84–87: today's bookings at reception, check-in, and booking for a client on the phone. */
 export function AppointmentsBoard() {
   const query = useAppointments();
   const checkIn = useCheckIn();

@@ -3,7 +3,6 @@
 import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 import { cn } from '@/lib/utils';
 
-/** A row of joined toggle buttons: language, "Escalate to", field type. */
 export function SegmentedControl({
   options,
   value,

@@ -5,7 +5,6 @@ import { Dialog as SheetPrimitive } from 'radix-ui';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-/** Side drawer — every "Add …" form in the designs opens in one of these. */
 const Sheet = SheetPrimitive.Root;
 const SheetTrigger = SheetPrimitive.Trigger;
 const SheetClose = SheetPrimitive.Close;

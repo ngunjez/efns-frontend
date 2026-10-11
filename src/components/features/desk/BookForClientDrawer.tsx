@@ -28,10 +28,6 @@ import { TimeSlotPicker } from '@/components/common/TimeSlotPicker';
 import { useDebouncedValue } from '@/hooks/use-debounced-value';
 import { useAppSelector } from '@/store/hooks';
 
-/**
- * Frame 85: reception books for a client on the phone. The client is found by
- * phone, ID or passport number so no duplicate profile is created.
- */
 export function BookForClientDrawer({
   open,
   onOpenChange,

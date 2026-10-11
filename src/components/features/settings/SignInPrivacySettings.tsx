@@ -82,7 +82,6 @@ const definition: FormDefinition = {
   ],
 };
 
-/** Frames 72–73: idle lock, lockout and how long records are kept. The idle time drives the lock screen. */
 export function SignInPrivacySettings() {
   const formId = useId();
   const query = useSettings<Record<string, unknown>>('sign-in');

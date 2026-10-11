@@ -21,7 +21,7 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
   return (
     <tr
       className={cn(
-        'border-b transition-colors data-[highlight=true]:bg-success-tint data-[state=selected]:bg-primary-tint/50',
+        'animate-in border-b transition-colors duration-300 fade-in-0 data-[highlight=true]:bg-success-tint data-[state=selected]:bg-primary-tint/50',
         className,
       )}
       {...props}

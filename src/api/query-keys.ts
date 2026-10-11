@@ -1,11 +1,11 @@
 import type { ListParams } from '@/types/api';
 
-/** Query keys in one tree, so invalidation is exact: invalidate a prefix, refresh every view of it. */
 export const queryKeys = {
   me: ['auth', 'me'] as const,
   client: {
     me: ['client', 'me'] as const,
     application: ['client', 'application'] as const,
+    appointment: ['client', 'appointment'] as const,
     track: (reference: string) => ['client', 'track', reference] as const,
   },
   catalogue: {

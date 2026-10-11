@@ -25,7 +25,6 @@ const dot = {
   neutral: 'bg-muted-foreground',
 } as const;
 
-/** Frame 20: the bay officer's own status, visible to the supervisor on the floorboard. */
 export function StationStatusMenu() {
   const canServe = useHasPermission(PERMISSIONS.servicePoint);
   if (!canServe) return null;

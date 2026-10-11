@@ -16,7 +16,6 @@ import {
   rolesPage,
 } from './system';
 
-/** Every admin register, keyed by its path under /admin. Must match config/navigation.ts. */
 export const adminPages: Record<string, PageDefinition> = {
   'hubs/applications': applicationsPage,
   'hubs/accreditation': accreditationPage,

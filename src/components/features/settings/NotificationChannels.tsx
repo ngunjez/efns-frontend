@@ -25,7 +25,6 @@ const CHANNELS = [
   { key: 'inApp', label: 'In-app', hint: 'Client portal and staff bell' },
 ] as const;
 
-/** Frame 63: the channels messages may use, and how many times to retry before falling back. */
 export default function NotificationChannels() {
   const query = useSettings<Channels>('notification-channels');
   const save = useSaveSettings('notification-channels');

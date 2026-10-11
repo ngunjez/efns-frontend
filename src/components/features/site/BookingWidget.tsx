@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/select';
 import { FormField } from '@/components/common/FormField';
 
-/** Hero booking card (frame 90): choose a service and a hub, then see times. */
 export function BookingWidget() {
   const t = useTranslations('landing');
   const router = useRouter();

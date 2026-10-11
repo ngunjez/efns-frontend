@@ -1,11 +1,8 @@
 import { Avatar } from '@/components/ui/avatar';
 import { LanguageSwitch } from '@/components/common/LanguageSwitch';
+import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { Logo } from '@/components/common/Logo';
 
-/**
- * Header of the client-facing hub screens (welcome tablet, customer display):
- * the hub's name, the client being served and the language switch.
- */
 export function HubScreenHeader({
   hubName,
   subtitle,
@@ -21,7 +18,7 @@ export function HubScreenHeader({
     <header className="border-b bg-card">
       <div className="flex min-h-16 flex-wrap items-center justify-between gap-3 px-gutter py-3 sm:min-h-20">
         <Logo name={hubName} subtitle={subtitle} />
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-3">
           {client && (
             <span className="flex items-center gap-2.5">
               <Avatar name={client.name} />
@@ -33,6 +30,7 @@ export function HubScreenHeader({
           )}
           {end}
           <LanguageSwitch />
+          <ThemeToggle />
         </div>
       </div>
     </header>

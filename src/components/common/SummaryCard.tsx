@@ -7,7 +7,6 @@ import type { SummaryCard as SummaryCardData } from '@/types/register';
 import { IconTile } from './IconTile';
 import { KpiStat } from './KpiStat';
 
-/** Side KPI card: one figure, its change, and a link to the full report. */
 export function SummaryCard({ card }: { card: SummaryCardData }) {
   return (
     <Card className="flex flex-col justify-between gap-4 p-5">

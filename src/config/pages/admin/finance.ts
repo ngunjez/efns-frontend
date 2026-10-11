@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { hubColumn, options } from '../shared';
 
-/** Frame 49: fees collected, amounts remitted to the authorities and what is still unmatched. */
 export const reconciliationPage: PageDefinition = {
   key: 'reconciliation',
   title: 'Finance and reconciliation',
@@ -55,7 +54,6 @@ export const reconciliationPage: PageDefinition = {
   ],
 };
 
-/** Frame 50: how each single client payment is split behind the scenes. Internal only. */
 export const allocationPage: PageDefinition = {
   key: 'allocation',
   title: 'Revenue allocation',
@@ -124,7 +122,6 @@ export const allocationPage: PageDefinition = {
   },
 };
 
-/** Frame 51: disputes, SLA breaches and refunds, each resolved and evidenced. */
 export const disputesPage: PageDefinition = {
   key: 'disputes',
   title: 'Disputes and refunds',
@@ -218,7 +215,6 @@ export const disputesPage: PageDefinition = {
   ],
 };
 
-/** Frame 52: what is owed to each hub operator, settled monthly. */
 export const settlementsPage: PageDefinition = {
   key: 'settlements',
   title: 'Partner settlements',

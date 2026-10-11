@@ -22,15 +22,11 @@ import { useDebouncedValue } from '@/hooks/use-debounced-value';
 import { cn } from '@/lib/utils';
 import type { RegisterRow } from '@/types/register';
 import type { PageDefinition, WidgetDef } from './types';
+import { Reveal } from '@/components/motion/Reveal';
 import { Widget } from './Widget';
 
 const HIGHLIGHT_MS = 6000;
 
-/**
- * Renders any admin page from its PageDefinition: header + KPIs, widgets,
- * the register table with search and pagination, the add/edit drawer and the
- * delete confirmation. Custom fields added in Settings appear automatically.
- */
 export function RegisterPage({ definition }: { definition: PageDefinition }) {
   const { key, form, remove } = definition;
   const pageSize = definition.pageSize ?? 10;
@@ -62,7 +58,6 @@ export function RegisterPage({ definition }: { definition: PageDefinition }) {
   const summary = query.data?.summary;
   const rows = query.data?.data ?? [];
 
-  // Custom fields flagged "Show as a table column" join the table automatically.
   const extraColumns = useMemo<ColumnDef[]>(
     () =>
       (customFields.data ?? [])
@@ -137,7 +132,7 @@ export function RegisterPage({ definition }: { definition: PageDefinition }) {
   const nameOf = (row: RegisterRow) => String(row[remove?.nameKey ?? 'name'] ?? '');
 
   return (
-    <div className="grid gap-5">
+    <Reveal className="grid gap-5">
       <div
         className={cn(
           'grid gap-5',
@@ -240,6 +235,6 @@ export function RegisterPage({ definition }: { definition: PageDefinition }) {
           }
         />
       )}
-    </div>
+    </Reveal>
   );
 }

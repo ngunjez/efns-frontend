@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils';
 
-/** The hub mark plus an optional wordmark. Decorative when a visible name sits beside it. */
 export function Logo({
   name,
   subtitle,

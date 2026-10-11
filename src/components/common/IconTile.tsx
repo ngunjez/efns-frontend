@@ -10,7 +10,6 @@ const tones: Record<BadgeTone, string> = {
   neutral: 'bg-neutral-tint text-muted-foreground',
 };
 
-/** Rounded tinted square holding an icon — service cards, table entities, KPI cards. */
 export function IconTile({
   icon: Icon,
   tone = 'info',

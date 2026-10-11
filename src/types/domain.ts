@@ -8,6 +8,7 @@ export interface Service {
   governmentFee: number;
   serviceCharge: number;
   turnaround: string;
+  documents: string[];
 }
 
 export interface Hub {
@@ -22,7 +23,6 @@ export interface TimeSlot {
   available: boolean;
 }
 
-/** A status as the API sends it: the label to show and the tone to show it in. */
 export interface Status {
   label: string;
   tone: BadgeTone;
@@ -52,7 +52,6 @@ export interface CalledTicket {
   service: string;
 }
 
-/** The 12 stages of the client journey (hub concept document, "Sample client journey"). */
 export type StageNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export interface TimelineStep {

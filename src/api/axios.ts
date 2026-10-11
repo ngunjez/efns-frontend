@@ -3,11 +3,6 @@ import { env } from '@/config/env';
 import { reportError } from '@/lib/monitoring';
 import type { ApiError } from '@/types/api';
 
-/**
- * The only HTTP client in the app. Authentication rides on the httpOnly
- * session cookie the API sets at sign-in (`withCredentials`), so no token is
- * ever readable from JavaScript or stored in localStorage.
- */
 export const apiClient = axios.create({
   baseURL: env.apiBaseUrl,
   timeout: env.apiTimeoutMs,
@@ -15,14 +10,16 @@ export const apiClient = axios.create({
   headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 });
 
+apiClient.interceptors.request.use((config) => {
+  if (typeof document !== 'undefined' && document.documentElement.lang) {
+    config.headers.set('Accept-Language', document.documentElement.lang);
+  }
+  return config;
+});
+
 type SessionHandler = (error: ApiError) => void;
 let onSessionError: SessionHandler | null = null;
 
-/**
- * Registered once by the providers: decides where to send the user when the
- * session expires (401) or the request comes from outside their hub (403
- * OUTSIDE_HUB, geofence layer 5). Keeps routing out of the HTTP layer.
- */
 export function setSessionErrorHandler(handler: SessionHandler | null) {
   onSessionError = handler;
 }

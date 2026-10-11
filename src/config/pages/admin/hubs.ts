@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { MENU_ACTIONS, hubColumn, hubField, options } from '../shared';
 
-/** Frame 01: hub applications moving through due diligence and site inspection. */
 export const applicationsPage: PageDefinition = {
   key: 'hub-applications',
   title: 'Applications',
@@ -101,7 +100,6 @@ export const applicationsPage: PageDefinition = {
   ],
 };
 
-/** Frames 02–03: the accreditation register and the go-live gate. */
 export const accreditationPage: PageDefinition = {
   key: 'accreditation',
   title: 'Accreditation',

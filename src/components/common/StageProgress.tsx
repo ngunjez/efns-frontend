@@ -4,7 +4,6 @@ import { StepProgress } from './StepProgress';
 
 export const STAGE_COUNT = 12;
 
-/** "Stage 4 of 12: Assisted filing" — the client journey bar shown on every client step. */
 export function StageProgress({ stage, className }: { stage: StageNumber; className?: string }) {
   const t = useTranslations('journey');
   const name = (number: number) => t(`stages.${number}` as `stages.1`);

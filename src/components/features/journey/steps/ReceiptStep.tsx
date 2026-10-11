@@ -11,10 +11,6 @@ import { useJourneyStep } from '../use-journey-step';
 import type { StepProps } from '../CustomerScreen';
 import { StepActions, StepHeading } from '../StepParts';
 
-/**
- * Frames 34, 36 and 37 share one shape — a confirmation with a numbered slip:
- * payment receipt, passport lodgement receipt, submission acknowledgement.
- */
 export default function ReceiptStep({ step, data }: StepProps) {
   const t = useTranslations('journey');
   const common = useTranslations('common');

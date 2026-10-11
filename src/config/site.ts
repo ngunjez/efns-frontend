@@ -1,4 +1,3 @@
-/** Brand and contact details shown on public and client screens. */
 export const site = {
   name: 'Agency Service Hubs',
   deskName: 'AaaS Service Desk',

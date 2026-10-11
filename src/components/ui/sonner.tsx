@@ -3,7 +3,6 @@
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
 import { useTheme } from 'next-themes';
 
-/** Global toast host. Fire toasts anywhere with `toast.success()` / `toast.error()` from 'sonner'. */
 function Toaster(props: ToasterProps) {
   const { resolvedTheme } = useTheme();
   return (

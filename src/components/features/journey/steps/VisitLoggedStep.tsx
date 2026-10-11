@@ -12,7 +12,6 @@ import { useJourneyStep } from '../use-journey-step';
 import type { StepProps } from '../CustomerScreen';
 import { StepActions, StepHeading } from '../StepParts';
 
-/** Frame 12: screening done, the visitor pass, and which queue the client needs. */
 export default function VisitLoggedStep({ data, client }: StepProps) {
   const t = useTranslations('journey.visitLogged');
   const common = useTranslations('common');

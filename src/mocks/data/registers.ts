@@ -1,10 +1,5 @@
 import type { RegisterRow, RegisterSummary } from '@/types/register';
 
-/**
- * Mock rows and summaries for every admin register, taken from the workflow
- * designs. Shapes match the column keys in src/config/pages — the same
- * contract the backend endpoints need to honour.
- */
 type Seed = { rows: Omit<RegisterRow, 'id'>[]; summary?: RegisterSummary };
 
 const up = (value: string) => ({ value, tone: 'success' as const });

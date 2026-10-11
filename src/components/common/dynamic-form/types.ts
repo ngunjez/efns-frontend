@@ -19,14 +19,8 @@ export interface FieldOption {
   hint?: string;
 }
 
-/** Option lists that come from the API instead of the definition. */
 export type OptionsSource = 'hubs' | 'services' | 'roles';
 
-/**
- * One form field, declared as data. The same definitions drive the drawer
- * forms, their validation and the custom fields administrators add, which is
- * how the platform adds services and fields without a release (doc §4.7).
- */
 export interface FieldDef {
   name: string;
   label: string;
@@ -36,9 +30,7 @@ export interface FieldDef {
   help?: string;
   options?: FieldOption[];
   optionsSource?: OptionsSource;
-  /** Columns for `matrix` fields, e.g. View / Edit per system. */
   matrixColumns?: FieldOption[];
-  /** Width in the two-column grid. Defaults to full width for long controls. */
   span?: 1 | 2;
   min?: number;
   max?: number;
@@ -56,6 +48,5 @@ export interface FormDefinition {
   submitLabel: string;
   successMessage: string;
   sections: FormSectionDef[];
-  /** Append the custom fields administrators added to this page. */
   customFieldsPage?: string;
 }

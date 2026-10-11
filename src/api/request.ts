@@ -1,7 +1,6 @@
 import type { AxiosRequestConfig } from 'axios';
 import { apiClient } from './axios';
 
-/** Thin typed wrappers so hooks read as one line and never unwrap `.data` by hand. */
 export const request = {
   get: <T>(url: string, params?: AxiosRequestConfig['params']) =>
     apiClient.get<T>(url, { params }).then((r) => r.data),

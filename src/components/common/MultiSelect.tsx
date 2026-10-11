@@ -11,7 +11,6 @@ import { fieldClasses } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import type { FieldOption } from './dynamic-form/types';
 
-/** Pick several values; choices show as removable chips (services requested, accepted channels). */
 export function MultiSelect({
   options,
   value,

@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { ICON_ACTIONS, ROLES, SYSTEMS, hubColumn, options } from '../shared';
 
-/** Frame 09: hub links, enrolled devices and refused sign-ins (geofencing). */
 export const networkPage: PageDefinition = {
   key: 'network',
   title: 'Network and security',
@@ -41,7 +40,6 @@ export const networkPage: PageDefinition = {
   ],
 };
 
-/** Frames 58–62: what each role can open and do. The administrator's change applies at once. */
 export const rolesPage: PageDefinition = {
   key: 'roles',
   title: 'Roles and access',
@@ -128,7 +126,6 @@ export const rolesPage: PageDefinition = {
   ],
 };
 
-/** Frames 63–65: which event sends which message, to whom and on which channel. */
 export const notificationsPage: PageDefinition = {
   key: 'notification-rules',
   title: 'Notifications',
@@ -234,7 +231,6 @@ export const notificationsPage: PageDefinition = {
   ],
 };
 
-/** Frames 66–68: who owns each kind of problem, the deadline and where it escalates. */
 export const exceptionRulesPage: PageDefinition = {
   key: 'exception-rules',
   title: 'Exception rules',
@@ -337,7 +333,6 @@ export const exceptionRulesPage: PageDefinition = {
   ],
 };
 
-/** Frames 69–71: the outside connections, each checked when saved. */
 export const integrationsPage: PageDefinition = {
   key: 'integrations',
   title: 'Integrations',
@@ -403,7 +398,6 @@ export const integrationsPage: PageDefinition = {
   ],
 };
 
-/** Frames 74–78: administrators add their own modules to the menu and fields to any page. */
 export const modulesPage: PageDefinition = {
   key: 'modules',
   title: 'Modules and fields',

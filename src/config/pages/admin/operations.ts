@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { options } from '../shared';
 
-/** Frames 44, 46, 47: chain of custody for surrendered passports and government outputs. */
 export const vaultPage: PageDefinition = {
   key: 'vault',
   title: 'Vault and custody',
@@ -140,7 +139,6 @@ export const vaultPage: PageDefinition = {
   ],
 };
 
-/** Frame 48: consignments sealed, scanned and handed to a runner against a signature. */
 export const logisticsPage: PageDefinition = {
   key: 'manifests',
   title: 'Courier and logistics',

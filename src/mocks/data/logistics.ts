@@ -40,7 +40,6 @@ const state: { manifest: OpenManifest | null } = {
   },
 };
 
-/** Mutable mock state for the open consignment . */
 export function logisticsState() {
   return state;
 }

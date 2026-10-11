@@ -32,7 +32,6 @@ const CHANNELS: { channel: ContactChannel; label: string }[] = [
   { channel: 'email', label: 'Log email' },
 ];
 
-/** Frame 40: one case across every channel — calls, WhatsApp, SMS and email in a single feed. */
 export function ClientSupport({ caseId = 'current' }: { caseId?: string }) {
   const query = useSupportCase(caseId);
   const contact = useContactClient(caseId);

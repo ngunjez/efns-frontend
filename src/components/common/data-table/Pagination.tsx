@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-/** "Showing 1 to 5 of 41 entries" with Previous / page numbers / Next. */
 export function Pagination({
   page,
   pageSize,

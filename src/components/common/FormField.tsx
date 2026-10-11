@@ -8,7 +8,6 @@ interface FormFieldProps {
   error?: string;
   help?: string;
   className?: string;
-  /** Receives the generated id and aria props to spread on the control. */
   children: (control: {
     id: string;
     'aria-invalid'?: boolean;
@@ -17,10 +16,6 @@ interface FormFieldProps {
   }) => React.ReactNode;
 }
 
-/**
- * Label + control + help + error, wired for screen readers. Every input in the
- * app is wrapped in this, so labelling and error announcement can't be forgotten.
- */
 export function FormField({ label, required, error, help, className, children }: FormFieldProps) {
   const id = useId();
   const helpId = `${id}-help`;

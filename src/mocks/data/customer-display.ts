@@ -1,6 +1,5 @@
 import type { CustomerDisplayView } from '@/types/journey';
 
-/** Everything the client-facing screens show for Priya Raman's work permit (frames 10–43). */
 export const customerDisplay: CustomerDisplayView = {
   hubName: 'Nairobi CBD Hub',
   officer: 'Grace Mwangi',

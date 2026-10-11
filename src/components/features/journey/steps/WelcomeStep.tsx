@@ -17,7 +17,6 @@ const STREAMS = [
 ] as const;
 const REASONS = ['reasonSenior', 'reasonDisability', 'reasonExpectant', 'reasonInfant'] as const;
 
-/** Frames 10 and 13: the floor host chooses the client's stream and any language or voice help. */
 export default function WelcomeStep(_: StepProps) {
   const t = useTranslations('journey.welcome');
   const { advance, pending } = useJourneyStep('welcome');

@@ -7,7 +7,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { adminNavigation, filterNavigation, type NavLink } from '@/config/navigation';
 import { useAppSelector } from '@/store/hooks';
 
-/** Top-bar search: jump to any admin page the user can open, by name or section. */
 export function AdminSearch() {
   const router = useRouter();
   const permissions = useAppSelector((state) => state.auth.user?.permissions ?? []);

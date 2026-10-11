@@ -9,7 +9,6 @@ import { useJourneyStep } from '../use-journey-step';
 import type { StepProps } from '../CustomerScreen';
 import { StepActions, StepHeading } from '../StepParts';
 
-/** Frame 24: the client reads what the officer typed, section by section, and confirms. */
 export default function CheckDetailsStep({ data, officer }: StepProps) {
   const t = useTranslations('journey.checkDetails');
   const common = useTranslations('common');

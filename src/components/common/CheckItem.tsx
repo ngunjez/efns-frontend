@@ -9,7 +9,6 @@ const icons = {
   failed: <XCircle className="size-6 fill-destructive text-white" aria-hidden />,
 } satisfies Record<CheckState, React.ReactNode>;
 
-/** A green-tick row: document checklists, screening checks, collection checks. */
 export function CheckItem({
   label,
   state = 'done',

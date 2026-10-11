@@ -2,46 +2,63 @@
 
 import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { useLocale } from 'next-intl';
-import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
+import { useQueryClient } from '@tanstack/react-query';
+import { useLocale, useTranslations } from 'next-intl';
+import { Check, ChevronDown, Globe } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { setLocale } from '@/i18n/actions';
-import { localeLabels, locales } from '@/i18n/config';
+import { localeLabels, locales, type Locale } from '@/i18n/config';
 import { cn } from '@/lib/utils';
 
-/** English | Kiswahili — on every client-facing screen. Persists in a cookie. */
 export function LanguageSwitch({ className }: { className?: string }) {
-  const locale = useLocale();
+  const t = useTranslations('common');
+  const locale = useLocale() as Locale;
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [pending, startTransition] = useTransition();
 
   const change = (next: string) =>
     startTransition(async () => {
       await setLocale(next);
       router.refresh();
+      await queryClient.invalidateQueries();
     });
 
   return (
-    <RadioGroupPrimitive.Root
-      aria-label="Language"
-      orientation="horizontal"
-      value={locale}
-      onValueChange={change}
-      disabled={pending}
-      className={cn(
-        'inline-flex overflow-hidden rounded-control border bg-card text-sm font-semibold',
-        className,
-      )}
-    >
-      {locales.map((code) => (
-        <RadioGroupPrimitive.Item
-          key={code}
-          value={code}
-          lang={code}
-          className="px-3 py-2 transition-colors hover:bg-muted data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground sm:px-4"
-        >
-          {localeLabels[code]}
-        </RadioGroupPrimitive.Item>
-      ))}
-    </RadioGroupPrimitive.Root>
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        aria-label={t('language')}
+        disabled={pending}
+        className={cn(
+          'inline-flex h-10 items-center gap-2 rounded-control border bg-card px-3 text-sm font-semibold transition-colors hover:bg-muted disabled:opacity-60',
+          className,
+        )}
+      >
+        <Globe className="size-4 text-muted-foreground" aria-hidden />
+        <span lang={locale}>{localeLabels[locale]}</span>
+        <ChevronDown className="size-4 text-muted-foreground" aria-hidden />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-44">
+        <DropdownMenuRadioGroup value={locale} onValueChange={change}>
+          {locales.map((code) => (
+            <DropdownMenuRadioItem
+              key={code}
+              value={code}
+              lang={code}
+              className="justify-between pl-3"
+            >
+              {localeLabels[code]}
+              {code === locale && <Check className="text-primary" aria-hidden />}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

@@ -14,8 +14,8 @@ import { useElapsedSeconds } from '@/hooks/use-elapsed-seconds';
 import { formatDuration, formatTime } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import type { StationAction, StationView } from '@/types/desk';
+import { LiveItem, LiveList } from '@/components/motion/LiveList';
 
-/** Frames 19, 20, 103: the bay officer's desk — call, serve, file, check out, route to QA. */
 export function ServicePoint() {
   const query = useStation();
   return (
@@ -125,9 +125,9 @@ function Station({ station }: { station: StationView }) {
               <Badge tone="warning">{station.queue.length} waiting</Badge>
             </CardHeader>
             <CardContent>
-              <ul className="divide-y">
+              <LiveList className="divide-y">
                 {station.queue.map((ticket) => (
-                  <li key={ticket.id} className="flex items-center gap-3 py-2.5">
+                  <LiveItem key={ticket.id} className="flex items-center gap-3 py-2.5">
                     <span className="rounded-control bg-primary-tint px-2 py-1 text-sm font-bold text-primary tabular">
                       {ticket.number}
                     </span>
@@ -138,9 +138,9 @@ function Station({ station }: { station: StationView }) {
                       </span>
                     </span>
                     <StatusBadge status={ticket.flag ?? ticket.stream} />
-                  </li>
+                  </LiveItem>
                 ))}
-              </ul>
+              </LiveList>
               <p className="mt-3 text-xs text-muted-foreground">
                 Order: executive, then priority, then appointments, then walk-ins by waiting time.
                 Tickets only, no client names.

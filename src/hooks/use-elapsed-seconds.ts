@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-/** Live seconds since `since` (ISO date) — the officer desk and workbench timers. */
 export function useElapsedSeconds(since: string | null | undefined) {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { EmptyState } from '@/components/common/QueryState';
 import { cn } from '@/lib/utils';
+import { LiveItem, LiveList } from '@/components/motion/LiveList';
 
 const dot = {
   info: 'bg-primary',
@@ -17,7 +18,6 @@ const dot = {
   neutral: 'bg-muted-foreground',
 } as const;
 
-/** Frame 105: returned cases, next client, SLA warnings — each links to the screen it is about. */
 export function NotificationsBell() {
   const { data = [] } = useNotifications();
   const unread = data.filter((item) => !item.read).length;
@@ -45,7 +45,7 @@ export function NotificationsBell() {
         {data.length === 0 ? (
           <EmptyState title="You're all caught up" className="py-8" />
         ) : (
-          <ul className="max-h-96 divide-y overflow-y-auto">
+          <LiveList className="max-h-96 divide-y overflow-y-auto">
             {data.map((item) => {
               const body = (
                 <span className="flex gap-3 px-4 py-3">
@@ -65,7 +65,7 @@ export function NotificationsBell() {
                 </span>
               );
               return (
-                <li key={item.id}>
+                <LiveItem key={item.id}>
                   {item.href ? (
                     <Link href={item.href as Route} className="block hover:bg-muted">
                       {body}
@@ -73,10 +73,10 @@ export function NotificationsBell() {
                   ) : (
                     body
                   )}
-                </li>
+                </LiveItem>
               );
             })}
-          </ul>
+          </LiveList>
         )}
       </PopoverContent>
     </Popover>

@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { options, serviceField } from '../shared';
 
-/** Frame 05: statutory fees, service charges and turnaround targets per service. */
 export const feesPage: PageDefinition = {
   key: 'fees',
   title: 'Fees and SLAs',
@@ -136,7 +135,6 @@ export const feesPage: PageDefinition = {
   ],
 };
 
-/** Frame 04: application forms, document checklists and inspection checklists. */
 export const formsPage: PageDefinition = {
   key: 'forms',
   title: 'Forms and checklists',

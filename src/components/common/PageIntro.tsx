@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils';
 
-/** Big page title and lead paragraph used at the top of client screens. */
 export function PageIntro({
   title,
   body,

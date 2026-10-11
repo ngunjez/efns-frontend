@@ -70,7 +70,6 @@ export function allFields(sections: FormSectionDef[]) {
   return sections.flatMap((section) => section.fields);
 }
 
-/** Validation schema generated from the field definitions — never written twice. */
 export function buildSchema(sections: FormSectionDef[]) {
   return z.object(
     Object.fromEntries(allFields(sections).map((field) => [field.name, fieldSchema(field)])),
@@ -83,7 +82,6 @@ export function buildDefaults(sections: FormSectionDef[], record?: Record<string
   );
 }
 
-/** Converts an administrator-defined custom field into a form field. */
 export function customFieldToDef(field: CustomField): FieldDef {
   const type = field.type === 'boolean' ? 'switch' : field.type;
   return {

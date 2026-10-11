@@ -23,10 +23,6 @@ const schema = z.object({
   password: z.string().min(1, 'Enter your password'),
 });
 
-/**
- * Frames 79–80: one sign-in for every staff role, always with an authenticator
- * code. The role decides which screen opens; outside the hub the API refuses.
- */
 export function StaffSignIn() {
   const router = useRouter();
   const params = useSearchParams();

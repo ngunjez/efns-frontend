@@ -3,10 +3,6 @@ import { cn } from '@/lib/utils';
 import type { Kpi } from '@/types/domain';
 import { KpiStat } from './KpiStat';
 
-/**
- * The header card on every staff page: title, one-line purpose, the page's
- * headline numbers and its primary actions.
- */
 export function PageHeader({
   title,
   description,

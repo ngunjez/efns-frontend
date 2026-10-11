@@ -6,13 +6,11 @@ export interface HubRef {
   code: string;
 }
 
-/** The signed-in staff member. Permissions come from the API, never from the role name. */
 export interface StaffUser {
   id: string;
   name: string;
   email: string;
   roleLabel: string;
-  /** e.g. "Bay 3" — shown under the name in the top bar. */
   station?: string;
   hub: HubRef | null;
   permissions: Permission[];

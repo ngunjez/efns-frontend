@@ -1,7 +1,6 @@
 import type { Kpi, Status } from './domain';
 import type { Paginated } from './api';
 
-/** A KPI card beside the page header ("Service charge income", "See Report →"). */
 export interface SummaryCard extends Kpi {
   href?: string;
 }
@@ -22,7 +21,6 @@ export interface ListItem {
   title: string;
   detail?: string;
   status?: Status;
-  /** Coloured dot for timelines such as "Escalation path". */
   tone?: Status['tone'];
 }
 
@@ -38,7 +36,6 @@ export interface ChecklistItem {
   done: boolean;
 }
 
-/** Data for every widget on a page, keyed by the widget id in its definition. */
 export type WidgetData =
   | { kind: 'chart'; points: ChartPoint[]; total?: string; delta?: Kpi['delta']; caption?: string }
   | { kind: 'donut'; total: string; slices: { label: string; value: number; display: string }[] }
@@ -50,7 +47,6 @@ export type WidgetData =
       items: ChecklistItem[];
       subtitle?: string;
       note?: string;
-      /** A record action unlocked when every item is done, e.g. "Accredit and go live". */
       action?: { label: string; enabled: boolean; recordId: string; name: string };
     };
 
@@ -66,7 +62,6 @@ export interface RegisterResponse<Row = RegisterRow> extends Paginated<Row> {
   summary?: RegisterSummary;
 }
 
-/** A field an administrator added in Settings › Modules and fields. */
 export interface CustomField {
   name: string;
   label: string;

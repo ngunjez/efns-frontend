@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils';
 import type { Kpi } from '@/types/domain';
 import { DeltaBadge } from './DeltaBadge';
 
-/** Label over a big figure with its change badge — the stat row in every admin header. */
 export function KpiStat({
   kpi,
   size = 'md',

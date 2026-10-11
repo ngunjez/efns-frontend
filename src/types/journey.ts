@@ -2,7 +2,6 @@ import type { Status } from './domain';
 
 export type FingerState = 'captured' | 'retake' | 'pending';
 
-/** Every client-facing step the hub screens can show, in journey order. */
 export const JOURNEY_STEPS = [
   'welcome',
   'visit-logged',
@@ -43,13 +42,11 @@ export interface JourneyData {
   passport: { mrz: string[]; rows: { label: string; value: string }[] };
   documents: { label: string; status: Status }[];
   biometrics: {
-    /** Five fingers per hand, thumb first: captured, retake or pending. */
     left: FingerState[];
     right: FingerState[];
     captured: string;
     photo: Status;
     issue: { title: string; detail: string; finger: string } | null;
-    /** Quality scores of the failed attempts once the retake limit is reached (frame 30). */
     attempts: number[] | null;
     lowest: string | null;
     manager: { name: string; role: string };
@@ -59,7 +56,6 @@ export interface JourneyData {
     total: number;
     methods: { key: string; label: string; hint: string }[];
     phone: string;
-    /** Payment progress, polled from the gateway through the API. */
     state: 'awaiting' | 'verifying' | 'confirmed';
     expiresInSeconds: number;
   };
@@ -71,7 +67,6 @@ export interface JourneyData {
 
 export interface CustomerDisplayView {
   hubName: string;
-  /** The officer serving the client at this bay. */
   officer: string;
   client: { name: string; reference: string };
   step: JourneyStep;

@@ -1,11 +1,6 @@
 import type { StageNumber } from '@/types/domain';
 import type { JourneyStep } from '@/types/journey';
 
-/**
- * Where each client-facing step sits in the 12-stage journey and which step
- * follows it. The hub screens, their progress bar and their navigation all
- * read from this one table.
- */
 export const journeySteps: Record<
   JourneyStep,
   { stage: StageNumber; next: JourneyStep | null; showClient: boolean }

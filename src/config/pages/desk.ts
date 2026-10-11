@@ -1,6 +1,5 @@
 import type { PageDefinition } from '@/components/features/register-page';
 
-/** Frame 104: read-only, the same for every Service Desk role. */
 export const journeyBoardPage: PageDefinition = {
   key: 'journey-board',
   title: 'Journey Board',

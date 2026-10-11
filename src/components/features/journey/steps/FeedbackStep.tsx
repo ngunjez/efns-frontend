@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils';
 import type { StepProps } from '../CustomerScreen';
 import { StepActions, StepHeading } from '../StepParts';
 
-/** Frame 43: exit — the client rates the visit and the case is closed. */
 export default function FeedbackStep(_: StepProps) {
   const t = useTranslations('journey.feedback');
   const send = useCustomerAction();

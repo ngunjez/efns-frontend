@@ -12,7 +12,6 @@ import { useJourneyStep } from '../use-journey-step';
 import type { StepProps } from '../CustomerScreen';
 import { StepActions, StepHeading } from '../StepParts';
 
-/** Frame 42: identity confirmed, passport released by two officers, the client signs for it. */
 export default function CollectionStep({ data, client }: StepProps) {
   const t = useTranslations('journey.collection');
   const common = useTranslations('common');

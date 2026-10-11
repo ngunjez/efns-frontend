@@ -2,10 +2,6 @@ import { useTranslations } from 'next-intl';
 import { Logo } from '@/components/common/Logo';
 import { site } from '@/config/site';
 
-/**
- * Site footer (brand, help line, legal note), or at the hub a single help line
- * pointing the client to an officer.
- */
 export function SiteFooter({ atHub }: { atHub?: boolean }) {
   const t = useTranslations();
   if (atHub) {

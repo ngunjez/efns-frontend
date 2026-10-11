@@ -1,6 +1,5 @@
 {
   "common": {
-    "needHelp": "Unahitaji msaada? Piga {phone}.",
     "needHelpHub": "Unahitaji msaada? Muulize afisa yeyote, au piga {phone}.",
     "signIn": "Ingia",
     "createAccount": "Fungua akaunti",
@@ -13,8 +12,11 @@
     "skipToContent": "Ruka hadi maudhui",
     "language": "Lugha",
     "somethingWrong": "Kuna kosa",
-    "tryAgain": "Jaribu tena",
-    "print": "Chapisha"
+    "print": "Chapisha",
+    "signOut": "Toka",
+    "toggleTheme": "Badili kati ya mandhari ya mwanga na giza",
+    "openMenu": "Fungua menyu",
+    "menu": "Menyu"
   },
   "nav": {
     "services": "Huduma",
@@ -94,11 +96,12 @@
     "invalidPhone": "Andika nambari sahihi ya simu",
     "passwordRule": "Tumia angalau herufi 8, pamoja na nambari",
     "mustAgree": "Unahitaji kukubali ili kuendelea",
-    "codeRule": "Andika msimbo wa tarakimu 6"
+    "createdTitle": "Akaunti yako iko tayari",
+    "createdBody": "Ingia kwa nambari ya simu au barua pepe na nenosiri ulilounda sasa hivi."
   },
   "booking": {
     "title": "Weka miadi",
-    "body": "Chagua muda. Zinaonyeshwa nyakati zenye afisa aliyeidhinishwa kazini tu.",
+    "body": "Chagua huduma, kituo na muda.",
     "date": "Tarehe",
     "time": "Muda",
     "full": "{time}, imejaa",
@@ -106,11 +109,20 @@
     "chooseTime": "Chagua muda",
     "noTimes": "Hakuna nafasi siku hii. Jaribu tarehe nyingine.",
     "bookedTitle": "Miadi yako imewekwa",
-    "bookedBody": "Onyesha msimbo huu mapokezi. Tumekutumia kwa SMS na barua pepe.",
     "code": "Msimbo wa miadi",
     "download": "Pakua tiketi",
     "bring": "Leta",
-    "summary": "{service} katika {hub}, {date} saa {time}"
+    "accountNeeded": "Unahitaji akaunti kuweka miadi mapema. Unakuja moja kwa moja? Huhitaji akaunti wala miadi.",
+    "chooseService": "Chagua huduma uone cha kuleta.",
+    "payAtHub": "Unalipa kituoni",
+    "onePayment": "Malipo moja",
+    "payNote": "M-Pesa au kadi. Hakuna pesa taslimu.",
+    "ticketEmailed": "Tiketi imetumwa kwa {email}",
+    "onTheDay": "Siku ya miadi",
+    "day1": "Fika dakika 10 mapema",
+    "day2": "Onyesha msimbo wa miadi au pasipoti kwa afisa mlangoni",
+    "day3": "Leta {documents}",
+    "keepCopy": "Tiketi yako iko kwenye barua pepe. Unaweza pia kuhifadhi nakala kwenye kifaa hiki."
   },
   "application": {
     "title": "Ombi langu",
@@ -119,8 +131,8 @@
     "nothingNeeded": "Hakuna kinachohitajika kutoka kwako sasa.",
     "passport": "Pasipoti yako",
     "hubSupport": "Msaada wa kituo",
-    "noneTitle": "Bado hakuna kilichowasilishwa",
-    "noneBody": "Afisa akiwasilisha ombi kwa niaba yako, utalifuatilia hapa. Ili kuokoa muda kituoni, weka miadi kwanza.",
+    "noneTitle": "Bado hakuna ombi lililowasilishwa",
+    "noneBody": "Ombi huwasilishwa wakati wa ziara yako kituoni, ukiwa na miadi au bila. Baada ya hapo, ukurasa huu unaonyesha kila hatua hadi hati yako iwe tayari kuchukuliwa.",
     "book": "Weka miadi",
     "docNeededTitle": "Hati moja zaidi inahitajika",
     "docNeededBody": "Mamlaka imeuliza swali kuhusu ombi lako. Huhitaji kufika kituoni.",
@@ -130,7 +142,11 @@
     "uploadAlt": "Au ilete mapokezi kituoni",
     "uploaded": "Asante. Hati yako imetumwa kituoni.",
     "notFoundTitle": "Hatukupata ombi hilo",
-    "notFoundBody": "Angalia kiungo kwenye SMS au barua pepe yako, au piga {phone}."
+    "notFoundBody": "Angalia kiungo kwenye SMS au barua pepe yako, au piga {phone}.",
+    "signInTitle": "Ingia ili uone ombi lako",
+    "signInBody": "Maombi na miadi yako huonekana hapa ukishaingia.",
+    "signInAction": "Ingia",
+    "upcoming": "Miadi yako"
   },
   "journey": {
     "stageOf": "Hatua {stage} kati ya {total}: {name}",
@@ -170,7 +186,6 @@
       "bookedClient": "Una miadi?",
       "bookedHint": "Changanua msimbo wa miadi au pasipoti kwenye kisomaji.",
       "tapHint": "Gusa mkondo wa mteja, kisha sajili ziara.",
-      "assistance": "Msaada wa lugha na sauti",
       "voice": "Soma kila skrini kwa sauti"
     },
     "visitLogged": {
@@ -193,9 +208,7 @@
       "nextTitle": "Tunakupa tiketi ya foleni",
       "nextBody": "Kisha keti hadi namba yako iitwe.",
       "getTicket": "Pata tiketi yangu",
-      "printChecklist": "Chapisha orodha",
-      "readAloud": "Inasoma kwa sauti",
-      "replay": "Rudia"
+      "printChecklist": "Chapisha orodha"
     },
     "ticket": {
       "title": "Tiketi yako ya foleni",
@@ -268,8 +281,7 @@
     },
     "lodgement": {
       "title": "Pasipoti yako imewekwa",
-      "body": "Pasipoti yako inabaki salama kwenye hifadhi ya kituo wakati mamlaka inashughulikia ombi lako. Hifadhi risiti hii.",
-      "receipt": "Risiti ya kuweka"
+      "body": "Pasipoti yako inabaki salama kwenye hifadhi ya kituo wakati mamlaka inashughulikia ombi lako. Hifadhi risiti hii."
     },
     "submitted": {
       "title": "Ombi lako limewasilishwa",

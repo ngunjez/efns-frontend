@@ -3,10 +3,6 @@
 import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
-/**
- * One box per digit (frame 80): typing advances, Backspace goes back and a
- * pasted code fills every box. Used for the staff authenticator and client SMS codes.
- */
 export function OtpInput({
   value,
   onChange,
@@ -25,7 +21,6 @@ export function OtpInput({
   const refs = useRef<(HTMLInputElement | null)[]>([]);
   const digits = Array.from({ length }, (_, index) => value[index] ?? '');
 
-  // Single-purpose code screens move focus to the first box when they open.
   useEffect(() => {
     if (focusOnMount) refs.current[0]?.focus();
   }, [focusOnMount]);

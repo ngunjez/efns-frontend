@@ -1,9 +1,5 @@
 import { cn } from '@/lib/utils';
 
-/**
- * "Step 1 of 3: Category … Next: Your details" over a segmented bar.
- * Used by the account wizard and, via StageProgress, the 12-stage journey.
- */
 export function StepProgress({
   current,
   total,
@@ -17,7 +13,6 @@ export function StepProgress({
   total: number;
   label: string;
   nextLabel?: string;
-  /** Screen-reader names for each segment. */
   stepNames?: string[];
   ariaLabel: string;
   className?: string;

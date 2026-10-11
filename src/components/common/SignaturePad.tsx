@@ -3,10 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-/**
- * On-screen signature capture for the bay's signature pad or a touch screen.
- * Emits a PNG data URL. To clear it, remount it with a new `key`.
- */
 export function SignaturePad({
   label,
   signerName,

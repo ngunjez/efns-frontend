@@ -26,7 +26,6 @@ export interface FloorHostView {
   languages: string;
 }
 
-/** The bay officer's station (frames 19, 20, 103). */
 export interface StationView {
   bay: string;
   status: { key: string; label: string; tone: Status['tone'] };
@@ -85,7 +84,6 @@ export interface FloorboardView {
   bays: FloorboardBay[];
 }
 
-/** Maker-checker screen for the Verification Officer and QA Reviewer (frames 102, 27). */
 export interface WorkbenchView {
   mode: 'verify' | 'qa';
   case: {

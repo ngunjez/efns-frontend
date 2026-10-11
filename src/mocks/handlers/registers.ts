@@ -4,7 +4,6 @@ import type { CustomField, RegisterRow } from '@/types/register';
 import { registerSeeds } from '../data/registers';
 import { api, apiError, latency, paginate } from '../utils';
 
-/** In-memory tables seeded from the designs; edits last until the page reloads. */
 const tables = new Map<string, RegisterRow[]>(
   Object.entries(registerSeeds).map(([key, seed]) => [
     key,

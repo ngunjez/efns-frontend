@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { AuthCard } from '@/components/layout/staff/AuthCard';
 import { reportError } from '@/lib/monitoring';
 
-/** Route-level error boundary (handbook §13): the shell stays up and the user can retry. */
 export default function RouteError({
   error,
   reset,

@@ -1,7 +1,6 @@
 import type { PageDefinition } from '@/components/features/register-page';
 import { SEVERITY_TONES, hubColumn, hubField, options } from '../shared';
 
-/** Frame 53: how often cases come back, why, and what rework costs. */
 export const qualityPage: PageDefinition = {
   key: 'quality',
   title: 'Quality and rework',
@@ -43,7 +42,6 @@ export const qualityPage: PageDefinition = {
   ],
 };
 
-/** Frame 54: root-cause investigation and the plan to closure. */
 export const correctiveActionsPage: PageDefinition = {
   key: 'corrective-actions',
   title: 'Corrective actions',
@@ -145,7 +143,6 @@ export const correctiveActionsPage: PageDefinition = {
   ],
 };
 
-/** Frame 55: a permanent record of who did what, when and from where. Read only. */
 export const auditPage: PageDefinition = {
   key: 'audit',
   title: 'Audit log',
@@ -179,7 +176,6 @@ export const auditPage: PageDefinition = {
   ],
 };
 
-/** Frame 56: every action that needed a second person, who asked and who approved. */
 export const exceptionsPage: PageDefinition = {
   key: 'exceptions',
   title: 'Exception ledger',

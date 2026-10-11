@@ -1,7 +1,6 @@
 import { CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-/** Step title, with the green tick when the step reports something complete. */
 export function StepHeading({
   title,
   body,
@@ -26,7 +25,6 @@ export function StepHeading({
   );
 }
 
-/** Right-aligned primary actions at the foot of a step; stacks on phones. */
 export function StepActions({ children }: { children: React.ReactNode }) {
   return <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">{children}</div>;
 }

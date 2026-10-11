@@ -17,7 +17,6 @@ const titles = new Map(
   ),
 );
 
-/** Frame 82: a role opened a screen it is not allowed. Points back to the role's own home. */
 function NoAccess() {
   const from = useSearchParams().get('from') ?? '';
   const { data: user } = useMe();
