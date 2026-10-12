@@ -68,7 +68,7 @@ export function FloorHost() {
                     <button
                       type="button"
                       onClick={() => setSelected(ticket)}
-                      className="flex w-full items-center gap-4 rounded-field border p-3 text-left hover:border-primary hover:bg-primary-tint/40"
+                      className="flex w-full items-center gap-4 rounded-field border p-3 text-start hover:border-primary hover:bg-primary-tint/40"
                     >
                       <span className="rounded-control bg-primary-tint px-2.5 py-1 font-bold text-primary tabular">
                         {ticket.number}
@@ -144,9 +144,9 @@ function PriorityOverrideDialog({
         </DialogHeader>
         <div className="flex items-center gap-3 rounded-field border p-4">
           <TicketNumber value={ticket.number} className="text-2xl text-muted-foreground" />
-          <ArrowRight className="size-5 text-muted-foreground" aria-hidden />
+          <ArrowRight className="size-5 text-muted-foreground rtl:rotate-180" aria-hidden />
           <span className="text-2xl font-bold text-primary">Priority</span>
-          <span className="ml-auto text-xs text-muted-foreground">
+          <span className="ms-auto text-xs text-muted-foreground">
             Moves ahead of the general queue
           </span>
         </div>

@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { FileText, LogIn, Upload } from 'lucide-react';
+import { CheckCircle2, FileText, LogIn, Upload } from 'lucide-react';
 import {
   useApplication,
   useClientSession,
@@ -14,6 +14,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { CheckItem } from '@/components/common/CheckItem';
+import { DefinitionList } from '@/components/common/DefinitionList';
+import { NextStepCallout } from '@/components/common/NextStepCallout';
 import { EmptyState, ErrorState } from '@/components/common/QueryState';
 import { PageIntro } from '@/components/common/PageIntro';
 import { StageProgress } from '@/components/common/StageProgress';
@@ -21,6 +24,7 @@ import { StatusBadge } from '@/components/common/StatusBadge';
 import { Timeline } from '@/components/common/Timeline';
 import { Reveal } from '@/components/motion/Reveal';
 import { site } from '@/config/site';
+import { useIntlLocale } from '@/hooks/use-intl-locale';
 import { formatDate } from '@/lib/format';
 import type { ApplicationSummary } from '@/types/domain';
 
@@ -71,7 +75,9 @@ export function ApplicationView({ reference }: { reference?: string }) {
         <StageProgress stage={application.stage} className="container-page" />
       </div>
       <Reveal className="container-page grid gap-6 py-section">
-        {application.documentRequest ? (
+        {application.readyToCollect ? (
+          <ReadyToCollect ready={application.readyToCollect} />
+        ) : application.documentRequest ? (
           <DocumentRequest application={application} />
         ) : (
           <Overview application={application} />
@@ -85,6 +91,7 @@ function NothingSubmitted() {
   const t = useTranslations('application');
   const booking = useTranslations('booking');
   const appointment = useMyAppointment();
+  const intl = useIntlLocale();
 
   return (
     <div className="container-narrow grid gap-5 py-section">
@@ -117,7 +124,7 @@ function NothingSubmitted() {
                 </span>
                 <span className="text-lg font-semibold">{appointment.data.service}</span>
                 <span className="text-sm text-muted-foreground">
-                  {appointment.data.hub}, {formatDate(appointment.data.date)},{' '}
+                  {appointment.data.hub}, {formatDate(appointment.data.date, intl)},{' '}
                   {appointment.data.time}
                 </span>
               </div>
@@ -167,6 +174,43 @@ function PageSkeleton() {
         </div>
       </div>
     </div>
+  );
+}
+
+function ReadyToCollect({ ready }: { ready: NonNullable<ApplicationSummary['readyToCollect']> }) {
+  const t = useTranslations('application');
+  const common = useTranslations('common');
+  return (
+    <>
+      <h1 className="flex items-center gap-3 text-h1">
+        <CheckCircle2 className="size-[1.1em] shrink-0 fill-success text-white" aria-hidden />
+        {t('readyTitle', { output: ready.output })}
+      </h1>
+      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('collectAt', { hub: ready.hub })}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <DefinitionList rows={ready.rows} />
+          </CardContent>
+        </Card>
+        <Card className="grid gap-2 p-5">
+          <h2 className="text-lg font-semibold">{t('bring')}</h2>
+          <ul>
+            {ready.bring.map((item) => (
+              <CheckItem key={item} label={item} className="py-1.5 text-sm" />
+            ))}
+          </ul>
+          <p className="text-xs text-muted-foreground">{t('bringNote')}</p>
+        </Card>
+      </div>
+      <NextStepCallout
+        eyebrow={common('whatNext')}
+        title={t('collectNextTitle')}
+        detail={t('collectNextBody')}
+      />
+    </>
   );
 }
 

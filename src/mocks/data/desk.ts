@@ -1,5 +1,6 @@
 import type { Appointment } from '@/types/domain';
 import type {
+  Arrival,
   FloorboardView,
   FloorHostView,
   NotificationItem,
@@ -552,3 +553,30 @@ export const hall: HallDisplayView = {
     { number: 'C-031', bay: 'Bay 2', service: 'Dependant passes' },
   ],
 };
+
+export const arrivals: Arrival[] = [
+  {
+    id: 'arr-1',
+    name: 'Priya Raman',
+    service: 'eFNS Work Permit',
+    pass: 'V-0064',
+    arrivedAt: '09:02',
+    stream: { label: 'Walk-in', tone: 'neutral' },
+  },
+  {
+    id: 'arr-2',
+    name: 'Omar Haddad',
+    service: 'eFNS Work Permit',
+    pass: 'V-0065',
+    arrivedAt: '09:06',
+    stream: { label: 'Appointment', tone: 'info' },
+  },
+  {
+    id: 'arr-3',
+    name: 'Grace Wairimu',
+    service: 'Passport',
+    pass: 'V-0066',
+    arrivedAt: '09:09',
+    stream: { label: 'Priority', tone: 'warning' },
+  },
+];

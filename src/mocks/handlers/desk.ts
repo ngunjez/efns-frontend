@@ -12,7 +12,6 @@ import {
   support,
   workbench,
 } from '../data/desk';
-import { customerDisplay } from '../data/customer-display';
 import { api, latency, store } from '../utils';
 
 const ok = () => new HttpResponse(null, { status: 204 });
@@ -100,29 +99,4 @@ export const deskHandlers = [
   http.get(api(ENDPOINTS.displays.bay(':bay')), ({ params }) =>
     HttpResponse.json({ bay: String(params.bay), ticket: 'B-047' }),
   ),
-  http.get(api(ENDPOINTS.displays.customer), async () => {
-    await latency();
-    return HttpResponse.json(customerDisplay);
-  }),
-  http.post(api(ENDPOINTS.displays.customerAction), async ({ request }) => {
-    await latency();
-    const { step, action } = (await request.json()) as { step: string; action: string };
-    const invoice = customerDisplay.data.invoice;
-    if (step === 'payment' && action === 'request-payment' && invoice) {
-      invoice.state = 'verifying';
-      setTimeout(() => (invoice.state = 'confirmed'), 3000);
-    }
-    if (step === 'biometrics' && action === 'retake' && customerDisplay.data.biometrics) {
-      Object.assign(customerDisplay.data.biometrics, { attempts: [38, 41, 44] });
-    }
-    if (step === 'biometrics' && action === 'approve-override' && customerDisplay.data.biometrics) {
-      Object.assign(customerDisplay.data.biometrics, {
-        issue: null,
-        attempts: null,
-        captured: '9 of 10 captured, override approved',
-        lowest: '71, right middle',
-      });
-    }
-    return ok();
-  }),
 ];

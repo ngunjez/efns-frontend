@@ -54,16 +54,7 @@ export interface StationView {
 }
 
 export type StationAction =
-  | 'call-next'
-  | 'recall'
-  | 'no-show'
-  | 'transfer'
-  | 'hold'
-  | 'elevate'
-  | 'start-filing'
-  | 'start-checkout'
-  | 'route-to-qa'
-  | 'show-on-display';
+  'call-next' | 'recall' | 'no-show' | 'transfer' | 'hold' | 'elevate' | 'route-to-qa';
 
 export interface FloorboardBay {
   bay: string;
@@ -149,4 +140,13 @@ export interface HallDisplayView {
 export interface BayDisplayView {
   bay: string;
   ticket: string | null;
+}
+
+export interface Arrival {
+  id: string;
+  name: string;
+  service: string;
+  pass: string;
+  arrivedAt: string;
+  stream: Status;
 }

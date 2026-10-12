@@ -16,7 +16,9 @@
     "signOut": "Sair",
     "toggleTheme": "Alternar entre tema claro e escuro",
     "openMenu": "Abrir menu",
-    "menu": "Menu"
+    "menu": "Menu",
+    "searchLanguages": "Pesquisar idiomas",
+    "noLanguage": "Nenhum idioma encontrado"
   },
   "nav": {
     "services": "Serviços",
@@ -146,7 +148,13 @@
     "signInTitle": "Entre para ver o seu pedido",
     "signInBody": "Os seus pedidos e marcações aparecem aqui depois de entrar.",
     "signInAction": "Entrar",
-    "upcoming": "A sua marcação"
+    "upcoming": "A sua marcação",
+    "readyTitle": "O seu {output} está pronto para levantamento",
+    "collectAt": "Levante em {hub}",
+    "bring": "Traga consigo",
+    "bringNote": "Confirmamos que é você pela impressão digital.",
+    "collectNextTitle": "No balcão, cerca de 10 minutos",
+    "collectNextBody": "Verificamos a sua identidade, colocamos a autorização no seu passaporte e devolvemo-lo mediante assinatura."
   },
   "journey": {
     "stageOf": "Etapa {stage} de {total}: {name}",
@@ -167,7 +175,7 @@
       "12": "Saída"
     },
     "welcome": {
-      "title": "Karibu. Bem-vindo.",
+      "title": "Bem-vindo.",
       "body": "Escolha como podemos ajudar hoje. A sua senha é impressa por baixo do ecrã.",
       "general": "Atendimento geral",
       "generalBody": "Identidade, certidões de nascimento, nomes comerciais e outros serviços.",
@@ -280,8 +288,13 @@
       "body": "Obrigado. Um só recibo cobre tudo e enviámos uma cópia por e-mail."
     },
     "lodgement": {
-      "title": "O seu passaporte está depositado",
-      "body": "O seu passaporte fica em segurança no cofre do centro enquanto a autoridade trata do pedido. Guarde este recibo."
+      "title": "O seu passaporte está agora no nosso cofre",
+      "body": "O seu pedido exige a entrega do passaporte. Foi colocado no cofre à sua frente e é-lhe devolvido no levantamento.",
+      "inVault": "No cofre",
+      "sign": "Assine para confirmar que o entregou",
+      "keepTitle": "Guarde este recibo.",
+      "keepBody": "Precisa dele para levantar o seu passaporte.",
+      "sendToPhone": "Enviar para o meu telemóvel"
     },
     "submitted": {
       "title": "O seu pedido foi submetido",
@@ -305,6 +318,16 @@
       "comment": "Algo a acrescentar? (opcional)",
       "send": "Enviar e terminar",
       "thanks": "Obrigado. O seu processo está encerrado. Boa viagem."
+    },
+    "provisional": {
+      "title": "Referência de pagamento registada, confirmação pendente",
+      "body": "A ligação ao sistema do governo está em baixo. O seu pagamento está seguro e a sua visita continua normalmente.",
+      "notConfirmed": "Ainda não confirmado",
+      "waitingToSync": "A aguardar sincronização",
+      "savedAt": "Guardado às {time}",
+      "waiting": "Pendente",
+      "syncNote": "Guardados encriptados neste balcão. São enviados automaticamente por esta ordem quando a ligação voltar.",
+      "email": "Enviar recibo por e-mail"
     }
   },
   "display": {
@@ -312,5 +335,11 @@
     "nowServing": "Em atendimento",
     "bay": "Balcão",
     "waiting": "A aguardar a próxima senha"
+  },
+  "offline": {
+    "title": "A funcionar em modo de armazenamento e envio posterior.",
+    "detail": "Os sistemas do governo estão inacessíveis desde {since}. A sua visita continua normalmente.",
+    "waiting": "{count, plural, one {# item a aguardar} other {# itens a aguardar}} sincronização",
+    "deviceOffline": "Este ecrã está offline. Os seus dados ficam guardados e são enviados quando a ligação voltar."
   }
 }

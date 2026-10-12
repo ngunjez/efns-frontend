@@ -49,6 +49,14 @@ export function useRecordAction(key: string) {
   });
 }
 
+export function useRegisterCommand(key: string) {
+  return useMutation({
+    mutationFn: ({ name, values }: { name: string; values: Record<string, unknown> }) =>
+      request.post<RegisterRow | void>(ENDPOINTS.registers(key).command(name), values),
+    meta: { invalidates: [queryKeys.register.all(key)] },
+  });
+}
+
 export function useCustomFields(page: string) {
   return useQuery({
     queryKey: queryKeys.customFields(page),

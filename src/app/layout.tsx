@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
+import { languageOf } from '@/i18n/config';
 import { Providers } from '@/components/providers/Providers';
 import { site } from '@/config/site';
 import './globals.css';
@@ -28,7 +29,12 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
   return (
-    <html lang={locale} className={outfit.variable} suppressHydrationWarning>
+    <html
+      lang={locale}
+      dir={languageOf(locale).dir}
+      className={outfit.variable}
+      suppressHydrationWarning
+    >
       <body>
         <NextIntlClientProvider>
           <Providers>{children}</Providers>

@@ -10,28 +10,38 @@ Until the endpoints land, every API call is answered by mock handlers (MSW) that
 # Node 20.9+ (22 recommended, see .nvmrc) and pnpm
 npm install -g pnpm
 pnpm install
-cp .env.example .env.local      # NEXT_PUBLIC_USE_MSW=true while there is no backend
+cp .env.example .env.local      # optional: with no API URL set, the app runs on the mocks
 pnpm dev                        # http://localhost:3000
 ```
 
 ### Demo accounts (mock mode)
 
-Staff sign-in is at `/staff/sign-in`. Any password works, and any 6-digit code works except `000000`, which shows the outside-hub refusal (frame 81).
+Staff sign-in is at `/staff/sign-in`. There is one sign-in for every staff role; the role decides the screens. Any password works, and any 6-digit code works except `000000`, which shows the outside-hub refusal (frame 81). An email that is not on the list is refused.
 
-| Email (any domain) | Role                   | Lands on                         |
-| ------------------ | ---------------------- | -------------------------------- |
-| `grace.mwangi@…`   | Service Officer, Bay 3 | `/desk/service-point`            |
-| `mary.achieng@…`   | Reception              | `/desk/appointments`             |
-| `mary.njoki@…`     | Floor host             | `/desk/floor-host`               |
-| `joseph.kariuki@…` | Verification Officer   | `/desk/workbench` (verify)       |
-| `rose.auma@…`      | QA Reviewer            | `/desk/workbench` (QA)           |
-| `wanjiku.kamau@…`  | Hub Manager            | Floorboard and every desk screen |
-| `wambui.gathoni@…` | Support Agent          | `/desk/support`                  |
-| `njeri.mwangi@…`   | Platform Administrator | Everything, including `/admin`   |
+| Email (any domain)   | Role                   | Lands on                        | Can also open                                      |
+| -------------------- | ---------------------- | ------------------------------- | -------------------------------------------------- |
+| `mary.njoki@…`       | Floor host             | `/desk/floor-host`              |                                                    |
+| `mary.achieng@…`     | Reception              | `/desk/appointments`            | Document check (`/desk/reception`)                 |
+| `grace.mwangi@…`     | Service officer, Bay 3 | `/desk/service-point`           | Case console (`/desk/service-point/case`)          |
+| `joseph.kariuki@…`   | Verification officer   | `/desk/workbench`               |                                                    |
+| `rose.auma@…`        | QA reviewer            | `/desk/workbench`               |                                                    |
+| `wanjiku.kamau@…`    | Hub manager            | `/desk/floorboard`              | Overrides, reassignment, journey board, exceptions |
+| `wambui.gathoni@…`   | Support agent          | `/desk/support`                 |                                                    |
+| `samuel.kiprop@…`    | Vault custodian        | `/admin/vault`                  | Check in, stock-take                               |
+| `peter.otieno@…`     | Despatch clerk         | `/admin/logistics`              |                                                    |
+| `faith.njeri@…`      | Finance                | `/admin/finance/reconciliation` |                                                    |
+| `hassan.omar@…`      | Operations manager     | `/admin/analytics/performance`  | Hubs, suspensions, exceptions                      |
+| `david.mutua@…`      | Service owner          | `/admin/services/forms`         |                                                    |
+| `lydia.chebet@…`     | HR                     | `/admin/agents/certification`   |                                                    |
+| `lilian.abeno@…`     | Compliance             | `/admin/compliance/quality`     |                                                    |
+| `achieng.odhiambo@…` | Customer experience    | `/admin/analytics/feedback`     |                                                    |
+| `njeri.mwangi@…`     | Platform administrator | `/admin/network`                | Settings, assets                                   |
 
-Client side: create an account at `/create-account` (any 6-digit SMS code), then sign in with the same phone or email. The demo client `priya.raman@mail.example` (any password) also works. A new client has no application, only any appointment they book. Tracking links: `/track/AAS-2026-004812`, and `/track/AAS-2026-004812-Q` for the "one more document" state.
+A user with both apps gets an "Open Service Desk / Open AaaS Admin" switch in the user menu.
 
-Hub screens: `/hub/welcome`, `/hub/check-details`, `/hub/consent`, `/hub/biometrics`, `/hub/payment` … (one per step in `src/config/journey.ts`). Wall displays: `/display/hall`, `/display/bay/3`.
+**Client side:** sign in at `/sign-in` after creating an account. Tracking links: `/track/AAS-2026-004812`, `/track/AAS-2026-004812-Q` (one more document requested) and `/track/AAS-2026-004812-R` (ready to collect).
+
+**A live case, end to end:** sign in as `grace.mwangi`, open _Service Point_ and choose _Start filing_. The officer console drives the case step by step (check details, consent, capture, flag a document problem, biometrics with retake and manager override, M-Pesa prompt or provisional receipt, vault check-in, submission). Open `/hub/display` in a second window: it is the client's screen and follows the case on its own. Reception does the same with `mary.achieng` at _Document check_. Wall displays: `/display/hall`, `/display/bay/3`.
 
 ## Scripts
 
@@ -61,8 +71,8 @@ src/
 ├── app/                      Routes only — thin pages that render feature components
 │   ├── (site)/               Public site and client portal: landing, sign-in, create-account, book, my-application, track
 │   ├── staff/                Staff sign-in (password + authenticator) and the outside-hub refusal
-│   ├── desk/                 Service Desk: appointments, floor-host, service-point, workbench, floorboard, support, journey-board
-│   ├── hub/[step]/           Client-facing hub screens, one route for all 14 steps
+│   ├── desk/                 Service Desk: appointments, reception, floor-host, service-point (+ case console), workbench, floorboard, support, journey-board
+│   ├── hub/                  Client-facing hub screens: /hub/display follows the live case, /hub/[step] previews one step
 │   ├── display/              Hall and bay wall displays
 │   └── admin/[...slug]/      Every admin register, rendered from its page definition
 ├── api/
@@ -78,12 +88,12 @@ src/
 │   └── providers/            Query, Redux, theme, toasts, mock gate, session redirects
 ├── config/                   env (validated), navigation + permissions, journey steps, icons, page definitions
 ├── hooks/                    useHasPermission, useIdleTimer, useDebouncedValue, useElapsedSeconds
-├── i18n/                     Locale config (cookie based) and loader
+├── i18n/                     Language registry, negotiation (cookie, then browser) and loader
 ├── mocks/                    MSW handlers and fixtures mirroring the designs
 ├── store/                    Redux store: auth (user, permissions, lock) and UI
 ├── types/                    Domain and API contract types
 └── proxy.ts                  First-line route guard for staff areas (Next 16 "proxy", formerly middleware)
-messages/                     en.json, sw.json — client-facing copy
+messages/                     One catalogue per language (12 today) — client-facing copy
 ```
 
 ## How it is built to avoid repetition
@@ -93,7 +103,7 @@ messages/                     en.json, sw.json — client-facing copy
 - **Forms are data.** `DynamicForm` builds layout, controls, Zod validation and server-error mapping from field definitions. Custom fields added in _Settings › Modules and fields_ are appended to forms and, optionally, to tables automatically.
 - **One table.** `DataTable` handles declarative cells (money, status enums with tone maps, progress, people, entities), search, column visibility, selection, row actions, pagination and empty/error states.
 - **One mutation policy.** Success toasts, error toasts and cache invalidation are declared in each hook's `meta` and handled once in the providers.
-- **One journey table.** `src/config/journey.ts` maps each client-facing step to its stage of 12 and the next step.
+- **One journey table.** `src/config/journey.ts` maps each client-facing step to its stage of 12, what the officer and the client each see, and which steps belong to the reception, filing and collection flows.
 
 ## Languages, theme and motion
 
@@ -105,6 +115,16 @@ messages/                     en.json, sw.json — client-facing copy
 ## Design system
 
 Tokens live in `src/app/globals.css` (semantic names only — `bg-primary`, `text-muted-foreground`, `bg-success-tint` — with a dark theme). Typography and page spacing are **fluid** with `clamp()`: `text-display`, `text-h1`, `text-h2`, `text-h3`, `text-lead`, `text-ticket`, `text-jumbo`, `px-gutter`, `py-section`. They scale smoothly from a 360px phone to a 1440px desktop without breakpoint overrides. The Outfit font is self-hosted because hub networks have no public internet breakout.
+
+## Languages
+
+Twelve languages ship today: English, Kiswahili, French, German, Spanish, Portuguese, Italian, Arabic (right to left), Chinese, Japanese, Hindi and Russian. The first visit uses the browser's language when it is supported; the choice in the language menu is kept in a cookie. Dates and numbers follow the chosen language, and every API call sends it as `Accept-Language` so the backend can localise service names.
+
+To add a language:
+
+1. Add one line to `src/i18n/languages.ts` (code, English name, native name, `ltr` or `rtl`, Intl locale).
+2. Copy `messages/en.json` to `messages/<code>.json` and translate the values. Keep `{placeholders}` and the ICU plural shape.
+3. Run `pnpm test`. It checks that the catalogue has every key and placeholder. Any key left out falls back to English at runtime.
 
 ## Connecting the real API
 
@@ -128,6 +148,5 @@ Live screens poll every 4–15 seconds today; when Phoenix Channels are specifie
 ## Not yet included (needs a decision or a backend contract)
 
 - **Sentry:** `src/lib/monitoring.ts` is the single hook point; add `@sentry/nextjs` when a DSN is issued.
-- **More languages:** add the code to `src/i18n/config.ts` and a `messages/<code>.json`.
-- **Offline capture and provisional slip (frame 35):** needs the backend's store-and-forward contract.
+- **Store and forward:** the screens (offline banner, provisional slip, sync list) are built; the queue itself runs on the counter device and the backend must define how items replay.
 - **SMS/email templates (frames 88, 100):** sent by the backend, not rendered by the frontend.

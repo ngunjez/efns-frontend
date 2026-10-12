@@ -22,7 +22,7 @@ export function DefinitionList({
           className={cn('flex items-baseline justify-between gap-4', dense ? 'py-2' : 'py-3')}
         >
           <dt className="text-sm text-muted-foreground">{row.label}</dt>
-          <dd className="text-right text-sm font-semibold">{row.value}</dd>
+          <dd className="text-end text-sm font-semibold">{row.value}</dd>
         </div>
       ))}
     </dl>

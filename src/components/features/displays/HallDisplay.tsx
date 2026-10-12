@@ -95,11 +95,14 @@ function CallRow({ ticket, current }: { ticket: CalledTicket; current?: boolean 
       <span className={cn('font-bold tabular', current ? 'text-jumbo' : 'text-ticket')}>
         {ticket.number}
       </span>
-      <ArrowRight className={current ? 'size-12' : 'size-8'} aria-label="to" />
+      <ArrowRight
+        className={current ? 'size-12 rtl:rotate-180' : 'size-8 rtl:rotate-180'}
+        aria-label="to"
+      />
       <span className={cn('font-bold', current ? 'text-jumbo' : 'text-ticket')}>{ticket.bay}</span>
       <span
         className={cn(
-          'hidden text-right sm:block',
+          'hidden text-end sm:block',
           current ? 'text-2xl' : 'text-lg text-muted-foreground',
         )}
       >

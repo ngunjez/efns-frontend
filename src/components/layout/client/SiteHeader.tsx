@@ -65,7 +65,7 @@ export function SiteHeader() {
   );
 
   const identity = client && (
-    <span className="flex items-center gap-2.5 text-left">
+    <span className="flex items-center gap-2.5 text-start">
       <Avatar name={client.name} />
       <span className="grid leading-tight">
         <span className="text-sm font-semibold">{client.name}</span>

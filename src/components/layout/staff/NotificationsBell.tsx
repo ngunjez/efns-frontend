@@ -35,7 +35,7 @@ export function NotificationsBell() {
           {unread > 0 && (
             <span
               aria-hidden
-              className="absolute top-1.5 right-1.5 size-2 rounded-full bg-destructive"
+              className="absolute end-1.5 top-1.5 size-2 rounded-full bg-destructive"
             />
           )}
         </Button>

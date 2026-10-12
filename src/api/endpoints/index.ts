@@ -44,6 +44,9 @@ export const ENDPOINTS = {
     caseAction: (caseId: string) => `/cases/${caseId}/actions`,
     notifications: '/desk/notifications',
     support: (caseId: string) => `/support/cases/${caseId}`,
+    caseStep: '/desk/case/step',
+    caseCommand: (name: string) => `/desk/case/commands/${name}`,
+    arrivals: '/desk/reception/arrivals',
   },
   displays: {
     hall: '/displays/hall',
@@ -52,7 +55,10 @@ export const ENDPOINTS = {
     customerAction: '/displays/customer/actions',
   },
   settings: (key: string) => `/settings/${key}`,
-  registers: (key: string) => resource(`/registers/${key}`),
+  registers: (key: string) => ({
+    ...resource(`/registers/${key}`),
+    command: (name: string) => `/registers/${key}/commands/${name}`,
+  }),
   customFields: (page: string) => `/settings/custom-fields/${page}`,
   customField: (page: string, name: string) => `/settings/custom-fields/${page}/${name}`,
   logistics: {

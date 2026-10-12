@@ -7,22 +7,13 @@ import { Info } from 'lucide-react';
 import { useMe } from '@/api/hooks/use-auth';
 import { Button } from '@/components/ui/button';
 import { AuthCard } from '@/components/layout/staff/AuthCard';
-import { adminNavigation, deskNavigation, homeForPermissions } from '@/config/navigation';
-
-const titles = new Map(
-  [...deskNavigation, ...adminNavigation].flatMap((section) =>
-    section.items.flatMap((item) =>
-      (item.children ?? [item]).map((link) => [link.href, link.title] as const),
-    ),
-  ),
-);
+import { homeForPermissions, titleForPath } from '@/config/navigation';
 
 function NoAccess() {
   const from = useSearchParams().get('from') ?? '';
   const { data: user } = useMe();
   const home = user ? homeForPermissions(user.permissions) : '/staff/sign-in';
-  const screen =
-    [...titles.entries()].find(([href]) => href && from.startsWith(href))?.[1] ?? 'This screen';
+  const screen = titleForPath(from) ?? 'This screen';
 
   return (
     <AuthCard title="You do not have access">
@@ -35,7 +26,7 @@ function NoAccess() {
         </p>
       </div>
       <Button asChild>
-        <Link href={home}>Back to {titles.get(home) ?? 'sign-in'}</Link>
+        <Link href={home}>Back to {titleForPath(home) ?? 'sign-in'}</Link>
       </Button>
     </AuthCard>
   );

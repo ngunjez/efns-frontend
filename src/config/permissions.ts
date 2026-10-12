@@ -1,5 +1,6 @@
 export const PERMISSIONS = {
   appointmentsManage: 'appointments:manage',
+  receptionTriage: 'reception:triage',
   floorHost: 'floor:host',
   servicePoint: 'service-point:operate',
   casesVerify: 'cases:verify',
@@ -15,11 +16,12 @@ export const PERMISSIONS = {
   vaultManage: 'vault:manage',
   logisticsManage: 'logistics:manage',
   complianceView: 'compliance:view',
+  exceptionsResolve: 'exceptions:resolve',
   analyticsView: 'analytics:view',
+  feedbackView: 'feedback:view',
   financeManage: 'finance:manage',
   networkView: 'network:view',
   settingsManage: 'settings:manage',
-  exceptionsResolve: 'exceptions:resolve',
   officersReassign: 'officers:reassign',
   hubsSuspend: 'hubs:suspend',
 } as const;

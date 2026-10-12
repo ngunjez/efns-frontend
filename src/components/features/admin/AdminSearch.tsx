@@ -44,7 +44,7 @@ export function AdminSearch() {
         <label className="relative block max-w-xs">
           <span className="sr-only">Search pages</span>
           <Search
-            className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+            className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
             aria-hidden
           />
           <input
@@ -61,7 +61,7 @@ export function AdminSearch() {
             onKeyDown={(event) => {
               if (event.key === 'Enter' && results[0]) go(results[0].href);
             }}
-            className="h-10 w-full rounded-field border bg-card pr-3 pl-9 text-sm placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none"
+            className="h-10 w-full rounded-field border bg-card ps-9 pe-3 text-sm placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none"
           />
         </label>
       </PopoverTrigger>
@@ -76,7 +76,7 @@ export function AdminSearch() {
               <button
                 type="button"
                 onClick={() => go(page.href)}
-                className="grid w-full rounded-control px-3 py-2 text-left hover:bg-muted"
+                className="grid w-full rounded-control px-3 py-2 text-start hover:bg-muted"
               >
                 <span className="text-sm font-medium">{page.title}</span>
                 <span className="text-xs text-muted-foreground">{page.section}</span>

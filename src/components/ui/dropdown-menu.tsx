@@ -54,8 +54,8 @@ function DropdownMenuCheckboxItem({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>) {
   return (
-    <DropdownMenuPrimitive.CheckboxItem className={cn(itemClasses, 'pl-8', className)} {...props}>
-      <span className="absolute left-2.5 flex size-3.5 items-center justify-center rounded-[3px] border border-input data-[state=checked]:bg-primary">
+    <DropdownMenuPrimitive.CheckboxItem className={cn(itemClasses, 'ps-8', className)} {...props}>
+      <span className="absolute start-2.5 flex size-3.5 items-center justify-center rounded-[3px] border border-input data-[state=checked]:bg-primary">
         <DropdownMenuPrimitive.ItemIndicator className="size-2 rounded-[1px] bg-primary-foreground" />
       </span>
       {children}
@@ -70,7 +70,7 @@ function DropdownMenuRadioItem({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.RadioItem>) {
   return (
     <DropdownMenuPrimitive.RadioItem
-      className={cn(itemClasses, 'pl-8 data-[state=checked]:bg-primary-tint', className)}
+      className={cn(itemClasses, 'ps-8 data-[state=checked]:bg-primary-tint', className)}
       {...props}
     >
       {children}

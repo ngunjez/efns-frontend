@@ -1,11 +1,71 @@
 import type { PageDefinition } from '@/components/features/register-page';
-import { hubColumn } from '../shared';
+import { hubColumn, options } from '../shared';
 
 export const performancePage: PageDefinition = {
   key: 'hub-performance',
   title: 'Hub performance',
   description: 'How each hub compares on volume, speed, quality and client rating.',
   customizable: true,
+  createLabel: 'Add report',
+  form: {
+    title: 'Add report',
+    description:
+      'Schedule a report. It is generated from the same data as this page and sent to the people you choose.',
+    submitLabel: 'Save report',
+    successMessage: 'Report scheduled.',
+    sections: [
+      {
+        fields: [
+          { name: 'name', label: 'Report name', type: 'text', required: true },
+          {
+            name: 'metrics',
+            label: 'Measures',
+            type: 'multiselect',
+            required: true,
+            options: options(
+              'Cases',
+              'Wait time',
+              'SLA met',
+              'First-time pass',
+              'Rating',
+              'Revenue',
+            ),
+          },
+          {
+            name: 'hubs',
+            label: 'Hubs',
+            type: 'multiselect',
+            optionsSource: 'hubs',
+            help: 'Leave empty for every hub.',
+          },
+          {
+            name: 'frequency',
+            label: 'Frequency',
+            type: 'segmented',
+            required: true,
+            options: options('Daily', 'Weekly', 'Monthly'),
+            defaultValue: 'Weekly',
+          },
+          {
+            name: 'format',
+            label: 'Format',
+            type: 'select',
+            required: true,
+            span: 1,
+            options: options('PDF', 'Excel', 'CSV'),
+          },
+          {
+            name: 'recipients',
+            label: 'Send to',
+            type: 'text',
+            required: true,
+            span: 1,
+            help: 'Email addresses, separated by commas.',
+          },
+        ],
+      },
+    ],
+  },
   rows: [
     {
       main: [{ type: 'meters', id: 'slaByHub', title: 'SLA met by hub' }],

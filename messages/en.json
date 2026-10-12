@@ -16,7 +16,9 @@
     "signOut": "Sign out",
     "toggleTheme": "Switch between light and dark theme",
     "openMenu": "Open menu",
-    "menu": "Menu"
+    "menu": "Menu",
+    "searchLanguages": "Search languages",
+    "noLanguage": "No language found"
   },
   "nav": {
     "services": "Services",
@@ -146,7 +148,13 @@
     "signInTitle": "Sign in to see your application",
     "signInBody": "Your applications and appointments appear here once you sign in.",
     "signInAction": "Sign in",
-    "upcoming": "Your appointment"
+    "upcoming": "Your appointment",
+    "readyTitle": "Your {output} is ready to collect",
+    "collectAt": "Collect at {hub}",
+    "bring": "Bring with you",
+    "bringNote": "We confirm it is you with your fingerprint.",
+    "collectNextTitle": "At the hub, about 10 minutes",
+    "collectNextBody": "We check your identity, put the permit in your passport and hand it back against your signature."
   },
   "journey": {
     "stageOf": "Stage {stage} of {total}: {name}",
@@ -167,7 +175,7 @@
       "12": "Exit"
     },
     "welcome": {
-      "title": "Karibu. Welcome.",
+      "title": "Welcome.",
       "body": "Choose how we can help you today. Your ticket prints below the screen.",
       "general": "General walk-in",
       "generalBody": "National ID, birth certificates, business names and other services.",
@@ -280,8 +288,13 @@
       "body": "Thank you. One receipt covers everything and we have emailed you a copy."
     },
     "lodgement": {
-      "title": "Your passport is lodged",
-      "body": "Your passport stays safely in the hub vault while the authority processes your application. Keep this receipt."
+      "title": "Your passport is now in our vault",
+      "body": "Your application needs the passport to be surrendered. It was placed in the vault while you watched, and you get it back at collection.",
+      "inVault": "In vault",
+      "sign": "Sign to confirm you handed it over",
+      "keepTitle": "Keep this receipt.",
+      "keepBody": "You need it to collect your passport.",
+      "sendToPhone": "Send to my phone"
     },
     "submitted": {
       "title": "Your application is submitted",
@@ -305,6 +318,16 @@
       "comment": "Anything to add? (optional)",
       "send": "Send and finish",
       "thanks": "Thank you. Your case is closed. Safe journey."
+    },
+    "provisional": {
+      "title": "Payment reference recorded, confirmation pending",
+      "body": "Our link to the government system is down. Your payment is safe and your visit continues as normal.",
+      "notConfirmed": "Not yet confirmed",
+      "waitingToSync": "Waiting to sync",
+      "savedAt": "Saved at {time}",
+      "waiting": "Waiting",
+      "syncNote": "Stored encrypted on this counter. They send themselves in this order when the link returns.",
+      "email": "Email receipt"
     }
   },
   "display": {
@@ -312,5 +335,11 @@
     "nowServing": "Now serving",
     "bay": "Bay",
     "waiting": "Waiting for the next ticket"
+  },
+  "offline": {
+    "title": "Operating in store and forward mode.",
+    "detail": "The government systems have been unreachable since {since}. Your visit continues as normal.",
+    "waiting": "{count, plural, one {# item} other {# items}} waiting to sync",
+    "deviceOffline": "This screen is offline. Your details are kept and sent when the connection returns."
   }
 }

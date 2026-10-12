@@ -20,7 +20,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       className={cn(
         fieldClasses,
-        'flex h-12 items-center justify-between gap-2 text-left data-[placeholder]:text-muted-foreground [&>span]:truncate',
+        'flex h-12 items-center justify-between gap-2 text-start data-[placeholder]:text-muted-foreground [&>span]:truncate',
         className,
       )}
       {...props}
@@ -66,13 +66,13 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        'relative flex w-full cursor-default items-center rounded-control py-2.5 pr-8 pl-3 text-[0.9375rem] outline-none select-none focus:bg-muted data-[disabled]:opacity-50',
+        'relative flex w-full cursor-default items-center rounded-control py-2.5 ps-3 pe-8 text-[0.9375rem] outline-none select-none focus:bg-muted data-[disabled]:opacity-50',
         className,
       )}
       {...props}
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-      <span className="absolute right-2 flex size-4 items-center justify-center">
+      <span className="absolute end-2 flex size-4 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
           <Check className="size-4 text-primary" aria-hidden />
         </SelectPrimitive.ItemIndicator>

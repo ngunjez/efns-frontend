@@ -75,10 +75,10 @@ export function SignaturePad({
             if (hasInk) onChange(canvasRef.current?.toDataURL('image/png') ?? null);
           }}
         />
-        <span className="pointer-events-none absolute bottom-2 left-3 text-xs text-muted-foreground">
+        <span className="pointer-events-none absolute start-3 bottom-2 text-xs text-muted-foreground">
           {signerName}
         </span>
-        <span className="pointer-events-none absolute right-3 bottom-2 text-xs text-muted-foreground">
+        <span className="pointer-events-none absolute end-3 bottom-2 text-xs text-muted-foreground">
           {hint}
         </span>
       </div>

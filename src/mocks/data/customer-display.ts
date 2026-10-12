@@ -3,8 +3,12 @@ import type { CustomerDisplayView } from '@/types/journey';
 export const customerDisplay: CustomerDisplayView = {
   hubName: 'Nairobi CBD Hub',
   officer: 'Grace Mwangi',
+  ticket: 'B-047',
   client: { name: 'Priya Raman', reference: 'AAS-2026-004812' },
   step: 'check-details',
+  clientDone: false,
+  review: 'none',
+  offline: null,
   data: {
     visitPass: {
       number: 'V-0064',
@@ -117,6 +121,14 @@ export const customerDisplay: CustomerDisplayView = {
       phone: '0745 220 318',
       state: 'awaiting',
       expiresInSeconds: 48,
+    },
+    provisional: {
+      number: 'OFF-NBO-0031',
+      rows: [
+        { label: 'Total, one payment', value: 'KES 51,500' },
+        { label: 'M-Pesa code you gave us', value: 'SJ29K4LQ7X' },
+        { label: 'Confirmation', value: 'Pending, sent to you by SMS and email' },
+      ],
     },
     receipt: {
       number: 'RCT-2026-116902',

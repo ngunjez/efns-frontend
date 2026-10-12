@@ -53,7 +53,7 @@ export function MultiSelect({
         <DropdownMenuTrigger
           id={id}
           {...aria}
-          className="ml-auto inline-flex items-center gap-1 rounded-control px-2 py-1 text-sm text-muted-foreground hover:bg-muted"
+          className="ms-auto inline-flex items-center gap-1 rounded-control px-2 py-1 text-sm text-muted-foreground hover:bg-muted"
         >
           {value.length === 0 ? placeholder : 'Add'}
           <ChevronDown className="size-4" aria-hidden />

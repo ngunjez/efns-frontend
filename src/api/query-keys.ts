@@ -25,6 +25,7 @@ export const queryKeys = {
     notifications: ['desk', 'notifications'] as const,
     support: (caseId: string) => ['desk', 'support', caseId] as const,
     floorHost: ['desk', 'floor-host'] as const,
+    arrivals: ['desk', 'arrivals'] as const,
     clientLookup: (query: string) => ['desk', 'client-lookup', query] as const,
   },
   displays: {

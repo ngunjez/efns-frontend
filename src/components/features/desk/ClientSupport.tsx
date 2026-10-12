@@ -102,7 +102,7 @@ export function ClientSupport({ caseId = 'current' }: { caseId?: string }) {
                     <div className="flex flex-wrap items-center gap-2 text-sm">
                       <Badge tone="success">{message.channel}</Badge>
                       <span className="font-semibold">{message.direction}</span>
-                      <span className="ml-auto text-xs text-muted-foreground">{message.time}</span>
+                      <span className="ms-auto text-xs text-muted-foreground">{message.time}</span>
                     </div>
                     <p className="rounded-control bg-muted p-3 text-sm">{message.body}</p>
                     {message.footnote && <p className="text-xs text-primary">{message.footnote}</p>}

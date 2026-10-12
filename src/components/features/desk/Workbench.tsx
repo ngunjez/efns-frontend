@@ -67,7 +67,7 @@ function Bench({ view }: { view: WorkbenchView }) {
         </div>
         <StageProgress stage={view.case.stage} className="min-w-64 flex-1" />
         <div className="flex items-center gap-3">
-          <span className="grid text-right leading-tight">
+          <span className="grid text-end leading-tight">
             <span className="text-xs text-muted-foreground">Time in hub</span>
             <span className="text-xl font-bold tabular">{view.case.timeInHub}</span>
           </span>

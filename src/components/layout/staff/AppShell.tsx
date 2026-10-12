@@ -5,7 +5,7 @@ import { PanelLeft } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
-import { adminNavigation, deskNavigation, filterNavigation } from '@/config/navigation';
+import { filterNavigation, navigationByApp, type AppKey } from '@/config/navigation';
 import { cn } from '@/lib/utils';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { sidebarCollapseToggled, sidebarOpenChanged } from '@/store/slices/ui-slice';
@@ -15,11 +15,9 @@ import { SkipLink } from '@/components/common/SkipLink';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { UserMenu } from './UserMenu';
 
-const navigations = { desk: deskNavigation, admin: adminNavigation };
-
 export interface AppShellProps {
   brand: string;
-  app: keyof typeof navigations;
+  app: AppKey;
   topbarStart?: React.ReactNode;
   topbarEnd?: React.ReactNode;
   sidebarFooter?: React.ReactNode;
@@ -38,7 +36,7 @@ export function AppShell({
   const pathname = usePathname();
   const permissions = useAppSelector((state) => state.auth.user?.permissions ?? []);
   const { sidebarOpen, sidebarCollapsed } = useAppSelector((state) => state.ui);
-  const sections = filterNavigation(navigations[app], permissions);
+  const sections = filterNavigation(navigationByApp[app], permissions);
 
   const sidebar = (onNavigate?: () => void) => (
     <Sidebar brand={brand} sections={sections} footer={sidebarFooter} onNavigate={onNavigate} />
@@ -54,7 +52,7 @@ export function AppShell({
       <SkipLink />
 
       {!sidebarCollapsed && (
-        <aside className="sticky top-0 hidden h-dvh border-r lg:block">{sidebar()}</aside>
+        <aside className="sticky top-0 hidden h-dvh border-e lg:block">{sidebar()}</aside>
       )}
 
       <Sheet open={sidebarOpen} onOpenChange={(open) => dispatch(sidebarOpenChanged(open))}>

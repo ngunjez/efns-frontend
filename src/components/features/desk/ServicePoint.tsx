@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { ClipboardCheck, MonitorUp, Receipt, Undo2 } from 'lucide-react';
-import { useStation, useStationAction } from '@/api/hooks/use-desk';
+import { useRouter } from 'next/navigation';
+import { ClipboardCheck, MonitorUp, PackageCheck, Receipt, Undo2 } from 'lucide-react';
+import { useShowStep, useStation, useStationAction } from '@/api/hooks/use-desk';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,7 +14,9 @@ import { TicketNumber } from '@/components/common/TicketNumber';
 import { useElapsedSeconds } from '@/hooks/use-elapsed-seconds';
 import { formatDuration, formatTime } from '@/lib/format';
 import { cn } from '@/lib/utils';
+import type { CaseFlow } from '@/config/journey';
 import type { StationAction, StationView } from '@/types/desk';
+import type { JourneyStep } from '@/types/journey';
 import { LiveItem, LiveList } from '@/components/motion/LiveList';
 
 export function ServicePoint() {
@@ -26,7 +29,11 @@ export function ServicePoint() {
 }
 
 function Station({ station }: { station: StationView }) {
+  const router = useRouter();
+  const show = useShowStep();
   const action = useStationAction();
+  const openCase = (step: JourneyStep, flow: CaseFlow = 'filing') =>
+    show.mutate(step, { onSuccess: () => router.push(`/desk/service-point/case?flow=${flow}`) });
   const run = (name: StationAction) => action.mutate({ action: name });
   const busy = (name: StationAction) => action.isPending && action.variables?.action === name;
   const elapsed = useElapsedSeconds(station.serving?.calledAt);
@@ -109,10 +116,13 @@ function Station({ station }: { station: StationView }) {
                       <strong>{item.ticket}</strong>, {item.reference}. Returned by{' '}
                       {item.returnedBy}: {item.reason}
                     </p>
-                    <Button size="sm" variant="outline" className="justify-self-start" asChild>
-                      <Link href="/hub/check-details">
-                        <Undo2 aria-hidden /> Open and correct
-                      </Link>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="justify-self-start"
+                      onClick={() => openCase('check-details')}
+                    >
+                      <Undo2 aria-hidden /> Open and correct
                     </Button>
                   </div>
                 ))}
@@ -158,16 +168,23 @@ function Station({ station }: { station: StationView }) {
             {station.currentCase ? (
               <>
                 <DefinitionList dense rows={station.currentCase.rows} />
-                <Button size="lg" asChild>
-                  <Link href="/hub/check-details" onClick={() => run('start-filing')}>
-                    Client at the counter, start filing
-                  </Link>
+                <Button
+                  size="lg"
+                  loading={show.isPending}
+                  onClick={() => openCase('check-details')}
+                >
+                  Client at the counter, start filing
                 </Button>
                 <div className="flex flex-wrap gap-2">
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href="/hub/payment" onClick={() => run('start-checkout')}>
-                      <Receipt aria-hidden /> Start checkout
-                    </Link>
+                  <Button variant="outline" size="sm" onClick={() => openCase('payment')}>
+                    <Receipt aria-hidden /> Start checkout
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => openCase('collection', 'collection')}
+                  >
+                    <PackageCheck aria-hidden /> Collection
                   </Button>
                   <Button
                     variant="outline"
@@ -177,8 +194,10 @@ function Station({ station }: { station: StationView }) {
                   >
                     <ClipboardCheck aria-hidden /> Route to QA
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => run('show-on-display')}>
-                    <MonitorUp aria-hidden /> Show on customer display
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/hub/display" target="_blank" rel="noopener">
+                      <MonitorUp aria-hidden /> Open customer display
+                    </Link>
                   </Button>
                 </div>
               </>

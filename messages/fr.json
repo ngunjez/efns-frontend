@@ -16,7 +16,9 @@
     "signOut": "Se déconnecter",
     "toggleTheme": "Basculer entre le thème clair et sombre",
     "openMenu": "Ouvrir le menu",
-    "menu": "Menu"
+    "menu": "Menu",
+    "searchLanguages": "Rechercher une langue",
+    "noLanguage": "Aucune langue trouvée"
   },
   "nav": {
     "services": "Services",
@@ -146,7 +148,13 @@
     "signInTitle": "Connectez-vous pour voir votre demande",
     "signInBody": "Vos demandes et rendez-vous s'affichent ici une fois connecté.",
     "signInAction": "Se connecter",
-    "upcoming": "Votre rendez-vous"
+    "upcoming": "Votre rendez-vous",
+    "readyTitle": "Votre {output} est prêt à être retiré",
+    "collectAt": "Retrait à {hub}",
+    "bring": "À apporter",
+    "bringNote": "Nous confirmons votre identité par empreinte digitale.",
+    "collectNextTitle": "Au centre, environ 10 minutes",
+    "collectNextBody": "Nous vérifions votre identité, plaçons le permis dans votre passeport et vous le remettons contre signature."
   },
   "journey": {
     "stageOf": "Étape {stage} sur {total} : {name}",
@@ -167,7 +175,7 @@
       "12": "Sortie"
     },
     "welcome": {
-      "title": "Karibu. Bienvenue.",
+      "title": "Bienvenue.",
       "body": "Choisissez comment nous pouvons vous aider. Votre ticket s'imprime sous l'écran.",
       "general": "Accueil général",
       "generalBody": "Carte d'identité, actes de naissance, noms commerciaux et autres services.",
@@ -280,8 +288,13 @@
       "body": "Merci. Un seul reçu couvre tout et nous vous en avons envoyé une copie par e-mail."
     },
     "lodgement": {
-      "title": "Votre passeport est déposé",
-      "body": "Votre passeport reste en sécurité dans le coffre du centre pendant le traitement. Conservez ce reçu."
+      "title": "Votre passeport est maintenant dans notre coffre",
+      "body": "Votre demande exige le dépôt du passeport. Il a été placé dans le coffre sous vos yeux et vous le récupérez au retrait.",
+      "inVault": "Au coffre",
+      "sign": "Signez pour confirmer que vous l’avez remis",
+      "keepTitle": "Conservez ce reçu.",
+      "keepBody": "Il vous faut pour récupérer votre passeport.",
+      "sendToPhone": "Envoyer sur mon téléphone"
     },
     "submitted": {
       "title": "Votre demande est soumise",
@@ -305,6 +318,16 @@
       "comment": "Un commentaire ? (facultatif)",
       "send": "Envoyer et terminer",
       "thanks": "Merci. Votre dossier est clôturé. Bon retour."
+    },
+    "provisional": {
+      "title": "Référence de paiement enregistrée, confirmation en attente",
+      "body": "Notre liaison avec le système de l’État est coupée. Votre paiement est en sécurité et votre visite continue normalement.",
+      "notConfirmed": "Pas encore confirmé",
+      "waitingToSync": "En attente de synchronisation",
+      "savedAt": "Enregistré à {time}",
+      "waiting": "En attente",
+      "syncNote": "Stockés chiffrés sur ce guichet. Ils sont envoyés automatiquement dans cet ordre dès le retour de la liaison.",
+      "email": "Recevoir le reçu par e-mail"
     }
   },
   "display": {
@@ -312,5 +335,11 @@
     "nowServing": "En cours",
     "bay": "Guichet",
     "waiting": "En attente du prochain ticket"
+  },
+  "offline": {
+    "title": "Fonctionnement en mode stockage et transmission différée.",
+    "detail": "Les systèmes de l’État sont injoignables depuis {since}. Votre visite continue normalement.",
+    "waiting": "{count, plural, one {# élément en attente} other {# éléments en attente}} de synchronisation",
+    "deviceOffline": "Cet écran est hors ligne. Vos informations sont conservées et envoyées au retour de la connexion."
   }
 }

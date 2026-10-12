@@ -14,7 +14,7 @@ export function BayDisplay({ bay }: { bay: string }) {
           <span className="text-h2 text-muted-foreground">{t('bay')}</span>
           <span className="text-jumbo font-bold">{data?.bay ?? bay}</span>
         </div>
-        <div className="grid text-right" aria-live="assertive">
+        <div className="grid text-end" aria-live="assertive">
           <span className="text-h2 text-muted-foreground">{t('nowServing')}</span>
           <span className="text-jumbo font-bold tabular">{data?.ticket ?? '—'}</span>
         </div>

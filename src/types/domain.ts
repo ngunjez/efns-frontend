@@ -69,6 +69,12 @@ export interface ApplicationSummary {
   timeline: TimelineStep[];
   documentRequest: { title: string; detail: string; dueBy: string } | null;
   passport: string | null;
+  readyToCollect: {
+    hub: string;
+    output: string;
+    rows: { label: string; value: string }[];
+    bring: string[];
+  } | null;
   hubSupport: { phone: string; email: string };
 }
 

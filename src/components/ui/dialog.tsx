@@ -43,7 +43,7 @@ function DialogContent({
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute top-4 right-4 rounded-control p-1 text-muted-foreground hover:bg-muted hover:text-foreground">
+        <DialogPrimitive.Close className="absolute end-4 top-4 rounded-control p-1 text-muted-foreground hover:bg-muted hover:text-foreground">
           <X className="size-4" aria-hidden />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
@@ -53,7 +53,7 @@ function DialogContent({
 }
 
 function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('grid gap-1 pr-8', className)} {...props} />;
+  return <div className={cn('grid gap-1 pe-8', className)} {...props} />;
 }
 
 function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {

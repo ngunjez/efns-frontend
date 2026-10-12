@@ -5,59 +5,178 @@ export const vaultPage: PageDefinition = {
   key: 'vault',
   title: 'Vault and custody',
   description: 'Every surrendered passport and output held at the hub, by shelf and custodian.',
-  createLabel: 'Add stock-take',
   customizable: true,
-  form: {
-    title: 'Add stock-take',
-    description:
-      'Record a cycle count. Any difference opens an exception that needs two approvers.',
-    submitLabel: 'Save stock-take',
-    successMessage: 'Stock-take recorded.',
-    sections: [
-      {
-        fields: [
+  headerActions: [
+    {
+      action: 'check-in',
+      label: 'Check in an item',
+      form: {
+        title: 'Check in an item',
+        description: 'Label the item, place it in its slot and record who handed it over.',
+        submitLabel: 'Check in and print label',
+        successMessage: 'Checked in. The label is printing and the client has a lodgement receipt.',
+        sections: [
           {
-            name: 'shelf',
-            label: 'Shelf',
-            type: 'select',
-            required: true,
-            span: 1,
-            options: options(
-              'Vault A, Shelf 1',
-              'Vault A, Shelf 2',
-              'Vault A, Shelf 3',
-              'Vault A, Shelf 4',
-              'Vault B, Shelf 1',
-              'Vault B, Shelf 2',
-            ),
+            title: 'Item',
+            fields: [
+              { name: 'application', label: 'Application', type: 'text', required: true, span: 1 },
+              {
+                name: 'itemType',
+                label: 'Item type',
+                type: 'select',
+                required: true,
+                span: 1,
+                options: options(
+                  'Surrendered passport',
+                  'Permit sticker',
+                  'Alien card',
+                  'Stamped certificate',
+                ),
+              },
+              {
+                name: 'documentNumber',
+                label: 'Document number',
+                type: 'text',
+                required: true,
+                span: 1,
+              },
+              { name: 'holder', label: 'Holder', type: 'text', required: true, span: 1 },
+            ],
           },
           {
-            name: 'expected',
-            label: 'Items expected',
-            type: 'number',
-            required: true,
-            min: 0,
-            span: 1,
+            title: 'Location',
+            fields: [
+              {
+                name: 'shelf',
+                label: 'Vault and shelf',
+                type: 'select',
+                required: true,
+                span: 1,
+                options: options(
+                  'Vault A, Shelf 1',
+                  'Vault A, Shelf 2',
+                  'Vault A, Shelf 3',
+                  'Vault A, Shelf 4',
+                  'Vault B, Shelf 1',
+                  'Vault B, Shelf 2',
+                ),
+              },
+              {
+                name: 'slot',
+                label: 'Slot or box',
+                type: 'text',
+                required: true,
+                span: 1,
+                defaultValue: 'Next free slot',
+              },
+            ],
           },
           {
-            name: 'counted',
-            label: 'Items counted',
-            type: 'number',
-            required: true,
-            min: 0,
-            span: 1,
-          },
-          { name: 'countedBy', label: 'Counted by', type: 'text', required: true, span: 1 },
-          {
-            name: 'variance',
-            label: 'Variance explanation',
-            type: 'textarea',
-            help: 'Required when the counts differ.',
+            title: 'Custody',
+            fields: [
+              {
+                name: 'handedOverBy',
+                label: 'Handed over by',
+                type: 'text',
+                required: true,
+                span: 1,
+              },
+              { name: 'receivedBy', label: 'Received by', type: 'text', required: true, span: 1 },
+              {
+                name: 'condition',
+                label: 'Condition on receipt',
+                type: 'textarea',
+                defaultValue: 'No defects recorded at capture.',
+              },
+              {
+                name: 'lodgementReceipt',
+                label: 'Issue a lodgement receipt to the client',
+                type: 'switch',
+                defaultValue: true,
+              },
+              {
+                name: 'bothSigned',
+                label: 'Both officers have signed',
+                type: 'switch',
+                help: 'Signatures captured on the pad.',
+              },
+            ],
           },
         ],
       },
-    ],
-  },
+    },
+    {
+      action: 'stock-take',
+      label: 'Add stock-take',
+      form: {
+        title: 'Stock-take',
+        description:
+          'Count each shelf against the register. A difference opens an exception that needs two approvers.',
+        submitLabel: 'Close stock-take',
+        successMessage: 'Stock-take closed. Any variance was sent to the exception ledger.',
+        sections: [
+          {
+            title: 'Count',
+            fields: [
+              {
+                name: 'shelf',
+                label: 'Shelf',
+                type: 'select',
+                required: true,
+                span: 1,
+                options: options(
+                  'Vault A, Shelf 1',
+                  'Vault A, Shelf 2',
+                  'Vault A, Shelf 3',
+                  'Vault A, Shelf 4',
+                  'Vault B, Shelf 1',
+                  'Vault B, Shelf 2',
+                ),
+              },
+              { name: 'countedBy', label: 'Counted by', type: 'text', required: true, span: 1 },
+              {
+                name: 'expected',
+                label: 'In the register',
+                type: 'number',
+                required: true,
+                min: 0,
+                span: 1,
+              },
+              {
+                name: 'counted',
+                label: 'Counted',
+                type: 'number',
+                required: true,
+                min: 0,
+                span: 1,
+              },
+            ],
+          },
+          {
+            title: 'Reconcile',
+            fields: [
+              {
+                name: 'resolution',
+                label: 'Resolution',
+                type: 'select',
+                span: 1,
+                options: options(
+                  'No variance',
+                  'Found, register corrected',
+                  'Not found, reported as lost',
+                ),
+              },
+              { name: 'foundAt', label: 'Found at', type: 'text', span: 1 },
+              { name: 'whatHappened', label: 'What happened', type: 'textarea' },
+              { name: 'approvedBy', label: 'Approved by', type: 'text', span: 1 },
+              { name: 'nonConformance', label: 'Raise a non-conformance', type: 'switch' },
+              { name: 'bothSigned', label: 'Both custodians have signed', type: 'switch' },
+            ],
+          },
+        ],
+      },
+    },
+  ],
   rows: [
     {
       main: [{ type: 'meters', id: 'capacity', title: 'Shelf capacity' }],

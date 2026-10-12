@@ -15,6 +15,7 @@ import { FormField } from '@/components/common/FormField';
 import { OtpInput } from '@/components/common/OtpInput';
 import { AuthCard } from '@/components/layout/staff/AuthCard';
 import { homeForPermissions } from '@/config/navigation';
+import { safeRedirect } from '@/lib/utils';
 import { useAppDispatch } from '@/store/hooks';
 import { signedIn } from '@/store/slices/auth-slice';
 
@@ -55,9 +56,7 @@ export function StaffSignIn() {
                   dispatch(signedIn(user));
                   queryClient.setQueryData(queryKeys.me, user);
                   const next = params.get('next');
-                  router.replace(
-                    (next?.startsWith('/') ? next : homeForPermissions(user.permissions)) as Route,
-                  );
+                  router.replace(safeRedirect(next, homeForPermissions(user.permissions)) as Route);
                 },
                 onError: (error) => {
                   if (error.code === 'OUTSIDE_HUB') router.replace('/staff/outside-hub');

@@ -96,7 +96,7 @@ export function FieldControl({
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b text-xs">
-                    <th scope="col" className="py-2 text-left font-semibold">
+                    <th scope="col" className="py-2 text-start font-semibold">
                       System
                     </th>
                     {columns.map((column) => (
@@ -113,7 +113,7 @@ export function FieldControl({
                 <tbody>
                   {options.map((row) => (
                     <tr key={row.value} className="border-b last:border-0">
-                      <th scope="row" className="py-2.5 text-left font-normal">
+                      <th scope="row" className="py-2.5 text-start font-normal">
                         {row.label}
                       </th>
                       {columns.map((column) => {

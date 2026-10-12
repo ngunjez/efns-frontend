@@ -11,7 +11,7 @@ export function MeterList({ items }: { items: MeterItem[] }) {
         >
           <span className="truncate">{item.label}</span>
           <Progress value={item.value} tone={item.tone} label={item.label} className="h-2.5" />
-          <span className="w-16 text-right text-muted-foreground tabular">{item.display}</span>
+          <span className="w-16 text-end text-muted-foreground tabular">{item.display}</span>
         </li>
       ))}
     </ul>

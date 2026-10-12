@@ -13,7 +13,14 @@ export const authHandlers = [
     const { email, password } = (await request.json()) as { email: string; password: string };
     if (!email || !password)
       return apiError(400, 'Enter your work email and password.', 'VALIDATION');
-    store.set(CHALLENGE, demoUserFor(email));
+    const user = demoUserFor(email);
+    if (!user)
+      return apiError(
+        401,
+        'Those details are not right. Check your work email and password.',
+        'INVALID_CREDENTIALS',
+      );
+    store.set(CHALLENGE, user);
     return HttpResponse.json({ challengeId: 'challenge-1' });
   }),
 

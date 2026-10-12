@@ -44,9 +44,19 @@ test('the site can switch language and theme', async ({ page, isMobile }) => {
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Government services');
   if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
   await page.getByRole('button', { name: 'Language' }).filter({ visible: true }).click();
-  await page.getByRole('menuitemradio', { name: 'Français' }).click();
+  await page.getByRole('option', { name: 'Français' }).click();
   if (isMobile) await page.keyboard.press('Escape');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Les services publics');
   await page.getByRole('button', { name: 'Basculer entre le thème clair et sombre' }).click();
   await expect(page.locator('html')).toHaveClass(/dark|light/);
+});
+
+test('right-to-left languages flip the page direction', async ({ page, isMobile }) => {
+  await page.goto('/');
+  if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
+  await page.getByRole('button', { name: 'Language' }).filter({ visible: true }).click();
+  await page.getByRole('searchbox').fill('arab');
+  await page.getByRole('option', { name: 'العربية' }).click();
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ar');
 });

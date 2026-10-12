@@ -3,9 +3,80 @@ import { ICON_ACTIONS, ROLES, SYSTEMS, hubColumn, options } from '../shared';
 
 export const networkPage: PageDefinition = {
   key: 'network',
-  title: 'Network and security',
+  title: 'Network and geofencing',
   description:
-    'Hub links, enrolled devices and blocked sign-ins. Staff screens open only from inside their own hub.',
+    'Link health, device authentication and attempts to file from outside a hub. Addresses and tunnel identifiers are never shown here.',
+  customizable: true,
+  createLabel: 'Add node',
+  form: {
+    title: 'Add node',
+    description:
+      'Register a hub edge device. It is provisioned centrally and has no local admin access.',
+    submitLabel: 'Register node',
+    successMessage: 'Node registered. It joins the network after zero-touch provisioning.',
+    sections: [
+      {
+        title: 'Hub',
+        fields: [
+          {
+            name: 'hubId',
+            label: 'Hub',
+            type: 'select',
+            optionsSource: 'hubs',
+            required: true,
+            span: 1,
+          },
+          { name: 'serial', label: 'Device serial', type: 'text', required: true, span: 1 },
+        ],
+      },
+      {
+        title: 'Links',
+        fields: [
+          {
+            name: 'primaryLink',
+            label: 'Primary link',
+            type: 'select',
+            required: true,
+            span: 1,
+            options: options('Dedicated fibre', 'Microwave'),
+          },
+          {
+            name: 'backupCircuit',
+            label: 'Backup circuit',
+            type: 'select',
+            required: true,
+            span: 1,
+            options: options('LTE', '5G', 'Secondary fibre'),
+          },
+          {
+            name: 'tunnel',
+            label: 'Tunnel',
+            type: 'segmented',
+            required: true,
+            options: options('IPSec', 'WireGuard'),
+            defaultValue: 'IPSec',
+          },
+        ],
+      },
+      {
+        title: 'Access',
+        fields: [
+          {
+            name: 'geofence',
+            label: 'Allow filing only through this hub tunnel',
+            type: 'switch',
+            defaultValue: true,
+          },
+          {
+            name: 'portAuth',
+            label: 'Require 802.1X on every counter port',
+            type: 'switch',
+            defaultValue: true,
+          },
+        ],
+      },
+    ],
+  },
   rows: [
     {
       main: [
@@ -13,7 +84,11 @@ export const networkPage: PageDefinition = {
           type: 'table',
           title: 'Hub links',
           searchPlaceholder: 'Search hubs',
-          rowActions: [{ action: 'failover-test', label: 'Run failover test' }],
+          selectable: true,
+          rowActions: [
+            { action: 'failover-test', label: 'Run failover test' },
+            { action: 'rotate-certificate', label: 'Rotate device certificate' },
+          ],
           columns: [
             hubColumn,
             {
@@ -23,20 +98,40 @@ export const networkPage: PageDefinition = {
               tones: { up: 'success', degraded: 'warning', down: 'danger' },
             },
             {
+              key: 'tunnel',
+              header: 'Tunnel',
+              kind: 'status',
+              tones: { up: 'success', down: 'danger' },
+              hideBelow: 'md',
+            },
+            {
               key: 'failover',
-              header: 'Failover link',
+              header: 'Backup circuit',
               kind: 'status',
               tones: { standby: 'info', active: 'warning', down: 'danger' },
               hideBelow: 'sm',
             },
-            { key: 'latency', header: 'Latency', hideBelow: 'md' },
-            { key: 'devices', header: 'Enrolled devices', kind: 'number', hideBelow: 'md' },
-            { key: 'blocked', header: 'Blocked sign-ins today', kind: 'number' },
+            {
+              key: 'certificate',
+              header: 'Device certificate',
+              kind: 'status',
+              tones: { valid: 'success', expiring: 'warning', expired: 'danger' },
+              hideBelow: 'lg',
+            },
+            { key: 'heartbeat', header: 'Heartbeat', kind: 'muted', hideBelow: 'md' },
+            {
+              key: 'status',
+              header: 'Status',
+              kind: 'status',
+              tones: { up: 'success', on_backup: 'warning', down: 'danger' },
+              labels: { on_backup: 'On backup' },
+            },
           ],
         },
       ],
-      aside: [{ type: 'list', id: 'blocked', title: 'Refused sign-ins' }],
+      aside: [{ type: 'list', id: 'security', title: 'Security events' }],
     },
+    { main: [{ type: 'tiles', id: 'portAuth', title: '802.1X port authentication' }] },
   ],
 };
 

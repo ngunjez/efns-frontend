@@ -84,15 +84,15 @@ function NavEntry({ item, onNavigate }: { item: NavItem; onNavigate?: () => void
         )}
       >
         <Icon className="size-[1.125rem]" aria-hidden />
-        <span className="flex-1 text-left">{item.title}</span>
+        <span className="flex-1 text-start">{item.title}</span>
         {expanded ? (
           <ChevronDown className="size-4" aria-hidden />
         ) : (
-          <ChevronRight className="size-4" aria-hidden />
+          <ChevronRight className="size-4 rtl:rotate-180" aria-hidden />
         )}
       </button>
       {expanded && (
-        <ul className="mt-1 ml-5 grid border-l">
+        <ul className="ms-5 mt-1 grid border-s">
           {item.children.map((child) => {
             const active = isActive(pathname, child.href);
             return (
@@ -102,7 +102,7 @@ function NavEntry({ item, onNavigate }: { item: NavItem; onNavigate?: () => void
                   onClick={onNavigate}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    '-ml-px block border-l-2 py-2 pl-4 text-sm transition-colors',
+                    '-ms-px block border-s-2 py-2 ps-4 text-sm transition-colors',
                     active
                       ? 'border-primary font-medium text-primary'
                       : 'border-transparent text-muted-foreground hover:text-foreground',

@@ -26,12 +26,19 @@ export interface PageRow {
   aside?: WidgetDef[];
 }
 
+export interface HeaderAction {
+  action: string;
+  label: string;
+  form: FormDefinition;
+}
+
 export interface PageDefinition {
   key: string;
   title: string;
   description: string;
   form?: FormDefinition;
   createLabel?: string;
+  headerActions?: HeaderAction[];
   customizable?: boolean;
   remove?: {
     title: string;

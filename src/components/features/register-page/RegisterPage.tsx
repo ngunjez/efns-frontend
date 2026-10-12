@@ -9,6 +9,7 @@ import {
   useDeleteRecord,
   useRecordAction,
   useRegister,
+  useRegisterCommand,
   useSaveRecord,
 } from '@/api/hooks/use-register';
 import { Button } from '@/components/ui/button';
@@ -21,7 +22,7 @@ import { SummaryCard } from '@/components/common/SummaryCard';
 import { useDebouncedValue } from '@/hooks/use-debounced-value';
 import { cn } from '@/lib/utils';
 import type { RegisterRow } from '@/types/register';
-import type { PageDefinition, WidgetDef } from './types';
+import type { HeaderAction, PageDefinition, WidgetDef } from './types';
 import { Reveal } from '@/components/motion/Reveal';
 import { Widget } from './Widget';
 
@@ -44,10 +45,12 @@ export function RegisterPage({ definition }: { definition: PageDefinition }) {
     action: RowAction & { form: FormDefinition };
   } | null>(null);
   const [highlightId, setHighlightId] = useState<string | null>(null);
+  const [command, setCommand] = useState<HeaderAction | null>(null);
 
   const save = useSaveRecord(key, form?.successMessage ?? 'Saved.');
   const destroy = useDeleteRecord(key, remove?.successMessage ?? 'Deleted.');
   const rowAction = useRecordAction(key);
+  const runCommand = useRegisterCommand(key);
 
   useEffect(() => {
     if (!highlightId) return;
@@ -145,8 +148,17 @@ export function RegisterPage({ definition }: { definition: PageDefinition }) {
           description={definition.description}
           stats={summary?.stats}
           actions={
-            (form || definition.customizable) && (
+            (form || definition.headerActions || definition.customizable) && (
               <>
+                {definition.headerActions?.map((item, index) => (
+                  <Button
+                    key={item.action}
+                    variant={index === 0 && !form ? 'default' : 'outline'}
+                    onClick={() => setCommand(item)}
+                  >
+                    <Plus aria-hidden /> {item.label}
+                  </Button>
+                ))}
                 {form && (
                   <Button onClick={() => setDrawer({ open: true })}>
                     <Plus aria-hidden /> {definition.createLabel ?? form.submitLabel}
@@ -193,6 +205,22 @@ export function RegisterPage({ definition }: { definition: PageDefinition }) {
           record={drawer.record}
           saving={save.isPending}
           onSubmit={submit}
+        />
+      )}
+
+      {command && (
+        <FormDrawer
+          open
+          onOpenChange={(open) => !open && setCommand(null)}
+          definition={{ ...command.form, customFieldsPage: command.form.customFieldsPage ?? key }}
+          saving={runCommand.isPending}
+          onSubmit={(values) =>
+            runCommand.mutateAsync({ name: command.action, values }).then((result) => {
+              toast.success(command.form.successMessage);
+              if (result && 'id' in result) setHighlightId(result.id);
+              setCommand(null);
+            })
+          }
         />
       )}
 

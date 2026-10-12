@@ -16,7 +16,9 @@
     "signOut": "Cerrar sesión",
     "toggleTheme": "Cambiar entre tema claro y oscuro",
     "openMenu": "Abrir menú",
-    "menu": "Menú"
+    "menu": "Menú",
+    "searchLanguages": "Buscar idioma",
+    "noLanguage": "No se encontró ningún idioma"
   },
   "nav": {
     "services": "Servicios",
@@ -146,7 +148,13 @@
     "signInTitle": "Inicie sesión para ver su solicitud",
     "signInBody": "Sus solicitudes y citas aparecen aquí al iniciar sesión.",
     "signInAction": "Iniciar sesión",
-    "upcoming": "Su cita"
+    "upcoming": "Su cita",
+    "readyTitle": "Su {output} está listo para recoger",
+    "collectAt": "Recoja en {hub}",
+    "bring": "Traiga consigo",
+    "bringNote": "Confirmamos que es usted con su huella dactilar.",
+    "collectNextTitle": "En el centro, unos 10 minutos",
+    "collectNextBody": "Verificamos su identidad, colocamos el permiso en su pasaporte y se lo devolvemos contra firma."
   },
   "journey": {
     "stageOf": "Etapa {stage} de {total}: {name}",
@@ -167,7 +175,7 @@
       "12": "Salida"
     },
     "welcome": {
-      "title": "Karibu. Bienvenido.",
+      "title": "Bienvenido.",
       "body": "Elija cómo podemos ayudarle hoy. Su ticket se imprime debajo de la pantalla.",
       "general": "Atención general",
       "generalBody": "Documento de identidad, partidas de nacimiento, nombres comerciales y otros servicios.",
@@ -280,8 +288,13 @@
       "body": "Gracias. Un solo recibo lo cubre todo y le enviamos una copia por correo."
     },
     "lodgement": {
-      "title": "Su pasaporte está depositado",
-      "body": "Su pasaporte queda seguro en la caja fuerte del centro mientras la autoridad tramita su solicitud. Guarde este recibo."
+      "title": "Su pasaporte está ahora en nuestra cámara de custodia",
+      "body": "Su solicitud requiere entregar el pasaporte. Se guardó en la cámara de custodia en su presencia y se le devuelve al recoger.",
+      "inVault": "En custodia",
+      "sign": "Firme para confirmar que lo entregó",
+      "keepTitle": "Conserve este recibo.",
+      "keepBody": "Lo necesita para recoger su pasaporte.",
+      "sendToPhone": "Enviar a mi teléfono"
     },
     "submitted": {
       "title": "Su solicitud ha sido enviada",
@@ -305,6 +318,16 @@
       "comment": "¿Algo que añadir? (opcional)",
       "send": "Enviar y terminar",
       "thanks": "Gracias. Su caso está cerrado. Buen viaje."
+    },
+    "provisional": {
+      "title": "Referencia de pago registrada, confirmación pendiente",
+      "body": "La conexión con el sistema del gobierno está caída. Su pago está seguro y su visita continúa con normalidad.",
+      "notConfirmed": "Aún sin confirmar",
+      "waitingToSync": "Pendiente de sincronizar",
+      "savedAt": "Guardado a las {time}",
+      "waiting": "Pendiente",
+      "syncNote": "Guardados cifrados en este mostrador. Se envían solos en este orden cuando vuelve la conexión.",
+      "email": "Enviar recibo por correo"
     }
   },
   "display": {
@@ -312,5 +335,11 @@
     "nowServing": "Atendiendo",
     "bay": "Ventanilla",
     "waiting": "Esperando el siguiente ticket"
+  },
+  "offline": {
+    "title": "Funcionando en modo de almacenamiento y reenvío.",
+    "detail": "Los sistemas del gobierno no responden desde {since}. Su visita continúa con normalidad.",
+    "waiting": "{count, plural, one {# elemento pendiente} other {# elementos pendientes}} de sincronizar",
+    "deviceOffline": "Esta pantalla está sin conexión. Sus datos se guardan y se envían cuando vuelva la conexión."
   }
 }

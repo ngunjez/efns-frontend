@@ -30,6 +30,7 @@ import { FormField } from '@/components/common/FormField';
 import { PageIntro } from '@/components/common/PageIntro';
 import { TimeSlotPicker } from '@/components/common/TimeSlotPicker';
 import { Reveal } from '@/components/motion/Reveal';
+import { useIntlLocale } from '@/hooks/use-intl-locale';
 import { formatDate, formatMoney } from '@/lib/format';
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -221,6 +222,7 @@ function BookingForm({ onBooked }: { onBooked: (booking: Booking) => void }) {
 
 function Booked({ booking }: { booking: Booking }) {
   const t = useTranslations('booking');
+  const intl = useIntlLocale();
   const common = useTranslations('common');
 
   return (
@@ -238,7 +240,7 @@ function Booked({ booking }: { booking: Booking }) {
           <span className="text-lg font-semibold">{booking.service}</span>
           <span className="text-sm">{booking.hub}</span>
           <span className="text-sm">
-            {formatDate(booking.date)}, {booking.time}
+            {formatDate(booking.date, intl)}, {booking.time}
           </span>
           {booking.email && (
             <span className="text-xs text-muted-foreground">
@@ -261,7 +263,7 @@ function Booked({ booking }: { booking: Booking }) {
         </ul>
       </Card>
       <div className="flex flex-wrap items-center justify-end gap-3">
-        <p className="mr-auto max-w-sm text-xs text-muted-foreground">{t('keepCopy')}</p>
+        <p className="me-auto max-w-sm text-xs text-muted-foreground">{t('keepCopy')}</p>
         <Button asChild size="lg" variant="outline">
           <Link href="/my-application">{common('done')}</Link>
         </Button>

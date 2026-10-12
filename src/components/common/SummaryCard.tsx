@@ -17,7 +17,7 @@ export function SummaryCard({ card }: { card: SummaryCardData }) {
       {card.href && (
         <Button asChild variant="outline" size="sm" className="self-start">
           <Link href={card.href as Route}>
-            See Report <ArrowRight aria-hidden />
+            See Report <ArrowRight className="rtl:rotate-180" aria-hidden />
           </Link>
         </Button>
       )}

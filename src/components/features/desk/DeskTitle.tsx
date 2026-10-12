@@ -1,16 +1,13 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { deskNavigation } from '@/config/navigation';
+import { titleForPath } from '@/config/navigation';
 import { useAppSelector } from '@/store/hooks';
 
 export function DeskTitle() {
   const pathname = usePathname();
   const station = useAppSelector((state) => state.auth.user?.station);
-  const item = deskNavigation
-    .flatMap((section) => section.items)
-    .find((entry) => entry.href && pathname.startsWith(entry.href));
-  const title = item?.title ?? 'Service Desk';
-  const prefixed = item?.href === '/desk/service-point' && station ? `${station}, ${title}` : title;
-  return <p className="truncate font-semibold">{prefixed}</p>;
+  const title = titleForPath(pathname) ?? 'Service Desk';
+  const atBay = pathname.startsWith('/desk/service-point') && station;
+  return <p className="truncate font-semibold">{atBay ? `${station}, ${title}` : title}</p>;
 }

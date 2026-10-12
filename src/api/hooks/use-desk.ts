@@ -3,7 +3,9 @@ import { ENDPOINTS } from '../endpoints';
 import { queryKeys } from '../query-keys';
 import { request } from '../request';
 import type { Appointment } from '@/types/domain';
+import type { JourneyStep } from '@/types/journey';
 import type {
+  Arrival,
   ClientLookup,
   FloorboardView,
   FloorHostView,
@@ -189,5 +191,28 @@ export function useContactClient(caseId: string) {
       successMessage: 'Contact started. It will appear in the conversation.',
       invalidates: [queryKeys.desk.support(caseId)],
     },
+  });
+}
+
+export function useShowStep() {
+  return useMutation({
+    mutationFn: (step: JourneyStep) => request.post<void>(ENDPOINTS.desk.caseStep, { step }),
+    meta: { invalidates: [queryKeys.displays.customer] },
+  });
+}
+
+export function useCaseCommand() {
+  return useMutation({
+    mutationFn: ({ name, payload }: { name: string; payload?: Record<string, unknown> }) =>
+      request.post<void>(ENDPOINTS.desk.caseCommand(name), payload),
+    meta: { invalidates: [queryKeys.displays.customer, queryKeys.desk.all] },
+  });
+}
+
+export function useArrivals() {
+  return useQuery({
+    queryKey: queryKeys.desk.arrivals,
+    queryFn: () => request.get<Arrival[]>(ENDPOINTS.desk.arrivals),
+    ...LIVE,
   });
 }

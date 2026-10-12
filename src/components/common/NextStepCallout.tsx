@@ -20,7 +20,7 @@ export function NextStepCallout({
         aria-hidden
         className="grid size-10 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"
       >
-        <ArrowRight className="size-5" />
+        <ArrowRight className="size-5 rtl:rotate-180" aria-hidden />
       </span>
       <div className="grid gap-0.5">
         <span className="text-xs text-muted-foreground">{eyebrow}</span>

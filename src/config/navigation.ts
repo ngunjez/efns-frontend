@@ -5,6 +5,8 @@ import {
   Boxes,
   Building2,
   CalendarClock,
+  ClipboardCheck,
+  Grid2x2,
   Headset,
   LayoutGrid,
   Lock,
@@ -17,11 +19,12 @@ import {
   Wallet,
   Wifi,
   Workflow,
-  Grid2x2,
 } from 'lucide-react';
-import { PERMISSIONS, hasPermission, type PermissionRule } from './permissions';
+import { PERMISSIONS as P, hasPermission, type PermissionRule } from './permissions';
 
 const to = <T extends string>(path: Route<T>): Route => path as Route;
+
+export type AppKey = 'desk' | 'admin';
 
 export interface NavLink {
   title: string;
@@ -45,46 +48,52 @@ export const deskNavigation: NavSection[] = [
     label: 'My station',
     items: [
       {
-        title: 'Appointments',
-        href: to('/desk/appointments'),
-        icon: CalendarClock,
-        permission: PERMISSIONS.appointmentsManage,
+        title: 'Floorboard',
+        href: to('/desk/floorboard'),
+        icon: LayoutGrid,
+        permission: P.floorboardView,
       },
       {
         title: 'Floor Host',
         href: to('/desk/floor-host'),
         icon: UserRound,
-        permission: PERMISSIONS.floorHost,
+        permission: P.floorHost,
+      },
+      {
+        title: 'Appointments',
+        href: to('/desk/appointments'),
+        icon: CalendarClock,
+        permission: P.appointmentsManage,
+      },
+      {
+        title: 'Document check',
+        href: to('/desk/reception'),
+        icon: ClipboardCheck,
+        permission: P.receptionTriage,
       },
       {
         title: 'Service Point',
         href: to('/desk/service-point'),
         icon: UsersRound,
-        permission: PERMISSIONS.servicePoint,
+        permission: P.servicePoint,
       },
       {
         title: 'Workbench',
         href: to('/desk/workbench'),
         icon: MonitorSmartphone,
-        permission: [PERMISSIONS.casesVerify, PERMISSIONS.casesQa],
-      },
-      {
-        title: 'Floorboard',
-        href: to('/desk/floorboard'),
-        icon: LayoutGrid,
-        permission: PERMISSIONS.floorboardView,
+        permission: [P.casesVerify, P.casesQa],
       },
       {
         title: 'Client Support',
         href: to('/desk/support'),
         icon: Headset,
-        permission: PERMISSIONS.supportOperate,
+        permission: P.supportOperate,
       },
       {
         title: 'Journey Board',
         href: to('/desk/journey-board'),
         icon: Grid2x2,
-        permission: PERMISSIONS.journeyBoardView,
+        permission: P.journeyBoardView,
       },
     ],
   },
@@ -98,15 +107,11 @@ export const adminNavigation: NavSection[] = [
         title: 'Hubs and Centres',
         icon: Building2,
         children: [
-          {
-            title: 'Applications',
-            href: to('/admin/hubs/applications'),
-            permission: PERMISSIONS.hubsManage,
-          },
+          { title: 'Applications', href: to('/admin/hubs/applications'), permission: P.hubsManage },
           {
             title: 'Accreditation',
             href: to('/admin/hubs/accreditation'),
-            permission: PERMISSIONS.hubsManage,
+            permission: P.hubsManage,
           },
         ],
       },
@@ -117,12 +122,12 @@ export const adminNavigation: NavSection[] = [
           {
             title: 'Training and certification',
             href: to('/admin/agents/certification'),
-            permission: PERMISSIONS.agentsManage,
+            permission: P.agentsManage,
           },
           {
             title: 'Discipline and coaching',
             href: to('/admin/agents/discipline'),
-            permission: PERMISSIONS.agentsManage,
+            permission: P.agentsManage,
           },
         ],
       },
@@ -131,14 +136,14 @@ export const adminNavigation: NavSection[] = [
         icon: Workflow,
         children: [
           {
-            title: 'Fees and SLAs',
-            href: to('/admin/services/fees'),
-            permission: PERMISSIONS.servicesManage,
-          },
-          {
             title: 'Forms and checklists',
             href: to('/admin/services/forms'),
-            permission: PERMISSIONS.servicesManage,
+            permission: P.servicesManage,
+          },
+          {
+            title: 'Fees and SLAs',
+            href: to('/admin/services/fees'),
+            permission: P.servicesManage,
           },
         ],
       },
@@ -149,7 +154,7 @@ export const adminNavigation: NavSection[] = [
           {
             title: 'Procurement',
             href: to('/admin/assets/procurement'),
-            permission: PERMISSIONS.assetsManage,
+            permission: P.assetsManage,
           },
         ],
       },
@@ -162,13 +167,13 @@ export const adminNavigation: NavSection[] = [
         title: 'Vault and custody',
         href: to('/admin/vault'),
         icon: Lock,
-        permission: PERMISSIONS.vaultManage,
+        permission: P.vaultManage,
       },
       {
         title: 'Courier and logistics',
         href: to('/admin/logistics'),
         icon: Truck,
-        permission: PERMISSIONS.logisticsManage,
+        permission: P.logisticsManage,
       },
     ],
   },
@@ -182,22 +187,22 @@ export const adminNavigation: NavSection[] = [
           {
             title: 'Quality and rework',
             href: to('/admin/compliance/quality'),
-            permission: PERMISSIONS.complianceView,
+            permission: P.complianceView,
           },
           {
             title: 'Corrective actions',
             href: to('/admin/compliance/corrective-actions'),
-            permission: PERMISSIONS.complianceView,
-          },
-          {
-            title: 'Audit trail',
-            href: to('/admin/compliance/audit'),
-            permission: PERMISSIONS.complianceView,
+            permission: P.complianceView,
           },
           {
             title: 'Exception ledger',
             href: to('/admin/compliance/exceptions'),
-            permission: PERMISSIONS.complianceView,
+            permission: P.exceptionsResolve,
+          },
+          {
+            title: 'Audit trail',
+            href: to('/admin/compliance/audit'),
+            permission: P.complianceView,
           },
         ],
       },
@@ -208,12 +213,12 @@ export const adminNavigation: NavSection[] = [
           {
             title: 'Hub performance',
             href: to('/admin/analytics/performance'),
-            permission: PERMISSIONS.analyticsView,
+            permission: P.analyticsView,
           },
           {
             title: 'Feedback and complaints',
             href: to('/admin/analytics/feedback'),
-            permission: PERMISSIONS.analyticsView,
+            permission: P.feedbackView,
           },
         ],
       },
@@ -224,22 +229,22 @@ export const adminNavigation: NavSection[] = [
           {
             title: 'Reconciliation',
             href: to('/admin/finance/reconciliation'),
-            permission: PERMISSIONS.financeManage,
-          },
-          {
-            title: 'Revenue allocation',
-            href: to('/admin/finance/allocation'),
-            permission: PERMISSIONS.financeManage,
+            permission: P.financeManage,
           },
           {
             title: 'Disputes and refunds',
             href: to('/admin/finance/disputes'),
-            permission: PERMISSIONS.financeManage,
+            permission: P.financeManage,
+          },
+          {
+            title: 'Revenue allocation',
+            href: to('/admin/finance/allocation'),
+            permission: P.financeManage,
           },
           {
             title: 'Partner settlements',
             href: to('/admin/finance/settlements'),
-            permission: PERMISSIONS.financeManage,
+            permission: P.financeManage,
           },
         ],
       },
@@ -252,7 +257,7 @@ export const adminNavigation: NavSection[] = [
         title: 'Network and security',
         href: to('/admin/network'),
         icon: Wifi,
-        permission: PERMISSIONS.networkView,
+        permission: P.networkView,
       },
       {
         title: 'Settings',
@@ -261,37 +266,61 @@ export const adminNavigation: NavSection[] = [
           {
             title: 'Roles and access',
             href: to('/admin/settings/roles'),
-            permission: PERMISSIONS.settingsManage,
+            permission: P.settingsManage,
           },
           {
             title: 'Notifications',
             href: to('/admin/settings/notifications'),
-            permission: PERMISSIONS.settingsManage,
+            permission: P.settingsManage,
           },
           {
             title: 'Exception rules',
             href: to('/admin/settings/exception-rules'),
-            permission: PERMISSIONS.settingsManage,
+            permission: P.settingsManage,
           },
           {
             title: 'Integrations',
             href: to('/admin/settings/integrations'),
-            permission: PERMISSIONS.settingsManage,
+            permission: P.settingsManage,
           },
           {
             title: 'Sign-in and privacy',
             href: to('/admin/settings/sign-in'),
-            permission: PERMISSIONS.settingsManage,
+            permission: P.settingsManage,
           },
           {
             title: 'Modules and fields',
             href: to('/admin/settings/modules'),
-            permission: PERMISSIONS.settingsManage,
+            permission: P.settingsManage,
           },
         ],
       },
     ],
   },
+];
+
+const extraRoutes: NavLink[] = [
+  { title: 'Case', href: to('/desk/service-point/case'), permission: P.servicePoint },
+];
+
+const landingOrder: Route[] = [
+  to('/desk/floorboard'),
+  to('/desk/workbench'),
+  to('/desk/service-point'),
+  to('/desk/appointments'),
+  to('/desk/reception'),
+  to('/desk/floor-host'),
+  to('/desk/support'),
+  to('/admin/network'),
+  to('/admin/analytics/performance'),
+  to('/admin/services/forms'),
+  to('/admin/agents/certification'),
+  to('/admin/finance/reconciliation'),
+  to('/admin/compliance/quality'),
+  to('/admin/analytics/feedback'),
+  to('/admin/vault'),
+  to('/admin/logistics'),
+  to('/admin/compliance/exceptions'),
 ];
 
 function flatten(sections: NavSection[]): NavLink[] {
@@ -302,7 +331,17 @@ function flatten(sections: NavSection[]): NavLink[] {
   );
 }
 
-const allLinks = [...flatten(deskNavigation), ...flatten(adminNavigation)];
+const linksByApp: Record<AppKey, NavLink[]> = {
+  desk: flatten(deskNavigation),
+  admin: flatten(adminNavigation),
+};
+
+const allLinks = [...linksByApp.desk, ...linksByApp.admin, ...extraRoutes];
+
+export const navigationByApp: Record<AppKey, NavSection[]> = {
+  desk: deskNavigation,
+  admin: adminNavigation,
+};
 
 export function filterNavigation(
   sections: NavSection[],
@@ -336,8 +375,25 @@ export function permissionForPath(pathname: string): PermissionRule | undefined 
   return match?.permission;
 }
 
-export function homeForPermissions(permissions: readonly string[]): Route {
+export function homeForPermissions(permissions: readonly string[], app?: AppKey): Route {
+  const candidates = app ? linksByApp[app] : allLinks;
+  const allowed = (href: Route) =>
+    candidates.some((link) => link.href === href && hasPermission(permissions, link.permission));
   return (
-    allLinks.find((link) => hasPermission(permissions, link.permission))?.href ?? '/unauthorized'
+    landingOrder.find(allowed) ??
+    candidates.find((link) => hasPermission(permissions, link.permission))?.href ??
+    '/unauthorized'
   );
+}
+
+export function appsForPermissions(permissions: readonly string[]): AppKey[] {
+  return (Object.keys(linksByApp) as AppKey[]).filter((app) =>
+    linksByApp[app].some((link) => hasPermission(permissions, link.permission)),
+  );
+}
+
+export function titleForPath(pathname: string): string | undefined {
+  return allLinks
+    .filter((link) => pathname === link.href || pathname.startsWith(`${link.href}/`))
+    .sort((a, b) => b.href.length - a.href.length)[0]?.title;
 }

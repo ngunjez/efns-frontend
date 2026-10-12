@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { ENDPOINTS } from '@/api/endpoints';
 import type { Booking } from '@/api/hooks/use-catalogue';
 import type { ClientUser } from '@/types/auth';
-import { application, applicationWithRequest } from '../data/application';
+import { application, applicationReady, applicationWithRequest } from '../data/application';
 import { api, apiError, latency, store } from '../utils';
 
 const SESSION = 'client-session';
@@ -105,6 +105,8 @@ export const clientHandlers = [
   http.get(api(ENDPOINTS.client.track(':reference')), async ({ params }) => {
     await latency();
     const reference = String(params.reference);
+    if (reference.endsWith('-R'))
+      return HttpResponse.json({ ...applicationReady, reference: reference.slice(0, -2) });
     if (reference.endsWith('-Q'))
       return HttpResponse.json({ ...applicationWithRequest, reference: reference.slice(0, -2) });
     if (reference !== application.reference)

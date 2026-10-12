@@ -29,28 +29,28 @@ function toDate(value: string | number | Date) {
   return value instanceof Date ? value : new Date(value);
 }
 
-export function formatDate(value: string | number | Date) {
-  return toDate(value).toLocaleDateString(LOCALE, {
+export function formatDate(value: string | number | Date, locale: string = LOCALE) {
+  return toDate(value).toLocaleDateString(locale, {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
   });
 }
 
-export function formatShortDate(value: string | number | Date) {
-  return toDate(value).toLocaleDateString(LOCALE, { day: '2-digit', month: 'short' });
+export function formatShortDate(value: string | number | Date, locale: string = LOCALE) {
+  return toDate(value).toLocaleDateString(locale, { day: '2-digit', month: 'short' });
 }
 
-export function formatTime(value: string | number | Date) {
-  return toDate(value).toLocaleTimeString(LOCALE, {
+export function formatTime(value: string | number | Date, locale: string = LOCALE) {
+  return toDate(value).toLocaleTimeString(locale, {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
   });
 }
 
-export function formatDateTime(value: string | number | Date) {
-  return `${formatShortDate(value)}, ${formatTime(value)}`;
+export function formatDateTime(value: string | number | Date, locale: string = LOCALE) {
+  return `${formatShortDate(value, locale)}, ${formatTime(value, locale)}`;
 }
 
 export function formatDuration(totalSeconds: number) {

@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import { AppHome } from '@/components/layout/staff/AppHome';
 
 export default function AdminHome() {
-  redirect('/admin/analytics/performance');
+  return <AppHome app="admin" />;
 }

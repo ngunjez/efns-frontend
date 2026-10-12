@@ -119,7 +119,7 @@ export function DataTable({
               <label className="relative">
                 <span className="sr-only">{search.placeholder}</span>
                 <Search
-                  className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+                  className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
                   aria-hidden
                 />
                 <input
@@ -127,7 +127,7 @@ export function DataTable({
                   value={search.value}
                   onChange={(event) => search.onChange(event.target.value)}
                   placeholder={search.placeholder}
-                  className="h-9 w-full min-w-52 rounded-control border bg-card pr-3 pl-9 text-sm placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none"
+                  className="h-9 w-full min-w-52 rounded-control border bg-card ps-9 pe-3 text-sm placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none"
                 />
               </label>
             )}
@@ -183,14 +183,14 @@ export function DataTable({
                 <TableHead
                   key={column.key}
                   className={cn(
-                    column.align === 'right' && 'text-right',
+                    column.align === 'right' && 'text-end',
                     column.hideBelow && hideClass[column.hideBelow],
                   )}
                 >
                   {column.header}
                 </TableHead>
               ))}
-              {hasActions && <TableHead className="w-16 text-right">Action</TableHead>}
+              {hasActions && <TableHead className="w-16 text-end">Action</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -215,7 +215,7 @@ export function DataTable({
                     <TableCell
                       key={column.key}
                       className={cn(
-                        column.align === 'right' && 'text-right',
+                        column.align === 'right' && 'text-end',
                         column.hideBelow && hideClass[column.hideBelow],
                       )}
                     >
@@ -226,7 +226,7 @@ export function DataTable({
                     </TableCell>
                   ))}
                   {hasActions && (
-                    <TableCell className="text-right">
+                    <TableCell className="text-end">
                       <RowActions
                         actions={rowActions!}
                         style={actionStyle}

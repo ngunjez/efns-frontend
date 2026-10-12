@@ -81,6 +81,12 @@ const list = (key: string) => {
   return tables.get(key)!;
 };
 
+export function addRecord(key: string, row: Omit<RegisterRow, 'id'>) {
+  const record: RegisterRow = { id: crypto.randomUUID(), ...row };
+  list(key).unshift(record);
+  return record;
+}
+
 const register = (key: string) => api(ENDPOINTS.registers(key).list);
 
 export const registerHandlers = [
@@ -117,6 +123,28 @@ export const registerHandlers = [
       String(params.key),
       rows.filter((row) => row.id !== params.id),
     );
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.post(api(ENDPOINTS.registers(':key').command(':name')), async ({ params, request }) => {
+    await latency();
+    const values = (await request.json()) as Record<string, unknown>;
+    if (params.key === 'vault' && params.name === 'check-in') {
+      const row: RegisterRow = {
+        id: crypto.randomUUID(),
+        item: `${values.itemType === 'Surrendered passport' ? 'Passport' : String(values.itemType)} ${String(values.documentNumber)}`,
+        itemType: values.itemType,
+        tone: 'info',
+        holder: values.holder,
+        application: values.application,
+        location: `${String(values.shelf)}, ${String(values.slot)}`,
+        lodged: new Date().toISOString(),
+        custodian: values.receivedBy,
+        status: { label: 'In vault', tone: 'success' },
+      };
+      list('vault').unshift(row);
+      return HttpResponse.json(row, { status: 201 });
+    }
     return new HttpResponse(null, { status: 204 });
   }),
 

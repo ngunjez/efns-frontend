@@ -43,7 +43,7 @@ export function ChoiceCards({
         <RadioGroupPrimitive.Item
           key={choice.value}
           value={choice.value}
-          className="group flex items-center gap-4 rounded-field border bg-card p-4 text-left transition-colors hover:border-primary/50 data-[state=checked]:border-2 data-[state=checked]:border-primary data-[state=checked]:bg-primary-tint"
+          className="group flex items-center gap-4 rounded-field border bg-card p-4 text-start transition-colors hover:border-primary/50 data-[state=checked]:border-2 data-[state=checked]:border-primary data-[state=checked]:bg-primary-tint"
         >
           {indicator && (
             <span

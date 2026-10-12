@@ -1,4 +1,5 @@
 import { authHandlers } from './auth';
+import { caseHandlers } from './case';
 import { catalogueHandlers } from './catalogue';
 import { clientHandlers } from './client';
 import { deskHandlers } from './desk';
@@ -10,6 +11,7 @@ export const handlers = [
   ...clientHandlers,
   ...catalogueHandlers,
   ...deskHandlers,
+  ...caseHandlers,
   ...registerHandlers,
   ...settingsHandlers,
 ];

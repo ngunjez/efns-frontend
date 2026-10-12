@@ -13,6 +13,7 @@ export const JOURNEY_STEPS = [
   'biometrics',
   'payment',
   'payment-confirmed',
+  'provisional-slip',
   'lodgement',
   'submitted',
   'collection',
@@ -60,15 +61,32 @@ export interface JourneyData {
     expiresInSeconds: number;
   };
   receipt: { number: string; rows: { label: string; value: string }[] };
+  provisional: { number: string; rows: { label: string; value: string }[] };
   lodgement: { receipt: string; rows: { label: string; value: string }[] };
   acknowledgement: { reference: string; rows: { label: string; value: string }[] };
   collection: { checks: string[]; rows: { label: string; value: string }[] };
 }
 
+export interface SyncItem {
+  label: string;
+  savedAt: string;
+}
+
+export interface OfflineState {
+  since: string;
+  pending: SyncItem[];
+}
+
+export type ReviewState = 'none' | 'pending' | 'approved' | 'returned';
+
 export interface CustomerDisplayView {
   hubName: string;
   officer: string;
+  ticket: string;
   client: { name: string; reference: string };
   step: JourneyStep;
+  clientDone: boolean;
+  review: ReviewState;
+  offline: OfflineState | null;
   data: Partial<JourneyData>;
 }
