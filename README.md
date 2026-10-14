@@ -74,7 +74,8 @@ src/
 │   ├── desk/                 Service Desk: appointments, reception, floor-host, service-point (+ case console), workbench, floorboard, support, journey-board
 │   ├── hub/                  Client-facing hub screens: /hub/display follows the live case, /hub/[step] previews one step
 │   ├── display/              Hall and bay wall displays
-│   └── admin/[...slug]/      Every admin register, rendered from its page definition
+│   ├── admin/[...slug]/      Every admin register, rendered from its page definition
+│   └── api/auth/             Sign-in routes the browser calls; they forward to the identity service
 ├── api/
 │   ├── axios.ts              The single HTTP client (cookie session, error normalisation, session redirects)
 │   ├── endpoints/            Every API path in one file
@@ -89,11 +90,13 @@ src/
 ├── config/                   env (validated), navigation + permissions, journey steps, icons, page definitions
 ├── hooks/                    useHasPermission, useIdleTimer, useDebouncedValue, useElapsedSeconds
 ├── i18n/                     Language registry, negotiation (cookie, then browser) and loader
-├── mocks/                    MSW handlers and fixtures mirroring the designs
+├── mocks/                    MSW handlers and fixtures mirroring the designs, grouped by backend service
+├── server/identity/          Server-only sign-in code: calls the identity service, reads tokens, keeps the session cookies
 ├── store/                    Redux store: auth (user, permissions, lock) and UI
 ├── types/                    Domain and API contract types
 └── proxy.ts                  First-line route guard for staff areas (Next 16 "proxy", formerly middleware)
 messages/                     One catalogue per language (12 today) — client-facing copy
+scripts/identity-check.mjs    Checks the real identity service from the command line
 ```
 
 ## How it is built to avoid repetition
@@ -126,12 +129,50 @@ To add a language:
 2. Copy `messages/en.json` to `messages/<code>.json` and translate the values. Keep `{placeholders}` and the ICU plural shape.
 3. Run `pnpm test`. It checks that the catalogue has every key and placeholder. Any key left out falls back to English at runtime.
 
+## Staff sign-in (identity service)
+
+The browser never calls the identity service directly. It calls this app's own routes under `/api/auth/*`, and the Next.js server forwards each call to the identity service. That keeps tokens in httpOnly cookies that page scripts cannot read, avoids CORS, works with the development server's self-signed certificate, and forwards the client's IP so the backend can still refuse sign-ins from outside a hub.
+
+| Browser calls                  | Server forwards to (under `IDENTITY_API_URL`)                                           |
+| ------------------------------ | --------------------------------------------------------------------------------------- |
+| `POST /api/auth/login`         | `POST /auth/login` (`username`, `password`) and gets `mfa_required` + `mfa_token`       |
+| `POST /api/auth/verify`        | `POST /auth/verify-otp` (`mfa_token`, `totp`), then `GET /api/v1/me` for name and roles |
+| `GET /api/auth/session`        | nothing; reads the session cookie                                                       |
+| `POST /api/auth/unlock`        | `POST /auth/token` (`username`, `password`, `totp`) from the lock screen                |
+| `POST /api/auth/logout`        | `POST /auth/logout` with the bearer token                                               |
+| `GET /api/auth/callback?code=` | `GET /auth/callback?code=`                                                              |
+
+The paths live in `src/api/endpoints/index.ts` (`ENDPOINTS.auth` for the browser, `ENDPOINTS.identity` for the backend). There is no `/identity` prefix: the identity service answers on `/auth/*` and `/api/v1/*` directly. A change of host is a one-line change to `IDENTITY_API_URL` in `.env.local`.
+
+**To sign in against the real identity service** while everything else stays on mock data, put this in `.env.local` and restart `pnpm dev`:
+
+```bash
+NEXT_PUBLIC_USE_MSW=true
+NEXT_PUBLIC_LIVE_SERVICES=identity
+IDENTITY_API_URL=https://192.168.30.17:4000
+IDENTITY_CLIENT_ID=hub-portal
+IDENTITY_TLS_INSECURE=true
+```
+
+`IDENTITY_TLS_INSECURE=true` accepts a self-signed certificate. Use it only against a development server, never in production. `NEXT_PUBLIC_LIVE_SERVICES` takes a comma-separated list (`identity,desk,registers`), so each backend module can go live on its own as it is delivered.
+
+**Check the identity service on its own** before opening the app:
+
+```bash
+pnpm identity:check
+pnpm identity:check --username nbo.service_officer.01 --password 'Test-ms2w-4d4y-mPhn' --totp 123456
+```
+
+The first run checks that the endpoints answer and reject bad input. The second signs in, completes the MFA step, reads the profile and roles from `/api/v1/me` and signs out again. On staging any 6-digit code is accepted; in production it is the code from the user's authenticator app. Tokens and passwords are masked in its output.
+
+**Roles to screens.** After sign-in, the user's screens come from the role names in `GET /api/v1/me` (for example `service_officer`, `cashier`, `vault_custodian`), or from the roles in the access token if that call fails. Names match `src/config/roles.ts` in any spelling (`PLATFORM_ADMIN`, `platform-admin`, `ROLE_PLATFORM_ADMIN`), and a `permissions` claim with values such as `vault:manage` is honoured as well. Hub and station come from `hub_id`/`hub_name` (or a `hub` object) and `station`. A user whose token carries none of these can sign in but sees no screens.
+
 ## Connecting the real API
 
-1. Set `NEXT_PUBLIC_API_BASE_URL` and `NEXT_PUBLIC_USE_MSW=false`, and set `SESSION_COOKIE_NAME` to the httpOnly cookie the API issues at staff sign-in.
+1. Set `NEXT_PUBLIC_API_BASE_URL`, then either list the modules that are ready in `NEXT_PUBLIC_LIVE_SERVICES` or set `NEXT_PUBLIC_USE_MSW=false` to turn every mock off.
 2. Compare each path in `src/api/endpoints/index.ts` with the backend's OpenAPI spec and adjust there only.
 3. The response shapes the screens expect are the types in `src/types/*` (and the mock fixtures in `src/mocks/data` are worked examples). Where the backend differs, adapt in the hook's `queryFn` rather than in components.
-4. Errors should follow `{ code, message, fieldErrors? }`; `401` sends staff back to sign-in and `403` with code `OUTSIDE_HUB` shows the geofence refusal.
+4. Errors should follow `{ code, message, fieldErrors? }` (OAuth-style `{ error, error_description }` is also understood for sign-in); `401` sends staff back to sign-in and `403` with code `OUTSIDE_HUB` shows the geofence refusal.
 5. Admin registers use one convention: `GET/POST /registers/:key`, `PATCH/DELETE /registers/:key/:id`, `POST /registers/:key/:id/:action`, with an optional `summary` object for the page's KPIs and widgets.
 
 Live screens poll every 4–15 seconds today; when Phoenix Channels are specified, replace the `refetchInterval` in `use-desk.ts` / `use-displays.ts` with a channel subscription that invalidates the same query keys.
@@ -150,3 +191,5 @@ Live screens poll every 4–15 seconds today; when Phoenix Channels are specifie
 - **Sentry:** `src/lib/monitoring.ts` is the single hook point; add `@sentry/nextjs` when a DSN is issued.
 - **Store and forward:** the screens (offline banner, provisional slip, sync list) are built; the queue itself runs on the counter device and the backend must define how items replay.
 - **SMS/email templates (frames 88, 100):** sent by the backend, not rendered by the frontend.
+
+# efns-frontend
